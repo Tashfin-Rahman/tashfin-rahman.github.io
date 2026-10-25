@@ -40,8 +40,9 @@ your GitHub login, so it has to be you.
 
 ### 2. Strengthen the work entries
 
-**Selected Work** now holds three pieces, built from the Home Inn 2026 company
-profile deck: architectural design, custom furniture, and duplex construction.
+**Selected Work** now holds four pieces. The Home Inn brand identity leads it,
+since that is your own design work; the other three — architectural design,
+custom furniture and duplex construction — come from the company profile deck.
 
 Two things would make them much stronger, and only you can supply them:
 
