@@ -43,6 +43,14 @@ window.CV = {
     linkedin: "https://www.linkedin.com/in/tashfin-rahman-24712828b",
     github: "https://github.com/Tashfin-Rahman",
 
+    // Other accounts that are the SAME person. These are never shown on the
+    // page — they go into the structured data only, so search engines can
+    // tie the accounts together and tell you apart from your namesakes.
+    profiles: [
+      "https://www.facebook.com/tashfin.islam.216294",
+      "https://www.instagram.com/t_tash__",
+    ],
+
     // Several people share this name and were outranking you. This single
     // sentence is what search engines and AI assistants use to tell you
     // apart from them, so keep it specific: city, employer, field.

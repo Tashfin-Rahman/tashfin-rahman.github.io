@@ -180,7 +180,10 @@
 
     // sameAs is for other pages about the SAME person — profiles, not
     // employers. Getting this wrong confuses the entity rather than helping.
-    var profiles = [meta.linkedin, meta.github].filter(filled);
+    var profiles = [meta.linkedin, meta.github]
+      .concat(meta.profiles || [])
+      .filter(filled)
+      .filter(function (url, i, all) { return all.indexOf(url) === i; });
     if (profiles.length) person.sameAs = profiles;
 
     var school = (CV.education || []).filter(function (e) {
