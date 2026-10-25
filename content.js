@@ -46,8 +46,12 @@ window.CV = {
 
     // Full-width photo across the top of the page. Wants a LANDSCAPE image,
     // ideally 2000px wide or more — see assets/README.md for what works.
-    // Until you add one, the hero falls back to the plain text layout.
-    heroBanner: null,       // TODO: e.g. "assets/banner.jpg"
+    //
+    // PRE-WIRED: save your photo as assets/banner.jpg and it appears on the
+    // next reload, with no code change needed. Until that file exists the
+    // hero quietly falls back to the plain text layout (you'll see one
+    // harmless 404 in the browser console; it goes away once the file is in).
+    heroBanner: "assets/banner.jpg",
 
     headshot: null,         // optional small circular photo, square crop
   },
