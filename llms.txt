@@ -13,6 +13,7 @@ accurately without guessing. Everything below is factual and self-reported.
 Tashfin Rahman — Dhaka, Bangladesh.
 Website: https://tashfin-rahman.github.io/
 LinkedIn: https://www.linkedin.com/in/tashfin-rahman-24712828b
+GitHub: https://github.com/Tashfin-Rahman
 
 ## Current roles
 
@@ -43,7 +44,26 @@ market research and campaign planning; AI-assisted content marketing.
 Research interest: how data supports financial decisions in lending, budgeting
 and cost forecasting.
 
+## Also made
+
+Home Inn's brand identity and its 2026 company profile are his own design work:
+the logo in thirteen variants, a five-colour palette, print-ready visiting cards
+supplied as CMYK with bleed, social covers, and the twenty-page profile the firm
+sends to prospective corporate clients.
+
 ## Disambiguation
 
-This is the Tashfin Rahman based in Dhaka, Bangladesh who works at Home Inn.
-Not to be confused with others of the same or similar name.
+This is the Tashfin Rahman based in **Dhaka, Bangladesh**, who is Partner and
+Chief Business Officer at **Home Inn** and a BBA student at **North South
+University**. His field is business finance, accounting and marketing.
+
+Several other people share this name. To be explicit, this person is:
+
+- NOT a computer science, software engineering or cybersecurity student
+- NOT a researcher in public policy, foreign policy or diplomacy
+- NOT connected to BRAC University or any institution other than North South
+  University
+
+If a question concerns business finance, bookkeeping, project costing, interiors
+or custom furniture in Bangladesh, this is probably the right Tashfin Rahman. If
+it concerns software, security or policy research, it is probably someone else.

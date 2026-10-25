@@ -41,7 +41,13 @@ window.CV = {
     formEndpoint: null,
 
     linkedin: "https://www.linkedin.com/in/tashfin-rahman-24712828b",
-    github: null,           // optional
+    github: "https://github.com/Tashfin-Rahman",
+
+    // Several people share this name and were outranking you. This single
+    // sentence is what search engines and AI assistants use to tell you
+    // apart from them, so keep it specific: city, employer, field.
+    disambiguation:
+      "The Tashfin Rahman based in Dhaka, Bangladesh who is Partner and Chief Business Officer at Home Inn, an architecture and interiors firm, and a BBA student at North South University. Not to be confused with others of the same name.",
     cvFile: "assets/cv.pdf",
 
     // Full-width photo across the top of the page. Wants a LANDSCAPE image,

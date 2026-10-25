@@ -166,6 +166,18 @@
       };
     }
 
+    // Several people share this name, and search engines were showing them
+    // instead. Splitting the name and stating plainly which person this is
+    // gives both Google and the answer engines something to match on.
+    var nameParts = name.split(/\s+/);
+    if (nameParts.length > 1) {
+      person.givenName = nameParts[0];
+      person.familyName = nameParts[nameParts.length - 1];
+    }
+    if (filled(meta.disambiguation)) {
+      person.disambiguatingDescription = meta.disambiguation;
+    }
+
     // sameAs is for other pages about the SAME person — profiles, not
     // employers. Getting this wrong confuses the entity rather than helping.
     var profiles = [meta.linkedin, meta.github].filter(filled);
@@ -188,13 +200,34 @@
       if (filled(job.link)) person.worksFor.url = job.link;
     }
 
+    // Languages belong in knowsLanguage, not knowsAbout — "Bangla (native)"
+    // listed as a topic of expertise is the kind of thing that makes a graph
+    // look sloppy to the systems reading it.
     var topics = [];
+    var languages = [];
     (CV.skills || []).forEach(function (group) {
+      var isLanguage = /language/i.test(group.group || "");
       (group.items || []).filter(filled).forEach(function (item) {
-        if (topics.indexOf(item) === -1) topics.push(item);
+        if (isLanguage) {
+          var lang = item.replace(/\s*\([^)]*\)\s*$/, "").trim();
+          if (lang && languages.indexOf(lang) === -1) languages.push(lang);
+        } else if (topics.indexOf(item) === -1) {
+          topics.push(item);
+        }
       });
     });
     if (topics.length) person.knowsAbout = topics.slice(0, 24);
+    if (languages.length) person.knowsLanguage = languages;
+
+    // Current roles beyond the main one are affiliations, not employers.
+    var alsoAt = (CV.experience || []).filter(function (e) {
+      return filled(e.org) && !isPlaceholder(e.org) && /present/i.test(e.end || "");
+    }).slice(1).map(function (e) {
+      var org = { "@type": "Organization", name: e.org };
+      if (filled(e.link)) org.url = e.link;
+      return org;
+    });
+    if (alsoAt.length) person.affiliation = alsoAt;
 
     var graph = {
       "@context": "https://schema.org",
