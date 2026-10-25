@@ -23,4 +23,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://ig-ga.github.io/sitemap.xml
+Sitemap: https://tash-fin.github.io/sitemap.xml

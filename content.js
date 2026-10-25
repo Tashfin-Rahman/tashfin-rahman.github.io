@@ -27,7 +27,7 @@ window.CV = {
     location: "Dhaka, Bangladesh",
 
     // Where the site lives. Used for the social and search-engine tags.
-    siteUrl: "https://ig-ga.github.io",
+    siteUrl: "https://tash-fin.github.io",
 
     // --- Contact ---------------------------------------------------------
     // You chose email + phone. Both are public here, so expect some spam and

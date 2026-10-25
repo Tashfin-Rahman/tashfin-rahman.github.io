@@ -1,8 +1,8 @@
 # Deployment
 
-**The site is live at https://ig-ga.github.io**
+**The site is live at https://tash-fin.github.io**
 
-Repository: https://github.com/Ig-ga/Ig-ga.github.io (public)
+Repository: https://github.com/tash-fin/tash-fin.github.io (public)
 GitHub Pages serves it automatically from the `main` branch, root folder.
 There is no build step and no settings to maintain.
 
@@ -30,7 +30,7 @@ Google will find the site on its own, but this turns weeks into days. It needs
 your GitHub login, so it has to be you.
 
 1. Go to **https://search.google.com/search-console**
-2. Add a property → **URL prefix** → `https://ig-ga.github.io`
+2. Add a property → **URL prefix** → `https://tash-fin.github.io`
 3. Verify with the **HTML tag** method. It gives you a line like
    `<meta name="google-site-verification" content="...">`. Paste it into
    `index.html` just below the `<title>` line, then commit and push.
@@ -52,7 +52,7 @@ The **Selected Work** section is hidden because `work: []` is empty in
 
 ### 4. A better address
 
-`ig-ga.github.io` works, but it says nothing about you — which matters, because
+`tash-fin.github.io` works, but it says nothing about you — which matters, because
 the point of the SEO work is ranking for your own name. You already control
 **homeinn.xyz**.
 
@@ -60,7 +60,7 @@ Moving to **tashfin.homeinn.xyz** would rank better and read far more
 professionally on a business card. It needs:
 
 - Your partners' agreement, since it is the company domain
-- A DNS record at your domain host: `CNAME` for `tashfin` → `ig-ga.github.io`
+- A DNS record at your domain host: `CNAME` for `tashfin` → `tash-fin.github.io`
 - A file named `CNAME` in this folder containing `tashfin.homeinn.xyz`
 - Repo → Settings → Pages → Custom domain → `tashfin.homeinn.xyz`
 

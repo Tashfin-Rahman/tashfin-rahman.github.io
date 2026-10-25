@@ -2,11 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://ig-ga.github.io/</loc>
+    <loc>https://tash-fin.github.io/</loc>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://ig-ga.github.io/assets/tashfin-rahman.jpg</image:loc>
+      <image:loc>https://tash-fin.github.io/assets/tashfin-rahman.jpg</image:loc>
       <image:title>Tashfin Rahman</image:title>
       <image:caption>Tashfin Rahman — Partner and Chief Business Officer at Home Inn, Dhaka, Bangladesh</image:caption>
     </image:image>
