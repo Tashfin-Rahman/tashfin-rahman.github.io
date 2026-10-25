@@ -60,7 +60,7 @@ window.CV = {
      2. ABOUT
      ----------------------------------------------------------------------- */
   about: [
-    "BBA student at North South University with over two years of hands-on accounting experience in online retail. I am Partner and Chief Business Officer at Home Inn, an architecture, interiors and custom-furniture firm that has delivered 130 projects across 13 districts of Bangladesh since 2015, where I run the budgeting, cost tracking and bookkeeping. I also advise Haifa Intelligence, an AI studio, on marketing.",
+    "BBA student at North South University with over two years of hands-on accounting experience in online retail. I am Partner and Chief Business Officer at Home Inn, an architecture, interiors and custom-furniture firm that has delivered 130 projects across 13 districts of Bangladesh since 2015, where I run the budgeting, cost tracking and bookkeeping, and designed the firm's brand identity and company profile. I also advise Haifa Intelligence, an AI studio, on marketing.",
     "I'm now building my own agency, bringing together the two things I keep coming back to: keeping a business's numbers straight, and using AI tools to make its marketing actually land.",
     "My research interest is in how data can support financial decisions — lending, budgeting and cost forecasting in particular.",
   ],
@@ -92,6 +92,7 @@ window.CV = {
         "Co-own the business and share in key decisions on direction, spending and growth with the other partners.",
         "Run budgeting, cost tracking and bookkeeping, and prepare the financial summaries the partners plan against.",
         "Set advertising strategy across the firm's four lines: architectural design, interior design and implementation, custom furniture, and property.",
+        "Designed the brand identity \u2014 logo system, colour palette, print-ready visiting cards \u2014 and the twenty-page company profile used with corporate clients.",
       ],
     },
     {
