@@ -488,6 +488,9 @@
         var frame = el("div", "work-image");
         if (shots.length > 1) frame.classList.add("is-gallery");
         if (filled(item.ratio)) frame.style.setProperty("--shot", item.ratio);
+        // Photographs can be cropped to fit; a logo or a layout cannot, so a
+        // card of brand work asks for the whole image inside the frame.
+        if (item.fit === "contain") frame.classList.add("is-contain");
 
         shots.forEach(function (shot) {
           var img = document.createElement("img");

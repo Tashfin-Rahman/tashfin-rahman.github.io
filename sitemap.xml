@@ -50,5 +50,25 @@
       <image:title>Steel display shelving</image:title>
       <image:caption>Steel display shelving unit for a retail showroom, made by Home Inn</image:caption>
     </image:image>
+    <image:image>
+      <image:loc>https://tash-fin.github.io/assets/work/home-inn-brand-visiting-card-front.jpg</image:loc>
+      <image:title>Home Inn visiting card, front</image:title>
+      <image:caption>Home Inn visiting card, front — logo and the line All Under One Roof</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://tash-fin.github.io/assets/work/home-inn-brand-visiting-card-back.jpg</image:loc>
+      <image:title>Home Inn visiting card, back</image:title>
+      <image:caption>Home Inn visiting card, back — contact details for Tashfin Rahman, Partner and Chief Business Officer</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://tash-fin.github.io/assets/work/home-inn-brand-colour-palette.jpg</image:loc>
+      <image:title>Home Inn brand colour palette</image:title>
+      <image:caption>Home Inn brand colour palette — five colours with hex values</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://tash-fin.github.io/assets/work/home-inn-brand-social-cover.jpg</image:loc>
+      <image:title>Home Inn social media cover</image:title>
+      <image:caption>Home Inn social media cover in a blueprint style</image:caption>
+    </image:image>
   </url>
 </urlset>

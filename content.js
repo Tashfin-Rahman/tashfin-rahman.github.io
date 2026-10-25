@@ -149,6 +149,39 @@ window.CV = {
      ----------------------------------------------------------------------- */
   work: [
     {
+      title: "Brand identity and company profile for Home Inn",
+      client: "Home Inn",
+      date: "2026",
+      type: "Brand identity",
+      ratio: "16 / 10",
+      fit: "contain",
+      image: [
+        {
+          src: "assets/work/home-inn-brand-visiting-card-front.jpg",
+          alt: "Home Inn visiting card, front \u2014 logo and the line All Under One Roof",
+        },
+        {
+          src: "assets/work/home-inn-brand-visiting-card-back.jpg",
+          alt: "Home Inn visiting card, back \u2014 contact details for Tashfin Rahman, Partner and Chief Business Officer",
+        },
+        {
+          src: "assets/work/home-inn-brand-colour-palette.jpg",
+          alt: "Home Inn brand colour palette \u2014 five colours with hex values: cherry red, burgundy, stone grey, black and white",
+        },
+        {
+          src: "assets/work/home-inn-brand-social-cover.jpg",
+          alt: "Home Inn social media cover in a blueprint style, listing architecture, interiors, construction, custom furniture and property sales",
+        },
+      ],
+      brief:
+        "Home Inn had been building since 2015 without one consistent public face. The website said \u201cHome Inn\u201d, while the logo and the invoices carried a different version of the name, and there was no agreed palette or print specification.",
+      did:
+        "Designed the identity and built it out: the logo in thirteen variants for signage, app icons and print; a five-colour palette with fixed hex values; double-sided visiting cards supplied to the printer as CMYK with bleed and crop marks; social covers and highlight icons; and a twenty-page company profile.",
+      outcome:
+        "One name and one look across the website, print, signage and social, and a profile the firm can hand to a prospective corporate client.",
+      link: "https://homeinn.xyz",
+    },
+    {
       title: "Architectural design and 3D visualisation",
       client: null,                 // residential clients are named only with permission
       date: "2024 \u2013 2026",

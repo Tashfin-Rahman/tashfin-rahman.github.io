@@ -668,6 +668,14 @@ a.org:hover { color: var(--accent); border-bottom-color: var(--accent); }
 }
 .work-image.is-gallery img:first-child:nth-last-child(odd) { grid-column: 1 / -1; }
 
+/* Brand work is shown whole rather than cropped. These assets are drawn on the
+   brand's own off-white, so the frame matches them instead of letterboxing
+   them against the page. */
+.work-image.is-contain img {
+  object-fit: contain;
+  background: #f5f5f3;
+}
+
 .work-kicker {
   margin: 0 0 6px;
   color: var(--accent);
