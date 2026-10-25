@@ -46,7 +46,7 @@ window.CV = {
     phone: "+880 1568 116144",
     formEndpoint: null,
 
-    linkedin: "https://www.linkedin.com/in/tashfin-rahman-24712828b",
+    linkedin: "https://www.linkedin.com/in/tashfinrahman",
     github: "https://github.com/Tashfin-Rahman",
 
     // Other accounts that are the SAME person. These are never shown on the
