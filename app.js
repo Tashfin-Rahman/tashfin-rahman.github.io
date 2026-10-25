@@ -574,7 +574,7 @@
 
       rows.forEach(function (row) {
         if (!filled(item[row[0]])) return;
-        var p = el("p", "work-row");
+        var p = el("p", "work-row work-row-" + row[0]);
         p.appendChild(el("span", "work-row-label", row[1] + ":"));
         p.appendChild(document.createTextNode(" " + item[row[0]]));
         text.appendChild(p);

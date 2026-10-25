@@ -893,6 +893,16 @@ a.org:hover { color: var(--accent); border-bottom-color: var(--accent); }
   .project-link { display: none; }
 
   /* Images don't belong on a printed CV; the words have to carry it. */
+  /* Nothing on paper needs a picture, and an embedded image makes the
+     generated PDF ten times larger. The photo and the work shots stay on the
+     site; the CV is text. */
+  img { display: none !important; }
+
+  /* A CV lists what the work was and what came of it. The brief and the
+     method are portfolio writing: they belong on the page, not on paper. */
+  .work-row-brief,
+  .work-row-did { display: none; }
+
   .work-image { display: none; }
   .work { display: block; }
   .work-item {

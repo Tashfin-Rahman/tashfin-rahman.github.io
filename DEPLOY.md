@@ -38,7 +38,24 @@ your GitHub login, so it has to be you.
 5. **Sitemaps** in the left menu → submit `sitemap.xml`
 6. **URL Inspection** → enter the homepage → **Request indexing**
 
-### 2. Strengthen the work entries
+### 2. Regenerating the CV
+
+`assets/cv.pdf` is printed from the site itself, so the page and the CV can
+never drift apart. After changing anything in `content.js`, regenerate it:
+
+```
+"C:\Program Files\Google\Chrome\Application\chrome.exe" --headless=new --disable-gpu --no-pdf-header-footer --print-to-pdf="E:\Claude code\portfolio\assets\cv.pdf" --virtual-time-budget=20000 "https://tashfin-rahman.github.io/"
+```
+
+Then commit and push as usual. You can also do it by hand: open the site,
+press Ctrl+P and save as PDF.
+
+The print stylesheet drops the navigation, the buttons, the contact section,
+every image, and the Brief and What I made lines from Selected Work. What
+reaches paper is your experience, the work titles with their outcomes, the
+project, education, skills and leadership. Two pages.
+
+### 3. Strengthen the work entries
 
 **Selected Work** now holds four pieces. The Home Inn brand identity leads it,
 since that is your own design work; the other three — architectural design,
@@ -59,7 +76,7 @@ To add a fourth piece, copy an existing entry in the `work` array of
 search. Put new images in `assets/work/`, and add them to `sitemap.xml`
 alongside the others. Ask Claude to resize anything over 800px wide.
 
-### 3. A better address
+### 4. A better address
 
 `tashfin-rahman.github.io` works, but it says nothing about you — which matters, because
 the point of the SEO work is ranking for your own name. You already control
