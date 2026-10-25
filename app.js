@@ -472,19 +472,42 @@
     entries.forEach(function (item) {
       var card = reveal(el("article", "work-item"), "pop");
 
-      if (filled(item.image)) {
-        var frame = el("div", "work-image");
-        var img = document.createElement("img");
-        img.src = item.image;
-        img.alt = item.title;
-        img.loading = "lazy";
-        // A wrong path would otherwise leave a large empty block on the page;
-        // collapse to the text-only layout instead.
-        img.addEventListener("error", function () {
-          frame.remove();
-          card.classList.add("work-item-textonly");
+      // `image` takes one path, or a list of them for a small gallery. A list
+      // entry may be { src, alt } so each shot carries its own alt text, which
+      // is what lets the individual photos surface in image search.
+      var shots = [];
+      if (Array.isArray(item.image)) {
+        shots = item.image.filter(function (shot) {
+          return filled(typeof shot === "string" ? shot : shot && shot.src);
         });
-        frame.appendChild(img);
+      } else if (filled(item.image)) {
+        shots = [item.image];
+      }
+
+      if (shots.length) {
+        var frame = el("div", "work-image");
+        if (shots.length > 1) frame.classList.add("is-gallery");
+        if (filled(item.ratio)) frame.style.setProperty("--shot", item.ratio);
+
+        shots.forEach(function (shot) {
+          var img = document.createElement("img");
+          img.src = typeof shot === "string" ? shot : shot.src;
+          img.alt =
+            typeof shot !== "string" && filled(shot.alt) ? shot.alt : item.title;
+          img.loading = "lazy";
+          // A wrong path would otherwise leave an empty block on the page. Drop
+          // the broken shot, and if that empties the frame, fall back to the
+          // text-only layout rather than leaving a gap.
+          img.addEventListener("error", function () {
+            img.remove();
+            if (!frame.querySelector("img")) {
+              frame.remove();
+              card.classList.add("work-item-textonly");
+            }
+          });
+          frame.appendChild(img);
+        });
+
         card.appendChild(frame);
       } else {
         card.classList.add("work-item-textonly");

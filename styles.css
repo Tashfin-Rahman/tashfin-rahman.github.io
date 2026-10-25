@@ -645,10 +645,28 @@ a.org:hover { color: var(--accent); border-bottom-color: var(--accent); }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: var(--shot, 4 / 3);
   transition: transform 0.7s var(--ease);
 }
 .work-item:hover .work-image img { transform: scale(1.05); }
+
+/* Several shots in one card. A gallery of an odd number lets the first run the
+   full width, so three images read as one lead plus a pair rather than leaving
+   an orphan in a two-column grid. --shot lets a card of portrait photographs
+   ask for a taller crop than the 4:3 default. */
+.work-image.is-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  overflow: visible;
+  background: none;
+}
+.work-image.is-gallery img {
+  aspect-ratio: var(--shot, 4 / 3);
+  border-radius: 9px;
+  background: var(--bg-sunken);
+}
+.work-image.is-gallery img:first-child:nth-last-child(odd) { grid-column: 1 / -1; }
 
 .work-kicker {
   margin: 0 0 6px;

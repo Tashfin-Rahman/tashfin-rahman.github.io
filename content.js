@@ -148,7 +148,86 @@ window.CV = {
      a piece with just a title, an image and a one-line brief still looks right.
      ----------------------------------------------------------------------- */
   work: [
-    // TODO: your first piece goes here.
+    {
+      title: "Architectural design and 3D visualisation",
+      client: null,                 // residential clients are named only with permission
+      date: "2024 \u2013 2026",
+      type: "Architecture",
+      ratio: "4 / 3",
+      image: [
+        {
+          src: "assets/work/home-inn-modern-house-design-dhaka.jpg",
+          alt: "Modern house design by Home Inn, Dhaka \u2014 3D visualisation of a rendered facade with timber screening",
+        },
+        {
+          src: "assets/work/home-inn-residential-exterior-render.jpg",
+          alt: "Home Inn residential exterior render showing a white rendered elevation and terrace",
+        },
+        {
+          src: "assets/work/home-inn-architectural-elevation-bangladesh.jpg",
+          alt: "Home Inn architectural elevation for a residence in Bangladesh, shown as a 3D view",
+        },
+      ],
+      brief:
+        "Residential design at Home Inn runs from the first site visit and measurements through 2D plans and 3D views, revised with the client until the design is signed off and costed.",
+      did:
+        "I am Partner and Chief Business Officer. The drawings are the studio's; my side is the budgeting, cost tracking and project costing that decide whether a design can be built to the client's number.",
+      outcome:
+        "Home Inn has designed and built across Bangladesh since 2015, with 57 residential projects in 13 districts to date.",
+      link: "https://homeinn.xyz",
+    },
+    {
+      title: "Custom furniture, made in our own workshop",
+      client: null,
+      date: "Ongoing",
+      type: "Custom furniture",
+      ratio: "4 / 5",
+      image: [
+        {
+          src: "assets/work/home-inn-carved-wooden-wardrobe.jpg",
+          alt: "Carved wooden wardrobe made to order by Home Inn, Dhaka",
+        },
+        {
+          src: "assets/work/home-inn-mirrored-dressing-unit.jpg",
+          alt: "Mirrored dressing unit in wood, custom made by Home Inn",
+        },
+        {
+          src: "assets/work/home-inn-office-workstation-desk.jpg",
+          alt: "Office workstation desk with drawer pedestal, custom built by Home Inn",
+        },
+        {
+          src: "assets/work/home-inn-steel-display-shelving.jpg",
+          alt: "Steel display shelving unit for a retail showroom, made by Home Inn",
+        },
+      ],
+      brief:
+        "A made-to-order line \u2014 wardrobes, dressing units, workstations, executive desks and display shelving \u2014 where each piece is drawn for the room it will stand in rather than picked from a catalogue.",
+      did:
+        "Made-to-order work only pays if every piece is costed properly before it is quoted. Costing and pricing this line is my part of it, alongside the books.",
+      outcome:
+        "Built in Home Inn's own workshop, which keeps the margin and the quality control in-house instead of with a subcontractor.",
+      link: "https://homeinn.xyz/en/furniture",
+    },
+    {
+      title: "Duplex and triplex construction",
+      client: null,
+      date: "Since 2015",
+      type: "Construction",
+      ratio: "4 / 5",
+      image: [
+        {
+          src: "assets/work/home-inn-duplex-residence-bangladesh.jpg",
+          alt: "Completed duplex residence built by Home Inn in Bangladesh, front elevation",
+        },
+      ],
+      brief:
+        "Home Inn builds duplex and triplex homes alongside the interiors work, with one team from the first visit through construction, fit-out and after-service.",
+      did:
+        "Construction is where a budget goes wrong quietly. I track cost against plan as the job runs, so an overrun shows up while there is still time to act on it.",
+      outcome:
+        "Part of a body of work covering 73 corporate and 57 residential projects across 13 districts of Bangladesh.",
+      link: "https://homeinn.xyz",
+    },
   ],
 
   /* --------------------------------------------------------------------------
