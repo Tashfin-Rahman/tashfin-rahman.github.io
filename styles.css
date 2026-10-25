@@ -321,23 +321,42 @@ a:hover { text-decoration-thickness: 2px; }
   line-height: 1.5;
 }
 
-/* --- Full-width photo banner -------------------------------------------- */
-/* Applied only when meta.heroBanner is set; otherwise the hero is unchanged. */
-.hero-has-banner { padding-top: 0; }
+/* --- Photo banner --------------------------------------------------------
+   Built only when meta.heroBanner is set.
+
+   The shape changes with the screen because a PORTRAIT photo cannot survive
+   a wide strip: at 820px a full-width banner showed 23% of the picture and
+   cut through the subject's forehead. So:
+     narrow  -> full-bleed block across the top (container is near-square,
+                which suits a portrait crop)
+     wide    -> a tall panel beside the text, keeping the photo's own shape
+   -------------------------------------------------------------------- */
+.hero-has-banner { padding-top: 28px; }
+
+/* Stack banner above text; the default hero is column-reverse for the
+   small circular headshot, which would put the banner underneath. */
+.hero-has-banner .hero-inner {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+}
 
 .hero-banner {
   position: relative;
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  height: clamp(240px, 46vh, 420px);
+  /* Bleed out through the wrap's gutters rather than using 100vw, which
+     overshoots by the scrollbar width and causes a horizontal scroll. */
+  width: calc(100% + var(--gutter) * 2);
+  margin-left: calc(var(--gutter) * -1);
+  margin-bottom: 22px;
+  height: clamp(260px, 54vw, 400px);
   overflow: hidden;
 }
 .hero-banner img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 30%;
-  /* Slow push-in, so the banner isn't a static slab. */
+  object-position: center 22%;
+  /* Slow push-in, so the photo isn't a static slab. */
   animation: kenburns 18s ease-out forwards;
 }
 @keyframes kenburns {
@@ -349,9 +368,8 @@ a:hover { text-decoration-thickness: 2px; }
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, transparent 30%, var(--bg) 97%);
+  background: linear-gradient(to bottom, transparent 42%, var(--bg) 99%);
 }
-.hero-has-banner .hero-inner { margin-top: -54px; position: relative; z-index: 1; }
 
 .headshot {
   flex: none;
@@ -712,7 +730,30 @@ a.org:hover { color: var(--accent); border-bottom-color: var(--accent); }
   .nav { justify-content: flex-end; }
 
   .hero { padding: 80px 0 60px; }
-  .hero-has-banner { padding-top: 0; }
+
+  /* Wide screens: the photo becomes a tall column on the right, inside the
+     content grid so it lines up with everything below it. */
+  .hero-has-banner { padding: 56px 0 60px; }
+  .hero-has-banner .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr minmax(240px, 300px);
+    align-items: center;
+    gap: 44px;
+  }
+  .hero-has-banner .hero-text { order: 1; }
+  .hero-has-banner .hero-banner {
+    order: 2;
+    width: 100%;
+    height: 404px;
+    margin: 0;
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+  }
+  .hero-has-banner .hero-banner img { object-position: center 18%; }
+  /* Gentle darkening at the foot of the panel rather than a fade-to-page. */
+  .hero-has-banner .hero-banner::after {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.35), transparent 45%);
+  }
   .hero-inner { flex-direction: row; align-items: center; gap: 44px; justify-content: space-between; }
   .headshot { width: 124px; height: 124px; }
 

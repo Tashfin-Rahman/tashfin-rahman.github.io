@@ -194,7 +194,10 @@
       });
       banner.appendChild(bannerImg);
       hero.classList.add("hero-has-banner");
-      hero.insertBefore(banner, hero.firstChild);
+      // Inside .hero-inner, not the bare hero: on wide screens the photo
+      // becomes a column beside the text and has to share the content grid.
+      var inner = hero.querySelector(".hero-inner");
+      inner.insertBefore(banner, inner.firstChild);
     }
 
     if (filled(meta.headshot)) {
