@@ -23,4 +23,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://tash-fin.github.io/sitemap.xml
+Sitemap: https://tashfin-rahman.github.io/sitemap.xml
