@@ -42,8 +42,14 @@ window.CV = {
 
     linkedin: null,         // TODO: your LinkedIn URL
     github: null,           // optional
-    cvFile: null,           // put the PDF at assets/cv.pdf, then: "assets/cv.pdf"
-    headshot: null,         // put a square photo at assets/headshot.jpg
+    cvFile: "assets/cv.pdf",
+
+    // Full-width photo across the top of the page. Wants a LANDSCAPE image,
+    // ideally 2000px wide or more — see assets/README.md for what works.
+    // Until you add one, the hero falls back to the plain text layout.
+    heroBanner: null,       // TODO: e.g. "assets/banner.jpg"
+
+    headshot: null,         // optional small circular photo, square crop
   },
 
   /* --------------------------------------------------------------------------

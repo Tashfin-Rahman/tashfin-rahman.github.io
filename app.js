@@ -1,5 +1,5 @@
 /* ============================================================================
-   app.js — renders content.js into index.html.
+   app.js — renders content.js into index.html and runs the motion.
    You shouldn't need to edit this file to change what's on the site; add your
    details to content.js instead.
    ========================================================================= */
@@ -50,6 +50,13 @@
     return filled(start) ? String(start) : filled(end) ? String(end) : "";
   }
 
+  // Marks a node for the scroll-reveal engine. `kind` picks the movement:
+  // "" rises, "slide" comes in from the left, "pop" scales up.
+  function reveal(node, kind) {
+    node.setAttribute("data-reveal", kind || "");
+    return node;
+  }
+
   function appendTags(parent, items) {
     if (!Array.isArray(items) || !items.length) return;
     var tags = el("div", "tags");
@@ -78,7 +85,7 @@
     { id: "contact", label: "Contact", render: renderContact },
   ];
 
-  /* --- Head and hero ----------------------------------------------------- */
+  /* --- Head -------------------------------------------------------------- */
 
   function renderHead() {
     var name = filled(meta.name) ? meta.name : "Portfolio";
@@ -97,8 +104,6 @@
     setMeta("property", "og:description", description);
     if (filled(meta.siteUrl)) setMeta("property", "og:url", meta.siteUrl);
 
-    // Structured data: helps a search for your name return you rather than a
-    // namesake. Only the fields you've actually filled in are included.
     var schema = {
       "@context": "https://schema.org",
       "@type": "Person",
@@ -132,6 +137,16 @@
     setFavicon(name);
   }
 
+  function setMeta(attr, key, value) {
+    var tag = document.head.querySelector("meta[" + attr + '="' + key + '"]');
+    if (!tag) {
+      tag = document.createElement("meta");
+      tag.setAttribute(attr, key);
+      document.head.appendChild(tag);
+    }
+    tag.setAttribute("content", value);
+  }
+
   // Tab icon drawn from your initials, so it follows meta.name like everything
   // else rather than being a file you'd have to remember to replace.
   function setFavicon(name) {
@@ -144,8 +159,8 @@
 
     var svg =
       "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>" +
-      "<rect width='64' height='64' rx='13' fill='#1f4e79'/>" +
-      "<text x='32' y='45' text-anchor='middle' fill='#ffffff'" +
+      "<rect width='64' height='64' rx='13' fill='#0c0e13'/>" +
+      "<text x='32' y='45' text-anchor='middle' fill='#d8a857'" +
       " font-family='Georgia,serif' font-size='31'>" + initials + "</text></svg>";
 
     var link = document.createElement("link");
@@ -155,21 +170,32 @@
     document.head.appendChild(link);
   }
 
-  function setMeta(attr, key, value) {
-    var tag = document.head.querySelector("meta[" + attr + '="' + key + '"]');
-    if (!tag) {
-      tag = document.createElement("meta");
-      tag.setAttribute(attr, key);
-      document.head.appendChild(tag);
-    }
-    tag.setAttribute("content", value);
-  }
+  /* --- Hero -------------------------------------------------------------- */
 
   function renderHero() {
     document.querySelectorAll("[data-field]").forEach(function (node) {
       var value = meta[node.dataset.field];
       node.textContent = filled(value) ? value : "";
     });
+
+    var hero = document.getElementById("top");
+
+    // Full-width photo banner. Only built when meta.heroBanner is set, so the
+    // hero falls back to the plain layout until you add a picture.
+    if (filled(meta.heroBanner)) {
+      var banner = el("div", "hero-banner");
+      var bannerImg = document.createElement("img");
+      bannerImg.src = meta.heroBanner;
+      bannerImg.alt = "";
+      // A wrong path would leave a dead letterbox at the top of the page.
+      bannerImg.addEventListener("error", function () {
+        banner.remove();
+        hero.classList.remove("hero-has-banner");
+      });
+      banner.appendChild(bannerImg);
+      hero.classList.add("hero-has-banner");
+      hero.insertBefore(banner, hero.firstChild);
+    }
 
     if (filled(meta.headshot)) {
       var img = document.getElementById("headshot");
@@ -183,17 +209,24 @@
     if (meta.contactMode === "email" && filled(meta.email)) {
       links.appendChild(button("Email", "mailto:" + meta.email, true));
     } else if (document.getElementById("contact")) {
-      // Only offer the jump link when the contact section survived rendering.
       links.appendChild(button("Get in touch", "#contact", true));
     } else if (filled(meta.linkedin)) {
       links.appendChild(button("LinkedIn", meta.linkedin, true));
     }
+
+    if (filled(meta.cvFile)) links.appendChild(button("Download CV", meta.cvFile));
     if (filled(meta.phone)) links.appendChild(button("Call", telHref(meta.phone)));
     if (filled(meta.linkedin) && !links.querySelector('[href="' + meta.linkedin + '"]')) {
       links.appendChild(button("LinkedIn", meta.linkedin));
     }
     if (filled(meta.github)) links.appendChild(button("GitHub", meta.github));
-    if (filled(meta.cvFile)) links.appendChild(button("Download CV", meta.cvFile));
+
+    // Stagger the hero in on load.
+    ["eyebrow", "h1", "tagline"].forEach(function (sel) {
+      var node = hero.querySelector("." + sel) || hero.querySelector(sel);
+      if (node) reveal(node);
+    });
+    if (links.children.length) reveal(links);
   }
 
   function button(label, href, primary) {
@@ -215,7 +248,7 @@
 
     var body = document.getElementById("about-body");
     paragraphs.forEach(function (text) {
-      body.appendChild(el("p", null, text));
+      body.appendChild(reveal(el("p", null, text)));
     });
     return true;
   }
@@ -244,7 +277,7 @@
   function fillTimeline(bodyId, entries) {
     var body = document.getElementById(bodyId);
     entries.forEach(function (job) {
-      var li = el("li", "entry");
+      var li = reveal(el("li", "entry"), "slide");
 
       var head = el("div", "entry-head");
       head.appendChild(el("h3", "entry-title", job.role));
@@ -293,7 +326,7 @@
 
     var body = document.getElementById("education-body");
     entries.forEach(function (item) {
-      var li = el("li", "entry");
+      var li = reveal(el("li", "entry"), "slide");
 
       var head = el("div", "entry-head");
       head.appendChild(el("h3", "entry-title", item.degree));
@@ -342,7 +375,7 @@
 
     var body = document.getElementById("work-body");
     entries.forEach(function (item) {
-      var card = el("article", "work-item");
+      var card = reveal(el("article", "work-item"), "pop");
 
       if (filled(item.image)) {
         var frame = el("div", "work-image");
@@ -412,7 +445,7 @@
 
     var body = document.getElementById("projects-body");
     entries.forEach(function (project) {
-      var card = el("article", "project");
+      var card = reveal(el("article", "project"), "pop");
 
       var head = el("div", "entry-head");
       head.appendChild(el("h3", null, project.title));
@@ -456,7 +489,7 @@
 
     var body = document.getElementById("skills-body");
     groups.forEach(function (group) {
-      var block = el("div", "skill-group");
+      var block = reveal(el("div", "skill-group"));
       if (filled(group.group)) block.appendChild(el("h3", null, group.group));
       appendTags(block, group.items);
       body.appendChild(block);
@@ -472,7 +505,7 @@
 
     var body = document.getElementById("certifications-body");
     entries.forEach(function (cert) {
-      var li = el("li", "cert");
+      var li = reveal(el("li", "cert"));
       li.appendChild(el("span", "cert-name", cert.name));
       if (filled(cert.issuer)) li.appendChild(el("span", "cert-issuer", cert.issuer));
       if (filled(cert.date)) li.appendChild(el("span", "cert-date", cert.date));
@@ -486,7 +519,6 @@
     var body = document.getElementById("contact-body");
     var mode = meta.contactMode;
 
-    // Nothing to offer: no form endpoint, no address, no LinkedIn.
     if (mode === "email" && !filled(meta.email)) mode = null;
     if (mode === "form" && !filled(meta.formEndpoint)) mode = null;
     if (mode === "linkedin" && !filled(meta.linkedin)) mode = null;
@@ -494,9 +526,9 @@
     if (!mode) return false;
 
     if (mode === "form") {
-      body.appendChild(el("p", "contact-lead", "Send me a message and I'll get back to you."));
+      body.appendChild(reveal(el("p", "contact-lead", "Send me a message and I'll get back to you.")));
 
-      var form = el("form", "contact-form");
+      var form = reveal(el("form", "contact-form"));
       form.action = meta.formEndpoint;
       form.method = "POST";
 
@@ -526,18 +558,20 @@
     }
 
     body.appendChild(
-      el(
-        "p",
-        "contact-lead",
-        mode === "email"
-          ? filled(meta.phone)
-            ? "Email or call, whichever suits you — I read everything that comes in."
-            : "The quickest way to reach me is by email — I read everything that comes in."
-          : "The best place to reach me is LinkedIn."
+      reveal(
+        el(
+          "p",
+          "contact-lead",
+          mode === "email"
+            ? filled(meta.phone)
+              ? "Email or call, whichever suits you — I read everything that comes in."
+              : "The quickest way to reach me is by email — I read everything that comes in."
+            : "The best place to reach me is LinkedIn."
+        )
       )
     );
 
-    var actions = el("div", "contact-actions");
+    var actions = reveal(el("div", "contact-actions"));
     if (mode === "email") {
       actions.appendChild(button("Email " + meta.email, "mailto:" + meta.email, true));
     }
@@ -564,7 +598,6 @@
 
     if (!("IntersectionObserver" in window)) return;
 
-    // Highlight the section currently in the upper part of the viewport.
     var links = {};
     nav.querySelectorAll("a").forEach(function (a) {
       links[a.getAttribute("href").slice(1)] = a;
@@ -592,7 +625,89 @@
     });
   }
 
-  /* --- Theme ------------------------------------------------------------- */
+  /* --- Motion ------------------------------------------------------------
+     The hidden starting state lives behind .anim on <html>, which is added
+     here. If this script fails or JavaScript is off, the class never lands
+     and the page renders as plain visible content.
+     -------------------------------------------------------------------- */
+
+  function setupMotion() {
+    if (!("IntersectionObserver" in window)) return;
+
+    document.documentElement.classList.add("anim");
+
+    // Elements that share a parent come in one after another rather than
+    // all at once.
+    var groups = new Map();
+    document.querySelectorAll("[data-reveal]").forEach(function (node) {
+      var siblings = groups.get(node.parentNode) || [];
+      siblings.push(node);
+      groups.set(node.parentNode, siblings);
+    });
+    groups.forEach(function (siblings) {
+      siblings.forEach(function (node, i) {
+        node.style.setProperty("--d", Math.min(i, 6) * 85 + "ms");
+      });
+    });
+
+    var revealer = new IntersectionObserver(
+      function (records, obs) {
+        records.forEach(function (record) {
+          if (!record.isIntersecting) return;
+          record.target.classList.add("is-in");
+          obs.unobserve(record.target); // play once, then stop watching
+        });
+      },
+      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
+    );
+    document.querySelectorAll("[data-reveal], .entry").forEach(function (node) {
+      revealer.observe(node);
+    });
+
+    // Section headings draw their rule when the section arrives.
+    var sectionObs = new IntersectionObserver(
+      function (records, obs) {
+        records.forEach(function (record) {
+          if (!record.isIntersecting) return;
+          record.target.classList.add("is-in");
+          obs.unobserve(record.target);
+        });
+      },
+      { rootMargin: "0px 0px -15% 0px" }
+    );
+    document.querySelectorAll(".section").forEach(function (node) {
+      sectionObs.observe(node);
+    });
+  }
+
+  function setupProgress() {
+    var bar = el("div", "progress");
+    document.body.appendChild(bar);
+
+    var ticking = false;
+    function update() {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var ratio = max > 0 ? window.scrollY / max : 0;
+      bar.style.transform = "scaleX(" + Math.min(1, Math.max(0, ratio)) + ")";
+      ticking = false;
+    }
+    window.addEventListener(
+      "scroll",
+      function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(update);
+      },
+      { passive: true }
+    );
+    window.addEventListener("resize", update, { passive: true });
+    update();
+  }
+
+  /* --- Theme -------------------------------------------------------------
+     Dark is the default by design. Switch the default by changing the
+     fallback below from "dark" to "light".
+     -------------------------------------------------------------------- */
 
   function initTheme() {
     var toggle = document.getElementById("theme-toggle");
@@ -606,14 +721,15 @@
       stored = null;
     }
 
-    if (stored === "light" || stored === "dark") {
-      document.documentElement.setAttribute("data-theme", stored);
-    }
+    document.documentElement.setAttribute(
+      "data-theme",
+      stored === "light" || stored === "dark" ? stored : "dark"
+    );
 
     function current() {
-      var set = document.documentElement.getAttribute("data-theme");
-      if (set) return set;
-      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      return document.documentElement.getAttribute("data-theme") === "light"
+        ? "light"
+        : "dark";
     }
 
     function paint() {
@@ -639,6 +755,7 @@
 
   /* --- Boot -------------------------------------------------------------- */
 
+  initTheme();
   renderHead();
 
   var live = sections.filter(function (section) {
@@ -655,7 +772,8 @@
   renderHero();
 
   buildNav(live);
-  initTheme();
+  setupMotion();
+  setupProgress();
 
   document.getElementById("footer-year").textContent = new Date().getFullYear();
 

@@ -1,65 +1,68 @@
 /* ============================================================================
-   styles.css
-   Design tokens first, then layout, then print. You shouldn't need to edit this
-   to add content — but if you want a different accent colour, change
-   --accent in the two blocks below and nothing else.
+   styles.css — Midnight & Gold
+   ----------------------------------------------------------------------------
+   Dark by default, with a cream-and-bronze light mode behind the toggle.
+   To make light the default instead, swap the two token blocks at the top.
+
+   You shouldn't need to touch this file to change content. To change the
+   accent colour, edit --accent (and --accent-ink, the text that sits ON the
+   accent) in both blocks.
    ========================================================================= */
 
-/* --- Tokens: light ------------------------------------------------------- */
+/* --- Tokens: dark (the default) ----------------------------------------- */
 :root {
-  --bg: #fbfaf8;
-  --bg-raised: #ffffff;
-  --bg-sunken: #f3f1ed;
-  --text: #1a1d23;
-  --text-muted: #5f6672;
-  --text-faint: #8b919c;
-  --border: #e2ded7;
-  --border-strong: #cdc7bd;
-  --accent: #1f4e79;
-  --accent-soft: #e8eef5;
+  --bg: #0c0e13;
+  --bg-raised: #14171e;
+  --bg-sunken: #090b0f;
+  --text: #f2eee6;
+  --text-muted: #a39d91;
+  --text-faint: #8a8478;
+  --border: #242830;
+  --border-strong: #3a3f4a;
+  --accent: #d8a857;
+  --accent-soft: #2b2316;
+  --accent-ink: #0c0e13;   /* text drawn ON the accent — gold needs dark text */
+  --glow-a: rgba(216, 168, 87, 0.16);
+  --glow-b: rgba(120, 90, 200, 0.10);
+  --shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.9);
 
   --serif: Georgia, "Times New Roman", serif;
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
   --gutter: 16px;
   --measure: 62ch;
-  --radius: 6px;
+  --radius: 8px;
   --header-h: 60px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* --- Tokens: dark -------------------------------------------------------- */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #14161a;
-    --bg-raised: #1c1f25;
-    --bg-sunken: #101215;
-    --text: #e8e9ec;
-    --text-muted: #9ba2ae;
-    --text-faint: #767d89;
-    --border: #2b3038;
-    --border-strong: #3c424c;
-    --accent: #7fb0e0;
-    --accent-soft: #1d2a38;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #14161a;
-  --bg-raised: #1c1f25;
-  --bg-sunken: #101215;
-  --text: #e8e9ec;
-  --text-muted: #9ba2ae;
-  --text-faint: #767d89;
-  --border: #2b3038;
-  --border-strong: #3c424c;
-  --accent: #7fb0e0;
-  --accent-soft: #1d2a38;
+/* --- Tokens: light (behind the toggle) ---------------------------------- */
+:root[data-theme="light"] {
+  --bg: #faf7f0;
+  --bg-raised: #ffffff;
+  --bg-sunken: #f2ece0;
+  --text: #1a1713;
+  --text-muted: #5f574b;
+  --text-faint: #6f6759;
+  --border: #e7ded0;
+  --border-strong: #cfc2ad;
+  --accent: #8a6212;       /* bronze — dark enough to pass contrast on cream */
+  --accent-soft: #f6ecd8;
+  --accent-ink: #ffffff;
+  --glow-a: rgba(138, 98, 18, 0.10);
+  --glow-b: rgba(180, 140, 60, 0.08);
+  --shadow: 0 16px 36px -26px rgba(60, 45, 20, 0.45);
 }
 
 /* --- Reset --------------------------------------------------------------- */
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 16px); }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 20px);
+  color-scheme: dark;
+}
+:root[data-theme="light"] { color-scheme: light; }
 
 body {
   margin: 0;
@@ -69,6 +72,7 @@ body {
   font-size: 17px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.2; margin: 0; }
@@ -81,10 +85,67 @@ a:hover { text-decoration-thickness: 2px; }
 
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
 
+/* ============================================================================
+   ANIMATION ENGINE
+   ----------------------------------------------------------------------------
+   The hidden starting state is scoped to .anim, a class app.js puts on <html>.
+   Without JavaScript the class never lands, so every element renders visible —
+   the page degrades to a plain document rather than a blank one.
+   ========================================================================= */
+
+.anim [data-reveal] {
+  opacity: 0;
+  transform: translateY(22px);
+  will-change: opacity, transform;
+}
+.anim [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.75s var(--ease) var(--d, 0ms),
+    transform 0.75s var(--ease) var(--d, 0ms);
+}
+
+/* Sideways variant, used for timeline entries. */
+.anim [data-reveal="slide"] { transform: translateX(-26px); }
+
+/* Scale-in, used for cards. */
+.anim [data-reveal="pop"] { transform: translateY(26px) scale(0.97); }
+
+/* Someone who asked their system to reduce motion gets none of it. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .anim [data-reveal],
+  .anim [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* --- Scroll progress bar ------------------------------------------------- */
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  z-index: 40;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 45%, var(--text)));
+  pointer-events: none;
+}
+
 /* --- Shell --------------------------------------------------------------- */
 .wrap {
   width: 100%;
-  max-width: 860px;
+  max-width: 880px;
   margin: 0 auto;
   padding: 0 var(--gutter);
 }
@@ -95,8 +156,9 @@ a:hover { text-decoration-thickness: 2px; }
   z-index: 100;
   padding: 10px 16px;
   background: var(--accent);
-  color: #fff;
+  color: var(--accent-ink);
   text-decoration: none;
+  border-radius: var(--radius);
 }
 .skip-link:focus { left: 8px; top: 8px; }
 
@@ -105,11 +167,11 @@ a:hover { text-decoration-thickness: 2px; }
   position: sticky;
   top: 0;
   z-index: 20;
-  background: var(--bg); /* fallback where color-mix is unsupported */
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
-  backdrop-filter: blur(10px);
+  background: var(--bg);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: blur(14px) saturate(140%);
   border-bottom: 1px solid transparent;
-  transition: border-color 0.2s;
+  transition: border-color 0.3s ease, background 0.3s ease;
 }
 .site-header.is-scrolled { border-bottom-color: var(--border); }
 
@@ -127,7 +189,9 @@ a:hover { text-decoration-thickness: 2px; }
   color: var(--text);
   text-decoration: none;
   white-space: nowrap;
+  transition: color 0.25s ease;
 }
+.brand:hover { color: var(--accent); }
 
 .nav {
   flex: 1;
@@ -142,27 +206,44 @@ a:hover { text-decoration-thickness: 2px; }
 }
 .nav::-webkit-scrollbar { display: none; }
 
+.nav a {
+  position: relative;
+  padding: 6px 10px;
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.25s ease;
+}
+/* Underline grows from the centre on hover and for the active section. */
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 2px;
+  height: 1.5px;
+  background: var(--accent);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transition: transform 0.35s var(--ease);
+}
+.nav a:hover { color: var(--text); }
+.nav a:hover::after { transform: scaleX(0.6); }
+.nav a[aria-current="true"] { color: var(--accent); }
+.nav a[aria-current="true"]::after { transform: scaleX(1); }
+
 /* Narrow screens: drop the brand so the links get the full width. The name is
    in the hero immediately below, so nothing is lost. */
 @media (max-width: 699px) {
   .brand { display: none; }
 }
 
-.nav a {
-  padding: 5px 9px;
-  border-radius: var(--radius);
-  color: var(--text-muted);
-  font-size: 0.86rem;
-  text-decoration: none;
-  white-space: nowrap;
-}
-.nav a:hover { color: var(--text); background: var(--bg-sunken); }
-.nav a[aria-current="true"] { color: var(--accent); background: var(--accent-soft); }
-
 .theme-toggle {
   flex: none;
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   display: grid;
   place-items: center;
   border: 1px solid var(--border);
@@ -171,11 +252,43 @@ a:hover { text-decoration-thickness: 2px; }
   color: var(--text-muted);
   font-size: 0.95rem;
   cursor: pointer;
+  transition: color 0.25s, border-color 0.25s, transform 0.4s var(--ease);
 }
-.theme-toggle:hover { color: var(--text); border-color: var(--border-strong); }
+.theme-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: rotate(-25deg);
+}
 
-/* --- Hero ---------------------------------------------------------------- */
-.hero { padding: 56px 0 44px; }
+/* ============================================================================
+   HERO
+   ========================================================================= */
+.hero {
+  position: relative;
+  padding: 56px 0 44px;
+  isolation: isolate;
+  /* The glow below bleeds 10% past each edge and the banner is 100vw wide;
+     without this they widen the document and create a horizontal scroll. */
+  overflow: hidden;
+}
+
+/* Two slow-drifting colour washes behind the hero. Cheap (one element,
+   transform-free) and it stops the dark background reading as flat. */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -20% -10% 0;
+  z-index: -1;
+  background:
+    radial-gradient(42% 55% at 18% 8%, var(--glow-a), transparent 70%),
+    radial-gradient(38% 50% at 82% 28%, var(--glow-b), transparent 72%);
+  animation: drift 22s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes drift {
+  from { transform: translate3d(-3%, -2%, 0) scale(1); }
+  to   { transform: translate3d(4%, 3%, 0) scale(1.12); }
+}
 
 .hero-inner {
   display: flex;
@@ -188,49 +301,83 @@ a:hover { text-decoration-thickness: 2px; }
 
 .eyebrow {
   margin: 0 0 10px;
-  color: var(--text-faint);
+  color: var(--accent);
   font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.09em;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 .eyebrow:empty { display: none; }
 
 .hero h1 {
-  font-size: clamp(2.1rem, 8vw, 3.1rem);
-  letter-spacing: -0.02em;
+  font-size: clamp(2.2rem, 8.5vw, 3.4rem);
+  letter-spacing: -0.022em;
 }
 
 .tagline {
   margin: 14px 0 0;
   color: var(--text-muted);
-  font-size: clamp(1.02rem, 3.4vw, 1.2rem);
+  font-size: clamp(1.02rem, 3.4vw, 1.22rem);
   line-height: 1.5;
 }
 
+/* --- Full-width photo banner -------------------------------------------- */
+/* Applied only when meta.heroBanner is set; otherwise the hero is unchanged. */
+.hero-has-banner { padding-top: 0; }
+
+.hero-banner {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  height: clamp(240px, 46vh, 420px);
+  overflow: hidden;
+}
+.hero-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  /* Slow push-in, so the banner isn't a static slab. */
+  animation: kenburns 18s ease-out forwards;
+}
+@keyframes kenburns {
+  from { transform: scale(1.08); }
+  to   { transform: scale(1); }
+}
+/* Scrim so the text below stays readable whatever the photo looks like. */
+.hero-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 30%, var(--bg) 97%);
+}
+.hero-has-banner .hero-inner { margin-top: -54px; position: relative; z-index: 1; }
+
 .headshot {
   flex: none;
-  width: 92px;
-  height: 92px;
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
-  border: 1px solid var(--border);
+  border: 2px solid var(--border-strong);
   object-fit: cover;
+  box-shadow: var(--shadow);
 }
 
 .hero-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 26px;
+  gap: 10px;
+  margin-top: 28px;
 }
-/* No links filled in yet: don't reserve the space. */
 .hero-links:empty { display: none; }
 
+/* --- Buttons ------------------------------------------------------------- */
 .btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 15px;
+  gap: 7px;
+  padding: 9px 17px;
   border: 1px solid var(--border-strong);
   border-radius: var(--radius);
   background: var(--bg-raised);
@@ -239,34 +386,78 @@ a:hover { text-decoration-thickness: 2px; }
   font-size: 0.9rem;
   text-decoration: none;
   cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.3s var(--ease), border-color 0.25s, color 0.25s,
+    box-shadow 0.3s var(--ease);
 }
-.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: var(--shadow);
+}
+.btn:active { transform: translateY(0); }
+
 .btn-primary {
   background: var(--accent);
   border-color: var(--accent);
-  color: #fff;
+  color: var(--accent-ink);
+  font-weight: 600;
 }
-.btn-primary:hover { color: #fff; opacity: 0.9; }
+.btn-primary:hover { color: var(--accent-ink); }
 
-/* --- Sections ------------------------------------------------------------ */
-.section { padding: 40px 0; border-top: 1px solid var(--border); }
+/* A light sweep crossing the primary button on hover. */
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  transform: skewX(-18deg);
+}
+.btn-primary:hover::after { animation: sweep 0.75s ease; }
+@keyframes sweep {
+  to { left: 140%; }
+}
+
+/* ============================================================================
+   SECTIONS
+   ========================================================================= */
+.section { padding: 44px 0; border-top: 1px solid var(--border); }
 
 .section h2 {
-  margin-bottom: 26px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
   font-size: 0.8rem;
   font-family: var(--sans);
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--text-faint);
+  color: var(--accent);
 }
+/* Rule that draws itself outward from the heading when the section arrives. */
+.section h2::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border-strong), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.9s var(--ease) 0.15s;
+}
+.section.is-in h2::after,
+html:not(.anim) .section h2::after { transform: scaleX(1); }
 
 .prose { max-width: var(--measure); color: var(--text-muted); }
 
-/* --- Timeline (experience, education) ----------------------------------- */
+/* --- Timeline ------------------------------------------------------------ */
 .timeline { display: grid; gap: 34px; }
 
-.entry { position: relative; padding-left: 20px; }
+.entry { position: relative; padding-left: 22px; }
 .entry::before {
   content: "";
   position: absolute;
@@ -274,19 +465,32 @@ a:hover { text-decoration-thickness: 2px; }
   top: 9px;
   bottom: -34px;
   width: 1px;
-  background: var(--border);
+  background: linear-gradient(var(--border-strong), var(--border));
+  transform-origin: top;
 }
 .entry:last-child::before { bottom: 9px; }
 .entry::after {
   content: "";
   position: absolute;
-  left: -3px;
+  left: -3.5px;
   top: 7px;
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: var(--bg);
-  border: 1.5px solid var(--border-strong);
+  border: 1.5px solid var(--accent);
+}
+
+/* The rail draws downward and the dot pops once the entry scrolls in. */
+.anim .entry::before { transform: scaleY(0); }
+.anim .entry::after { transform: scale(0); }
+.anim .entry.is-in::before {
+  transform: scaleY(1);
+  transition: transform 0.85s var(--ease) 0.1s;
+}
+.anim .entry.is-in::after {
+  transform: scale(1);
+  transition: transform 0.5s cubic-bezier(0.34, 1.7, 0.5, 1) 0.3s;
 }
 
 .entry-head {
@@ -296,7 +500,7 @@ a:hover { text-decoration-thickness: 2px; }
   gap: 4px 10px;
   margin-bottom: 2px;
 }
-.entry-title { font-size: 1.1rem; font-family: var(--serif); font-weight: 600; }
+.entry-title { font-size: 1.14rem; font-family: var(--serif); font-weight: 600; }
 .entry-dates {
   margin-left: auto;
   flex: none;
@@ -306,49 +510,68 @@ a:hover { text-decoration-thickness: 2px; }
   white-space: nowrap;
 }
 .entry-meta { margin: 0 0 12px; color: var(--text-muted); font-size: 0.92rem; }
-.entry-meta .org { color: var(--text); font-weight: 500; }
+.entry-meta .org { color: var(--text); font-weight: 600; }
+a.org { text-decoration: none; border-bottom: 1px dashed var(--border-strong); }
+a.org:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
 .entry-result {
   display: inline-block;
-  margin-left: 8px;
-  padding: 1px 7px;
+  margin-left: 2px;
+  padding: 1px 8px;
   border-radius: 20px;
   background: var(--accent-soft);
   color: var(--accent);
   font-size: 0.78rem;
-  font-weight: 500;
+  font-weight: 600;
+}
+
+/* A line of context under a role, for an organisation the reader won't know. */
+.entry-note {
+  max-width: var(--measure);
+  margin: -6px 0 12px;
+  color: var(--text-faint);
+  font-size: 0.88rem;
+  line-height: 1.5;
 }
 
 .bullets { display: grid; gap: 8px; color: var(--text-muted); max-width: var(--measure); }
-.bullets li { position: relative; padding-left: 16px; font-size: 0.95rem; }
+.bullets li { position: relative; padding-left: 17px; font-size: 0.95rem; }
 .bullets li::before {
   content: "";
   position: absolute;
   left: 2px;
   top: 0.68em;
-  width: 4px;
+  width: 5px;
   height: 1px;
-  background: var(--border-strong);
+  background: var(--accent);
 }
 
 /* --- Projects ------------------------------------------------------------ */
 .projects { display: grid; gap: 18px; }
 
 .project {
+  position: relative;
   padding: 22px;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 12px;
   background: var(--bg-raised);
+  transition: transform 0.4s var(--ease), border-color 0.3s, box-shadow 0.4s var(--ease);
+}
+.project:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow);
 }
 
-.project h3 { font-size: 1.14rem; }
+.project h3 { font-size: 1.16rem; }
 
 .project-rows { display: grid; gap: 12px; margin-top: 16px; }
 
 .project-row { display: grid; gap: 3px; }
 .project-row dt {
   font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--accent);
 }
@@ -356,30 +579,92 @@ a:hover { text-decoration-thickness: 2px; }
 
 .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
 .tag {
-  padding: 2px 9px;
+  padding: 2px 10px;
   border: 1px solid var(--border);
   border-radius: 20px;
   background: var(--bg-sunken);
   color: var(--text-muted);
   font-size: 0.78rem;
+  transition: border-color 0.25s, color 0.25s, transform 0.25s var(--ease);
+}
+.tag:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+.project-link {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.25s, letter-spacing 0.25s;
+}
+.project-link:hover { border-bottom-color: var(--accent); letter-spacing: 0.02em; }
+
+/* --- Selected Work ------------------------------------------------------- */
+.work { display: grid; gap: 26px; }
+
+.work-item {
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-raised);
+  transition: transform 0.4s var(--ease), border-color 0.3s, box-shadow 0.4s var(--ease);
+}
+.work-item:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow);
 }
 
-.project-link { display: inline-block; margin-top: 14px; font-size: 0.9rem; }
+.work-image {
+  overflow: hidden;
+  border-radius: 9px;
+  background: var(--bg-sunken);
+}
+.work-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 4 / 3;
+  transition: transform 0.7s var(--ease);
+}
+.work-item:hover .work-image img { transform: scale(1.05); }
+
+.work-kicker {
+  margin: 0 0 6px;
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.work-text h3 { font-size: 1.16rem; }
+
+.work-row {
+  max-width: var(--measure);
+  margin: 10px 0 0;
+  color: var(--text-muted);
+  font-size: 0.94rem;
+}
+.work-row-label { color: var(--text); font-weight: 600; }
 
 /* --- Skills -------------------------------------------------------------- */
 .skills { display: grid; gap: 22px; }
 
 .skill-group h3 {
-  margin-bottom: 9px;
+  margin-bottom: 10px;
   font-family: var(--sans);
   font-size: 0.93rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* --- Certifications ------------------------------------------------------ */
 .certs { display: grid; gap: 12px; }
 .cert { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
-.cert-name { font-weight: 500; }
+.cert-name { font-weight: 600; }
 .cert-issuer { color: var(--text-muted); font-size: 0.92rem; }
 .cert-date {
   margin-left: auto;
@@ -390,28 +675,31 @@ a:hover { text-decoration-thickness: 2px; }
 .cert-note { flex-basis: 100%; color: var(--text-muted); font-size: 0.9rem; }
 
 /* --- Contact ------------------------------------------------------------- */
-.section-contact { padding-bottom: 56px; }
+.section-contact { padding-bottom: 60px; }
 .contact-lead { max-width: var(--measure); color: var(--text-muted); margin-bottom: 20px; }
-.contact-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.contact-actions { display: flex; flex-wrap: wrap; gap: 10px; }
 
 .contact-form { display: grid; gap: 12px; max-width: 460px; }
 .contact-form label { display: grid; gap: 5px; font-size: 0.88rem; color: var(--text-muted); }
 .contact-form input,
 .contact-form textarea {
-  padding: 9px 11px;
+  padding: 10px 12px;
   border: 1px solid var(--border-strong);
   border-radius: var(--radius);
-  background: var(--bg-raised);
+  background: var(--bg-sunken);
   color: var(--text);
   font: inherit;
   font-size: 0.95rem;
+  transition: border-color 0.25s;
 }
+.contact-form input:focus,
+.contact-form textarea:focus { border-color: var(--accent); }
 .contact-form textarea { min-height: 110px; resize: vertical; }
 .contact-form button { justify-self: start; }
 
 /* --- Footer -------------------------------------------------------------- */
 .site-footer {
-  padding: 22px 0 32px;
+  padding: 24px 0 34px;
   border-top: 1px solid var(--border);
   color: var(--text-faint);
   font-size: 0.85rem;
@@ -423,25 +711,28 @@ a:hover { text-decoration-thickness: 2px; }
 
   .nav { justify-content: flex-end; }
 
-  .hero { padding: 76px 0 56px; }
-  .hero-inner { flex-direction: row; align-items: center; gap: 40px; justify-content: space-between; }
-  .headshot { width: 118px; height: 118px; }
+  .hero { padding: 80px 0 60px; }
+  .hero-has-banner { padding-top: 0; }
+  .hero-inner { flex-direction: row; align-items: center; gap: 44px; justify-content: space-between; }
+  .headshot { width: 124px; height: 124px; }
 
-  .section { padding: 52px 0; }
+  .section { padding: 56px 0; }
 
-  .entry { padding-left: 26px; }
+  .entry { padding-left: 28px; }
 
   .projects { grid-template-columns: 1fr 1fr; }
+  .work-item { grid-template-columns: 4fr 6fr; gap: 22px; align-items: start; }
+  .work-item-textonly { grid-template-columns: 1fr; }
   .skills { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 28px; }
 }
 
 /* ============================================================================
-   PRINT — Ctrl+P gives a clean CV. One source of truth: edit content.js and
-   both the web page and this printed version update.
+   PRINT — Ctrl+P gives a clean CV from the same content.
+   Animation states are forced off here: an element that never scrolled into
+   view would otherwise print blank.
    ========================================================================= */
 @media print {
-  /* Force light tokens regardless of the viewer's theme. */
-  :root, :root[data-theme="dark"] {
+  :root, :root[data-theme="light"] {
     --bg: #fff;
     --bg-raised: #fff;
     --bg-sunken: #fff;
@@ -452,11 +743,25 @@ a:hover { text-decoration-thickness: 2px; }
     --border-strong: #999;
     --accent: #000;
     --accent-soft: #fff;
+    --accent-ink: #fff;
+    --shadow: none;
   }
 
   @page { margin: 14mm; }
 
   body { background: #fff; font-size: 10pt; line-height: 1.4; }
+
+  /* Everything reveals, whether or not its animation ever ran. */
+  .anim [data-reveal],
+  .anim [data-reveal].is-in,
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .anim .entry::before,
+  .anim .entry::after { transform: none !important; }
+  .section h2::after { transform: scaleX(1) !important; }
 
   /* Screen-only chrome. */
   .site-header,
@@ -465,6 +770,9 @@ a:hover { text-decoration-thickness: 2px; }
   .site-footer,
   .skip-link,
   .headshot,
+  .hero-banner,
+  .hero::before,
+  .progress,
   .contact-form,
   .contact-actions,
   #contact { display: none !important; }
@@ -472,24 +780,27 @@ a:hover { text-decoration-thickness: 2px; }
   .wrap { max-width: none; padding: 0; }
 
   .hero { padding: 0 0 10pt; }
+  .hero-has-banner .hero-inner { margin-top: 0; }
   .hero h1 { font-size: 21pt; }
   .tagline { font-size: 10.5pt; margin-top: 4pt; }
   .eyebrow { font-size: 7.5pt; margin-bottom: 4pt; }
 
   .section { padding: 10pt 0 0; border-top: none; }
   .section h2 {
+    display: block;
     margin-bottom: 7pt;
     padding-bottom: 2pt;
     border-bottom: 0.6pt solid #999;
     font-size: 8pt;
   }
+  .section h2::after { display: none; }
 
-  /* Tighten vertical rhythm so it lands on one page. */
   .timeline { gap: 10pt; }
   .entry { padding-left: 0; }
   .entry::before, .entry::after { display: none; }
   .entry-title { font-size: 11pt; }
   .entry-meta { margin-bottom: 4pt; font-size: 9.5pt; }
+  .entry-note { margin: -2pt 0 4pt; font-size: 9pt; font-style: italic; }
   .bullets { gap: 2pt; max-width: none; }
   .bullets li { font-size: 9.5pt; }
 
@@ -514,101 +825,8 @@ a:hover { text-decoration-thickness: 2px; }
   .tag:not(:last-child)::after { content: "·"; margin: 0 3.5pt; }
   .project-link { display: none; }
 
-  .skills { display: block; }
-  .skill-group { margin-bottom: 5pt; }
-  .skill-group h3 { display: inline; font-size: 9.5pt; }
-  .skill-group h3::after { content: ":"; margin-right: 3pt; }
-  .skill-group .tags { display: inline; }
-
-  .certs { gap: 3pt; }
-
-  .prose { max-width: none; }
-
-  /* Don't split an entry across a page break. */
-  .entry, .project, .skill-group, .cert { break-inside: avoid; }
-  .section { break-inside: avoid-page; }
-
-  a { color: #000; text-decoration: none; }
-}
-
-/* ============================================================================
-   Selected Work + the one-line org note. Appended after the base rules so the
-   cascade order is: tokens, layout, these, then the print overrides below.
-   ========================================================================= */
-
-/* A line of context under a role, for an organisation the reader won't know. */
-.entry-note {
-  max-width: var(--measure);
-  margin: -6px 0 12px;
-  color: var(--text-faint);
-  font-size: 0.88rem;
-  line-height: 1.5;
-}
-
-.work { display: grid; gap: 26px; }
-
-.work-item {
-  display: grid;
-  gap: 16px;
-  padding: 20px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--bg-raised);
-}
-
-.work-image {
-  overflow: hidden;
-  border-radius: 7px;
-  background: var(--bg-sunken);
-}
-.work-image img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  aspect-ratio: 4 / 3;
-}
-
-.work-kicker {
-  margin: 0 0 6px;
-  color: var(--accent);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.work-text h3 { font-size: 1.14rem; }
-
-.work-row {
-  max-width: var(--measure);
-  margin: 10px 0 0;
-  color: var(--text-muted);
-  font-size: 0.94rem;
-}
-.work-row-label { color: var(--text); font-weight: 600; }
-
-@media (min-width: 700px) {
-  /* Image beside the text once there's room; stacked below that width. */
-  .work-item {
-    grid-template-columns: 4fr 6fr;
-    gap: 22px;
-    align-items: start;
-  }
-  .work-item-textonly { grid-template-columns: 1fr; }
-}
-
-/* --- Print ---------------------------------------------------------------- */
-@media print {
-  .entry-note {
-    margin: -2pt 0 4pt;
-    font-size: 9pt;
-    font-style: italic;
-  }
-
   /* Images don't belong on a printed CV; the words have to carry it. */
   .work-image { display: none; }
-
   .work { display: block; }
   .work-item {
     display: block;
@@ -616,9 +834,22 @@ a:hover { text-decoration-thickness: 2px; }
     margin-bottom: 9pt;
     border: none;
     border-radius: 0;
-    break-inside: avoid;
   }
   .work-kicker { margin-bottom: 1pt; font-size: 8pt; }
   .work-text h3 { font-size: 11pt; }
   .work-row { margin-top: 2pt; max-width: none; font-size: 9.5pt; }
+
+  .skills { display: block; }
+  .skill-group { margin-bottom: 5pt; }
+  .skill-group h3 { display: inline; font-size: 9.5pt; }
+  .skill-group h3::after { content: ":"; margin-right: 3pt; }
+  .skill-group .tags { display: inline; }
+
+  .certs { gap: 3pt; }
+  .prose { max-width: none; }
+
+  .entry, .project, .work-item, .skill-group, .cert { break-inside: avoid; }
+  .section { break-inside: avoid-page; }
+
+  a { color: #000; text-decoration: none; }
 }
