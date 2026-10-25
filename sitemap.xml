@@ -71,4 +71,9 @@
       <image:caption>Home Inn social media cover in a blueprint style</image:caption>
     </image:image>
   </url>
+  <url>
+    <loc>https://tashfin-rahman.github.io/writing/fit-out-quote/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>

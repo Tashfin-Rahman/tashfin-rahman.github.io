@@ -695,6 +695,99 @@ a.org:hover { color: var(--accent); border-bottom-color: var(--accent); }
 }
 .work-row-label { color: var(--text); font-weight: 600; }
 
+/* --- Writing -------------------------------------------------------------- */
+.writing { display: grid; gap: 18px; }
+
+.piece {
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-raised);
+  transition: transform 0.4s var(--ease), border-color 0.3s, box-shadow 0.4s var(--ease);
+}
+.piece:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow);
+}
+
+.piece h3 { font-size: 1.1rem; }
+
+.piece-link {
+  color: var(--text);
+  text-decoration: none;
+}
+.piece-link:hover { color: var(--accent); }
+
+.piece-summary {
+  max-width: var(--measure);
+  margin: 8px 0 0;
+  color: var(--text-muted);
+  font-size: 0.94rem;
+}
+
+/* --- Article pages -------------------------------------------------------
+   Used by the standalone pieces under /writing/. They borrow the tokens and
+   the type scale from the main page so the two never drift apart. */
+.article { padding: 0 0 72px; }
+
+.article-back {
+  display: inline-block;
+  margin-bottom: 28px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+.article-back:hover { color: var(--accent); }
+
+.article h1 {
+  max-width: 20ch;
+  font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+  line-height: 1.15;
+}
+
+.article-meta {
+  margin: 10px 0 36px;
+  color: var(--text-faint);
+  font-size: 0.86rem;
+}
+
+.article-body > * { max-width: var(--measure); }
+
+.article-body p {
+  margin: 0 0 20px;
+  color: var(--text-muted);
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+
+.article-body h2 {
+  margin: 40px 0 14px;
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--text);
+}
+.article-body h2::after { display: none; }
+
+.article-body ul { margin: 0 0 20px; padding-left: 20px; }
+.article-body li {
+  margin-bottom: 10px;
+  color: var(--text-muted);
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+.article-body li strong { color: var(--text); font-weight: 600; }
+
+.article-note {
+  margin-top: 44px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  color: var(--text-faint);
+  font-size: 0.9rem;
+}
+
 /* --- Skills -------------------------------------------------------------- */
 .skills { display: grid; gap: 22px; }
 
@@ -902,6 +995,8 @@ a.org:hover { color: var(--accent); border-bottom-color: var(--accent); }
      method are portfolio writing: they belong on the page, not on paper. */
   .work-row-brief,
   .work-row-did { display: none; }
+
+  #writing { display: none !important; }
 
   .work-image { display: none; }
   .work { display: block; }

@@ -77,6 +77,7 @@
     { id: "about", label: "About", render: renderAbout },
     { id: "experience", label: "Experience", render: renderExperience },
     { id: "work", label: "Work", render: renderWork },
+    { id: "writing", label: "Writing", render: renderWriting },
     { id: "projects", label: "Projects", render: renderProjects },
     { id: "education", label: "Education", render: renderEducation },
     { id: "skills", label: "Skills", render: renderSkills },
@@ -591,6 +592,36 @@
       }
 
       card.appendChild(text);
+      body.appendChild(card);
+    });
+    return true;
+  }
+
+  function renderWriting() {
+    var entries = (CV.writing || []).filter(function (piece) {
+      return filled(piece.title) && filled(piece.url) && !isPlaceholder(piece.title);
+    });
+    if (!entries.length) return false;
+
+    var body = document.getElementById("writing-body");
+    entries.forEach(function (piece) {
+      var card = reveal(el("article", "piece"), "up");
+
+      var head = el("div", "entry-head");
+      var h3 = el("h3");
+      var link = el("a", "piece-link", piece.title);
+      link.href = piece.url;
+      h3.appendChild(link);
+      head.appendChild(h3);
+      if (filled(piece.date)) {
+        head.appendChild(el("span", "entry-dates", piece.date));
+      }
+      card.appendChild(head);
+
+      if (filled(piece.summary)) {
+        card.appendChild(el("p", "piece-summary", piece.summary));
+      }
+
       body.appendChild(card);
     });
     return true;

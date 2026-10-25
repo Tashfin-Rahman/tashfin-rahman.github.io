@@ -285,6 +285,30 @@ window.CV = {
   ],
 
   /* --------------------------------------------------------------------------
+     4b. WRITING \u2014 pieces you have published, newest first.
+     ----------------------------------------------------------------------------
+     Each one lives as its own page under /writing/, so it has its own address
+     and can turn up in a search on its own. Add a piece here and it appears in
+     this section and in the nav.
+
+       {
+         title: "What the piece is called",
+         date: "Oct 2026",
+         summary: "One or two sentences. This is what people read before deciding to click.",
+         url: "writing/some-slug/",
+       }
+     ----------------------------------------------------------------------- */
+  writing: [
+    {
+      title: "What you are actually paying for in a fit-out quote",
+      date: "Oct 2026",
+      summary:
+        "Most people ask for a price before anyone has seen the room, and a price given at that stage has to be padded. Here is how a quote is actually built, what moves it, and what a client can do to keep it steady.",
+      url: "writing/fit-out-quote/",
+    },
+  ],
+
+  /* --------------------------------------------------------------------------
      5. EDUCATION
      ----------------------------------------------------------------------- */
   education: [
