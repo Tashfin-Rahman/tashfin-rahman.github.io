@@ -38,11 +38,25 @@ your GitHub login, so it has to be you.
 5. **Sitemaps** in the left menu → submit `sitemap.xml`
 6. **URL Inspection** → enter the homepage → **Request indexing**
 
-### 2. Add your work
+### 2. Strengthen the work entries
 
-The **Selected Work** section is hidden because `work: []` is empty in
-`content.js`. The template is right above it. Campaign images go in
-`assets/work/`.
+**Selected Work** now holds three pieces, built from the Home Inn 2026 company
+profile deck: architectural design, custom furniture, and duplex construction.
+
+Two things would make them much stronger, and only you can supply them:
+
+- **Your specific contribution.** Each card's *What I made* line currently says
+  what is verifiable from your CV — that you run the budgeting, cost tracking
+  and project costing. Replace it with what you actually did on that work.
+- **A number.** *Outcome* currently carries firm-wide figures. One real result
+  on one project — a budget held, a cost cut, an order won — is worth more than
+  all three cards as they stand.
+
+To add a fourth piece, copy an existing entry in the `work` array of
+`content.js`. An entry's `image` takes one path or a list, and each item may be
+`{ src, alt }` — always write the alt text, it is what puts the photo in image
+search. Put new images in `assets/work/`, and add them to `sitemap.xml`
+alongside the others. Ask Claude to resize anything over 800px wide.
 
 ### 3. A better address
 
