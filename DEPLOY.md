@@ -38,19 +38,13 @@ your GitHub login, so it has to be you.
 5. **Sitemaps** in the left menu → submit `sitemap.xml`
 6. **URL Inspection** → enter the homepage → **Request indexing**
 
-### 2. Compress the photo
-
-`assets/tashfin-rahman.jpg` is 741 KB, which is heavy on mobile data. Around
-250 KB would look identical. Drop it into https://squoosh.app, set quality to
-about 75 and width to ~1200px, save over the file, commit and push.
-
-### 3. Add your work
+### 2. Add your work
 
 The **Selected Work** section is hidden because `work: []` is empty in
 `content.js`. The template is right above it. Campaign images go in
 `assets/work/`.
 
-### 4. A better address
+### 3. A better address
 
 `tash-fin.github.io` works, but it says nothing about you — which matters, because
 the point of the SEO work is ranking for your own name. You already control
@@ -77,5 +71,7 @@ Then update `meta.siteUrl` in `content.js`, and the URLs in `robots.txt`,
   your location and your LinkedIn
 - The photo registered as an `ImageObject` with real alt text, a descriptive
   filename and `max-image-preview:large`, so it can appear in image search
+- The photo resized to 1200px wide and compressed to 233 KB, so it loads fast
+  on mobile data without visible quality loss
 - `llms.txt` describing you factually for AI answer engines
 - Open Graph and Twitter card tags for link previews
