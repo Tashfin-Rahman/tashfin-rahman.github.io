@@ -1,0 +1,624 @@
+/* ============================================================================
+   styles.css
+   Design tokens first, then layout, then print. You shouldn't need to edit this
+   to add content — but if you want a different accent colour, change
+   --accent in the two blocks below and nothing else.
+   ========================================================================= */
+
+/* --- Tokens: light ------------------------------------------------------- */
+:root {
+  --bg: #fbfaf8;
+  --bg-raised: #ffffff;
+  --bg-sunken: #f3f1ed;
+  --text: #1a1d23;
+  --text-muted: #5f6672;
+  --text-faint: #8b919c;
+  --border: #e2ded7;
+  --border-strong: #cdc7bd;
+  --accent: #1f4e79;
+  --accent-soft: #e8eef5;
+
+  --serif: Georgia, "Times New Roman", serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --gutter: 16px;
+  --measure: 62ch;
+  --radius: 6px;
+  --header-h: 60px;
+}
+
+/* --- Tokens: dark -------------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14161a;
+    --bg-raised: #1c1f25;
+    --bg-sunken: #101215;
+    --text: #e8e9ec;
+    --text-muted: #9ba2ae;
+    --text-faint: #767d89;
+    --border: #2b3038;
+    --border-strong: #3c424c;
+    --accent: #7fb0e0;
+    --accent-soft: #1d2a38;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14161a;
+  --bg-raised: #1c1f25;
+  --bg-sunken: #101215;
+  --text: #e8e9ec;
+  --text-muted: #9ba2ae;
+  --text-faint: #767d89;
+  --border: #2b3038;
+  --border-strong: #3c424c;
+  --accent: #7fb0e0;
+  --accent-soft: #1d2a38;
+}
+
+/* --- Reset --------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 16px); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.2; margin: 0; }
+p { margin: 0 0 1em; }
+p:last-child { margin-bottom: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+
+/* --- Shell --------------------------------------------------------------- */
+.wrap {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  z-index: 100;
+  padding: 10px 16px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+}
+.skip-link:focus { left: 8px; top: 8px; }
+
+/* --- Header -------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--bg); /* fallback where color-mix is unsupported */
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+.site-header.is-scrolled { border-bottom-color: var(--border); }
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: var(--header-h);
+}
+
+.brand {
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav {
+  flex: 1;
+  display: flex;
+  gap: 2px;
+  /* flex-start, not flex-end: when the links overflow, flex-end pushes the
+     first ones off the left edge where they cannot be scrolled back to. */
+  justify-content: flex-start;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.nav::-webkit-scrollbar { display: none; }
+
+/* Narrow screens: drop the brand so the links get the full width. The name is
+   in the hero immediately below, so nothing is lost. */
+@media (max-width: 699px) {
+  .brand { display: none; }
+}
+
+.nav a {
+  padding: 5px 9px;
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.nav a:hover { color: var(--text); background: var(--bg-sunken); }
+.nav a[aria-current="true"] { color: var(--accent); background: var(--accent-soft); }
+
+.theme-toggle {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+.theme-toggle:hover { color: var(--text); border-color: var(--border-strong); }
+
+/* --- Hero ---------------------------------------------------------------- */
+.hero { padding: 56px 0 44px; }
+
+.hero-inner {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.hero-text { max-width: var(--measure); }
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: var(--text-faint);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+.eyebrow:empty { display: none; }
+
+.hero h1 {
+  font-size: clamp(2.1rem, 8vw, 3.1rem);
+  letter-spacing: -0.02em;
+}
+
+.tagline {
+  margin: 14px 0 0;
+  color: var(--text-muted);
+  font-size: clamp(1.02rem, 3.4vw, 1.2rem);
+  line-height: 1.5;
+}
+
+.headshot {
+  flex: none;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  object-fit: cover;
+}
+
+.hero-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 26px;
+}
+/* No links filled in yet: don't reserve the space. */
+.hero-links:empty { display: none; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 15px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--bg-raised);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.btn-primary:hover { color: #fff; opacity: 0.9; }
+
+/* --- Sections ------------------------------------------------------------ */
+.section { padding: 40px 0; border-top: 1px solid var(--border); }
+
+.section h2 {
+  margin-bottom: 26px;
+  font-size: 0.8rem;
+  font-family: var(--sans);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.prose { max-width: var(--measure); color: var(--text-muted); }
+
+/* --- Timeline (experience, education) ----------------------------------- */
+.timeline { display: grid; gap: 34px; }
+
+.entry { position: relative; padding-left: 20px; }
+.entry::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  bottom: -34px;
+  width: 1px;
+  background: var(--border);
+}
+.entry:last-child::before { bottom: 9px; }
+.entry::after {
+  content: "";
+  position: absolute;
+  left: -3px;
+  top: 7px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1.5px solid var(--border-strong);
+}
+
+.entry-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin-bottom: 2px;
+}
+.entry-title { font-size: 1.1rem; font-family: var(--serif); font-weight: 600; }
+.entry-dates {
+  margin-left: auto;
+  flex: none;
+  color: var(--text-faint);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.entry-meta { margin: 0 0 12px; color: var(--text-muted); font-size: 0.92rem; }
+.entry-meta .org { color: var(--text); font-weight: 500; }
+.entry-result {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 7px;
+  border-radius: 20px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.bullets { display: grid; gap: 8px; color: var(--text-muted); max-width: var(--measure); }
+.bullets li { position: relative; padding-left: 16px; font-size: 0.95rem; }
+.bullets li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.68em;
+  width: 4px;
+  height: 1px;
+  background: var(--border-strong);
+}
+
+/* --- Projects ------------------------------------------------------------ */
+.projects { display: grid; gap: 18px; }
+
+.project {
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-raised);
+}
+
+.project h3 { font-size: 1.14rem; }
+
+.project-rows { display: grid; gap: 12px; margin-top: 16px; }
+
+.project-row { display: grid; gap: 3px; }
+.project-row dt {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.project-row dd { margin: 0; color: var(--text-muted); font-size: 0.94rem; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+.tag {
+  padding: 2px 9px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--bg-sunken);
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+.project-link { display: inline-block; margin-top: 14px; font-size: 0.9rem; }
+
+/* --- Skills -------------------------------------------------------------- */
+.skills { display: grid; gap: 22px; }
+
+.skill-group h3 {
+  margin-bottom: 9px;
+  font-family: var(--sans);
+  font-size: 0.93rem;
+  font-weight: 600;
+}
+
+/* --- Certifications ------------------------------------------------------ */
+.certs { display: grid; gap: 12px; }
+.cert { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.cert-name { font-weight: 500; }
+.cert-issuer { color: var(--text-muted); font-size: 0.92rem; }
+.cert-date {
+  margin-left: auto;
+  color: var(--text-faint);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+.cert-note { flex-basis: 100%; color: var(--text-muted); font-size: 0.9rem; }
+
+/* --- Contact ------------------------------------------------------------- */
+.section-contact { padding-bottom: 56px; }
+.contact-lead { max-width: var(--measure); color: var(--text-muted); margin-bottom: 20px; }
+.contact-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.contact-form { display: grid; gap: 12px; max-width: 460px; }
+.contact-form label { display: grid; gap: 5px; font-size: 0.88rem; color: var(--text-muted); }
+.contact-form input,
+.contact-form textarea {
+  padding: 9px 11px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--bg-raised);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.95rem;
+}
+.contact-form textarea { min-height: 110px; resize: vertical; }
+.contact-form button { justify-self: start; }
+
+/* --- Footer -------------------------------------------------------------- */
+.site-footer {
+  padding: 22px 0 32px;
+  border-top: 1px solid var(--border);
+  color: var(--text-faint);
+  font-size: 0.85rem;
+}
+
+/* --- Wider screens ------------------------------------------------------- */
+@media (min-width: 700px) {
+  :root { --gutter: 32px; }
+
+  .nav { justify-content: flex-end; }
+
+  .hero { padding: 76px 0 56px; }
+  .hero-inner { flex-direction: row; align-items: center; gap: 40px; justify-content: space-between; }
+  .headshot { width: 118px; height: 118px; }
+
+  .section { padding: 52px 0; }
+
+  .entry { padding-left: 26px; }
+
+  .projects { grid-template-columns: 1fr 1fr; }
+  .skills { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 28px; }
+}
+
+/* ============================================================================
+   PRINT — Ctrl+P gives a clean CV. One source of truth: edit content.js and
+   both the web page and this printed version update.
+   ========================================================================= */
+@media print {
+  /* Force light tokens regardless of the viewer's theme. */
+  :root, :root[data-theme="dark"] {
+    --bg: #fff;
+    --bg-raised: #fff;
+    --bg-sunken: #fff;
+    --text: #000;
+    --text-muted: #222;
+    --text-faint: #555;
+    --border: #bbb;
+    --border-strong: #999;
+    --accent: #000;
+    --accent-soft: #fff;
+  }
+
+  @page { margin: 14mm; }
+
+  body { background: #fff; font-size: 10pt; line-height: 1.4; }
+
+  /* Screen-only chrome. */
+  .site-header,
+  .theme-toggle,
+  .hero-links,
+  .site-footer,
+  .skip-link,
+  .headshot,
+  .contact-form,
+  .contact-actions,
+  #contact { display: none !important; }
+
+  .wrap { max-width: none; padding: 0; }
+
+  .hero { padding: 0 0 10pt; }
+  .hero h1 { font-size: 21pt; }
+  .tagline { font-size: 10.5pt; margin-top: 4pt; }
+  .eyebrow { font-size: 7.5pt; margin-bottom: 4pt; }
+
+  .section { padding: 10pt 0 0; border-top: none; }
+  .section h2 {
+    margin-bottom: 7pt;
+    padding-bottom: 2pt;
+    border-bottom: 0.6pt solid #999;
+    font-size: 8pt;
+  }
+
+  /* Tighten vertical rhythm so it lands on one page. */
+  .timeline { gap: 10pt; }
+  .entry { padding-left: 0; }
+  .entry::before, .entry::after { display: none; }
+  .entry-title { font-size: 11pt; }
+  .entry-meta { margin-bottom: 4pt; font-size: 9.5pt; }
+  .bullets { gap: 2pt; max-width: none; }
+  .bullets li { font-size: 9.5pt; }
+
+  .projects { display: block; }
+  .project {
+    padding: 0;
+    margin-bottom: 9pt;
+    border: none;
+    border-radius: 0;
+  }
+  .project h3 { font-size: 11pt; }
+  .project-rows { gap: 3pt; margin-top: 4pt; }
+  .project-row { grid-template-columns: 62pt 1fr; gap: 6pt; }
+  .project-row dd { font-size: 9.5pt; }
+  .tags { gap: 0; margin-top: 4pt; }
+  .tag {
+    padding: 0;
+    border: none;
+    background: none;
+    font-size: 9pt;
+  }
+  .tag:not(:last-child)::after { content: "·"; margin: 0 3.5pt; }
+  .project-link { display: none; }
+
+  .skills { display: block; }
+  .skill-group { margin-bottom: 5pt; }
+  .skill-group h3 { display: inline; font-size: 9.5pt; }
+  .skill-group h3::after { content: ":"; margin-right: 3pt; }
+  .skill-group .tags { display: inline; }
+
+  .certs { gap: 3pt; }
+
+  .prose { max-width: none; }
+
+  /* Don't split an entry across a page break. */
+  .entry, .project, .skill-group, .cert { break-inside: avoid; }
+  .section { break-inside: avoid-page; }
+
+  a { color: #000; text-decoration: none; }
+}
+
+/* ============================================================================
+   Selected Work + the one-line org note. Appended after the base rules so the
+   cascade order is: tokens, layout, these, then the print overrides below.
+   ========================================================================= */
+
+/* A line of context under a role, for an organisation the reader won't know. */
+.entry-note {
+  max-width: var(--measure);
+  margin: -6px 0 12px;
+  color: var(--text-faint);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.work { display: grid; gap: 26px; }
+
+.work-item {
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-raised);
+}
+
+.work-image {
+  overflow: hidden;
+  border-radius: 7px;
+  background: var(--bg-sunken);
+}
+.work-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 4 / 3;
+}
+
+.work-kicker {
+  margin: 0 0 6px;
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.work-text h3 { font-size: 1.14rem; }
+
+.work-row {
+  max-width: var(--measure);
+  margin: 10px 0 0;
+  color: var(--text-muted);
+  font-size: 0.94rem;
+}
+.work-row-label { color: var(--text); font-weight: 600; }
+
+@media (min-width: 700px) {
+  /* Image beside the text once there's room; stacked below that width. */
+  .work-item {
+    grid-template-columns: 4fr 6fr;
+    gap: 22px;
+    align-items: start;
+  }
+  .work-item-textonly { grid-template-columns: 1fr; }
+}
+
+/* --- Print ---------------------------------------------------------------- */
+@media print {
+  .entry-note {
+    margin: -2pt 0 4pt;
+    font-size: 9pt;
+    font-style: italic;
+  }
+
+  /* Images don't belong on a printed CV; the words have to carry it. */
+  .work-image { display: none; }
+
+  .work { display: block; }
+  .work-item {
+    display: block;
+    padding: 0;
+    margin-bottom: 9pt;
+    border: none;
+    border-radius: 0;
+    break-inside: avoid;
+  }
+  .work-kicker { margin-bottom: 1pt; font-size: 8pt; }
+  .work-text h3 { font-size: 11pt; }
+  .work-row { margin-top: 2pt; max-width: none; font-size: 9.5pt; }
+}

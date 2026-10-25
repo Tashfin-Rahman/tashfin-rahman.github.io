@@ -1,0 +1,222 @@
+/* ============================================================================
+   content.js — THE ONLY FILE YOU NEED TO EDIT.
+   ----------------------------------------------------------------------------
+   Everything on the site comes from this object. Add a job, a project or a
+   piece of work here and the page picks it up on reload. No HTML to touch.
+
+   Rules:
+   - Any section you leave as an empty array []  disappears from the page and
+     the nav entirely. Nothing renders half-empty.
+   - Set a value to null (not "") when you don't have it, e.g. cvFile: null.
+   - Dates are plain strings, so write them however you like ("Jan 2025",
+     "2026", "Summer 2025"). Use end: "Present" for anything ongoing.
+
+   Anything marked TODO still needs your input.
+   ========================================================================= */
+
+window.CV = {
+  /* --------------------------------------------------------------------------
+     1. WHO YOU ARE — drives the hero, the browser tab, and Google results.
+     ----------------------------------------------------------------------- */
+  meta: {
+    name: "Tashfin Rahman",
+    tagline: "Business finance and AI-assisted marketing",
+
+    // Suburb-level detail left off deliberately: your CV goes to people you
+    // chose, this page is public. Change it if you'd rather be precise.
+    location: "Dhaka, Bangladesh",
+
+    // Where the site lives. Used for the social and search-engine tags.
+    siteUrl: "https://tashfinrahman.github.io",
+
+    // --- Contact ---------------------------------------------------------
+    // You chose email + phone. Both are public here, so expect some spam and
+    // the odd cold call. Switch contactMode to "form" any time to hide them.
+    //   "email"    — mailto link (and the phone below, if set)
+    //   "form"     — a form posting to formEndpoint; nothing exposed
+    //   "linkedin" — LinkedIn button only
+    contactMode: "email",
+    email: "tashfinrahman010@gmail.com",
+    phone: "+880 1568 116144",
+    formEndpoint: null,
+
+    linkedin: null,         // TODO: your LinkedIn URL
+    github: null,           // optional
+    cvFile: null,           // put the PDF at assets/cv.pdf, then: "assets/cv.pdf"
+    headshot: null,         // put a square photo at assets/headshot.jpg
+  },
+
+  /* --------------------------------------------------------------------------
+     2. ABOUT
+     ----------------------------------------------------------------------- */
+  about: [
+    "BBA student at North South University with over two years of hands-on accounting experience in online retail. I co-own Home Inn, where I run the budgeting and bookkeeping, and I advise Haifa Intelligence, an AI studio, on marketing.",
+    "I'm now building my own agency, bringing together the two things I keep coming back to: keeping a business's numbers straight, and using AI tools to make its marketing actually land.",
+    "My research interest is in how data can support financial decisions — lending, budgeting and cost forecasting in particular.",
+  ],
+
+  /* --------------------------------------------------------------------------
+     3. EXPERIENCE — most recent first.
+     ----------------------------------------------------------------------- */
+  experience: [
+    /* When the agency is ready to list, add a block here — entries render in
+       the order they appear, so the newest venture goes at the top:
+         {
+           role: "Founder",
+           org: "Agency name",
+           location: "Dhaka, Bangladesh",
+           start: "2026",
+           end: "Present",
+           bullets: ["What it does and for whom.", "What you handle day to day."],
+         },
+    */
+    {
+      role: "Co-Partner & Finance",
+      org: "Home Inn",
+      location: "Dhaka, Bangladesh",
+      start: "2026",
+      end: "Present",
+      bullets: [
+        "Co-own the business and share in key decisions on direction, spending and growth with the other founders.",
+        "Run budgeting, cost tracking and bookkeeping, set advertising strategy, and prepare the financial summaries used for planning.",
+      ],
+    },
+    {
+      role: "AI Marketing Advisor",
+      org: "Haifa Intelligence",
+      location: "Dhaka, Bangladesh",
+      start: "2026",
+      end: "Present",
+      // Shown in smaller type under the role, to explain an org people won't know.
+      note: "AI studio that trains its own business-tailored models and ships and hosts them privately for individual and commercial clients.",
+      link: "https://haifa-ai.com",
+      bullets: [
+        "Advise on campaign ideas, messaging and target audiences for AI-made posters and promotional videos.",
+        "Translate what client businesses need into clear requirements for their custom AI models.",
+        "Review generated content for brand fit and clarity before it reaches clients.",
+      ],
+    },
+    {
+      role: "Senior Accountant",
+      org: "Steam Store Bangladesh",
+      location: "Dhaka, Bangladesh",
+      start: "Jul 2022",
+      end: "Jan 2025",
+      note: "Online store selling digital products.",
+      bullets: [
+        "Kept the daily books for sales, payments and expenses, and matched incoming payments against orders.",
+        "Monitored transactions to flag unusual fluctuations, and planned accordingly.",
+        "Prepared regular sales and expense reports in Google Sheets for management.",
+      ],
+    },
+  ],
+
+  /* --------------------------------------------------------------------------
+     4. SELECTED WORK — the place to post what you make.
+     ----------------------------------------------------------------------------
+     This section is hidden while the list is empty, so nothing half-finished
+     ships. Add your first piece and it appears, along with its nav link.
+
+     Copy this template into the array below for each piece:
+
+       {
+         title: "Ramadan campaign for a local restaurant",
+         client: "Client name, or null to keep it private",
+         date: "Mar 2026",
+         type: "Campaign",          // Campaign / Poster series / Case study / Video
+         image: "assets/work/ramadan.jpg",   // optional; square-ish or 4:3 works best
+         brief: "What the client needed, in one sentence.",
+         did: "What you actually made and how.",
+         outcome: "What came of it — reach, enquiries, sales, repeat business. A number if you have one; drop the line entirely if you don't.",
+         link: null,                // optional: a live post, a PDF, a drive folder
+       },
+
+     Only `title` is required. Any field you leave out is simply not shown, so
+     a piece with just a title, an image and a one-line brief still looks right.
+     ----------------------------------------------------------------------- */
+  work: [
+    // TODO: your first piece goes here.
+  ],
+
+  /* --------------------------------------------------------------------------
+     5. EDUCATION
+     ----------------------------------------------------------------------- */
+  education: [
+    {
+      degree: "Bachelor of Business Administration (Hons.)",
+      institution: "North South University",
+      location: "Dhaka, Bangladesh",
+      start: "Summer 2025",
+      end: "Present",
+      result: null,          // add a CGPA here once it's worth showing
+      details: [],           // TODO (optional): relevant coursework, any award
+    },
+  ],
+
+  /* --------------------------------------------------------------------------
+     6. PROJECTS & ANALYSES
+     ----------------------------------------------------------------------- */
+  projects: [
+    {
+      title: "CreditSense AI — Loan Approval Prediction",
+      period: "Banking domain contributor",
+      question: "Which model predicts loan approval most reliably, and how should the errors be weighted when a bank is the one acting on them?",
+      method: "Team machine learning project comparing five classifiers, with leak-free, cross-validated evaluation. My contribution was the banking side: explaining how lenders actually weigh credit history, income and loan amount.",
+      finding: "Framed model errors in lending terms rather than accuracy alone — approving a risky loan costs a lender far more than declining a safe one, so the two error types can't be treated as equivalent.",
+      tools: ["Python", "scikit-learn"],
+      link: "https://github.com/Danial-Dirar/CreditSense-AI",
+    },
+  ],
+
+  /* --------------------------------------------------------------------------
+     7. SKILLS
+     ----------------------------------------------------------------------- */
+  skills: [
+    {
+      group: "Business & Marketing",
+      items: ["Business analytics", "Market research", "Campaign planning", "AI-assisted content marketing"],
+    },
+    {
+      group: "Finance & Accounting",
+      items: ["Bookkeeping", "Budgeting", "Cost tracking", "Financial reporting"],
+    },
+    {
+      group: "Tools",
+      items: ["Microsoft Excel", "Word", "PowerPoint", "Google Sheets", "Generative AI tools"],
+    },
+    {
+      group: "Soft skills",
+      items: ["Team leadership", "Public speaking", "Event planning", "Working across teams"],
+    },
+    {
+      group: "Languages",
+      items: ["Bangla (native)", "English (fluent)"],
+    },
+    {
+      group: "Research interests",
+      items: ["Budget and cost forecasting", "Business data collection", "AI applications in finance"],
+    },
+  ],
+
+  /* --------------------------------------------------------------------------
+     8. LEADERSHIP & ACTIVITIES
+     ----------------------------------------------------------------------- */
+  leadership: [
+    {
+      role: "Assistant Organizing Secretary",
+      org: "Monipur School and College Science Club",
+      location: "Dhaka, Bangladesh",
+      start: "Dec 2021",
+      end: "Dec 2022",
+      bullets: [
+        "Helped plan and run the club's science fairs, from scheduling and logistics to coordinating participants.",
+        "Handled executive and administrative work for the club committee.",
+      ],
+    },
+  ],
+
+  /* --------------------------------------------------------------------------
+     9. CERTIFICATIONS & AWARDS — empty, so the section stays hidden.
+     ----------------------------------------------------------------------- */
+  certifications: [],
+};

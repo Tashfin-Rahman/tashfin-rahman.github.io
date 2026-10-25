@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- app.js overwrites these from content.js, but they're hardcoded too so
+       crawlers that don't run JavaScript still get something sensible. -->
+  <title>Tashfin Rahman — Business finance and AI-assisted marketing</title>
+  <meta name="description" content="Tashfin Rahman — business finance, bookkeeping and AI-assisted marketing. Experience, education and selected work.">
+  <meta name="author" content="Tashfin Rahman">
+
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="Tashfin Rahman — Business finance and AI-assisted marketing">
+  <meta property="og:description" content="Business finance, bookkeeping and AI-assisted marketing. Experience, education and selected work.">
+  <meta name="twitter:card" content="summary">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top" data-field="name">Tashfin Rahman</a>
+
+      <nav class="nav" id="nav" aria-label="Sections">
+        <!-- Links are generated from the sections that actually have content. -->
+      </nav>
+
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch colour theme">
+        <span aria-hidden="true" data-theme-icon>◐</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Every section below is filled by app.js. A section whose data is
+         missing from content.js is removed from the document entirely. -->
+
+    <section class="hero" id="top">
+      <div class="wrap hero-inner">
+        <div class="hero-text">
+          <p class="eyebrow" data-field="location"></p>
+          <h1 data-field="name"></h1>
+          <p class="tagline" data-field="tagline"></p>
+          <div class="hero-links" id="hero-links"></div>
+        </div>
+        <img class="headshot" id="headshot" alt="" hidden>
+      </div>
+    </section>
+
+    <section class="section" id="about" aria-labelledby="about-h">
+      <div class="wrap">
+        <h2 id="about-h">About</h2>
+        <div class="prose" id="about-body"></div>
+      </div>
+    </section>
+
+    <section class="section" id="experience" aria-labelledby="experience-h">
+      <div class="wrap">
+        <h2 id="experience-h">Experience</h2>
+        <ol class="timeline" id="experience-body"></ol>
+      </div>
+    </section>
+
+    <section class="section" id="work" aria-labelledby="work-h">
+      <div class="wrap">
+        <h2 id="work-h">Selected Work</h2>
+        <div class="work" id="work-body"></div>
+      </div>
+    </section>
+
+    <section class="section" id="projects" aria-labelledby="projects-h">
+      <div class="wrap">
+        <h2 id="projects-h">Projects &amp; Analyses</h2>
+        <div class="projects" id="projects-body"></div>
+      </div>
+    </section>
+
+    <section class="section" id="education" aria-labelledby="education-h">
+      <div class="wrap">
+        <h2 id="education-h">Education</h2>
+        <ol class="timeline" id="education-body"></ol>
+      </div>
+    </section>
+
+    <section class="section" id="skills" aria-labelledby="skills-h">
+      <div class="wrap">
+        <h2 id="skills-h">Skills</h2>
+        <div class="skills" id="skills-body"></div>
+      </div>
+    </section>
+
+    <section class="section" id="leadership" aria-labelledby="leadership-h">
+      <div class="wrap">
+        <h2 id="leadership-h">Leadership &amp; Activities</h2>
+        <ol class="timeline" id="leadership-body"></ol>
+      </div>
+    </section>
+
+    <section class="section" id="certifications" aria-labelledby="certifications-h">
+      <div class="wrap">
+        <h2 id="certifications-h">Certifications &amp; Awards</h2>
+        <ul class="certs" id="certifications-body"></ul>
+      </div>
+    </section>
+
+    <section class="section section-contact" id="contact" aria-labelledby="contact-h">
+      <div class="wrap">
+        <h2 id="contact-h">Get in touch</h2>
+        <div id="contact-body"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p><span data-field="name"></span> · <span id="footer-year"></span></p>
+    </div>
+  </footer>
+
+  <!-- Structured data so a search for your name returns you, not a namesake.
+       app.js fills this in from content.js. -->
+  <script type="application/ld+json" id="person-schema">{}</script>
+
+  <script src="content.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
