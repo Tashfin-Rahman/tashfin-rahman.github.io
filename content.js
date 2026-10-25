@@ -22,6 +22,12 @@ window.CV = {
     name: "Tashfin Rahman",
     tagline: "Business finance and AI-assisted marketing",
 
+    // The line Google prints under your name in search results, and the one
+    // that shows when someone shares the link. Keep it under about 155
+    // characters or it gets cut off mid-sentence.
+    description:
+      "Tashfin Rahman, Partner and Chief Business Officer at Home Inn in Dhaka. Business finance, costing and marketing, with selected work and a CV to download.",
+
     // Suburb-level detail left off deliberately: your CV goes to people you
     // chose, this page is public. Change it if you'd rather be precise.
     location: "Dhaka, Bangladesh",
@@ -74,9 +80,9 @@ window.CV = {
      2. ABOUT
      ----------------------------------------------------------------------- */
   about: [
-    "BBA student at North South University with over two years of hands-on accounting experience in online retail. I am Partner and Chief Business Officer at Home Inn, an architecture, interiors and custom-furniture firm that has delivered 130 projects across 13 districts of Bangladesh since 2015, where I run the budgeting, cost tracking and bookkeeping, and designed the firm's brand identity and company profile. I also advise Haifa Intelligence, an AI studio, on marketing.",
-    "I'm now building my own agency, bringing together the two things I keep coming back to: keeping a business's numbers straight, and using AI tools to make its marketing actually land.",
-    "My research interest is in how data can support financial decisions — lending, budgeting and cost forecasting in particular.",
+    "I am Partner and Chief Business Officer at Home Inn, and a BBA student at North South University. Home Inn has designed and built architecture, interiors and custom furniture since 2015, 130 projects across 13 districts of Bangladesh. I look after the budgeting, cost tracking and bookkeeping, and I designed the firm's brand identity and its company profile. I also advise Haifa Intelligence, an AI studio, on marketing. Before this I spent two and a half years keeping the books for an online store.",
+    "I am building an agency of my own. Most small businesses I meet here have either their numbers in order or their marketing in order, rarely both. That gap is where I want to work.",
+    "I am interested in how data helps with financial decisions, particularly in lending, budgeting and cost forecasting.",
   ],
 
   /* --------------------------------------------------------------------------
@@ -100,13 +106,13 @@ window.CV = {
       location: "Dhaka, Bangladesh",
       start: "2026",
       end: "Present",
-      note: "Architecture, interiors and custom furniture, designed and built across Bangladesh since 2015 under the trade licence of M/S Ahasan Enterprise — 73 corporate and 57 residential projects in 13 districts.",
+      note: "Architecture, interiors and custom furniture, built across Bangladesh since 2015 under the trade licence of M/S Ahasan Enterprise. 73 corporate and 57 residential projects in 13 districts.",
       link: "https://homeinn.xyz",
       bullets: [
-        "Co-own the business and share in key decisions on direction, spending and growth with the other partners.",
-        "Run budgeting, cost tracking and bookkeeping, and prepare the financial summaries the partners plan against.",
-        "Set advertising strategy across the firm's four lines: architectural design, interior design and implementation, custom furniture, and property.",
-        "Designed the brand identity \u2014 logo system, colour palette, print-ready visiting cards \u2014 and the twenty-page company profile used with corporate clients.",
+        "Co-own the firm and share decisions on direction, spending and growth with the other partners.",
+        "Keep the budgets, track costs and do the bookkeeping. The partners plan against the summaries I prepare.",
+        "Set the advertising approach across all four lines of work: architectural design, interiors, custom furniture and property.",
+        "Designed the firm's brand identity, from the logo and colour palette through to print-ready visiting cards, and wrote the twenty-page company profile we send to corporate clients.",
       ],
     },
     {
@@ -116,12 +122,12 @@ window.CV = {
       start: "2026",
       end: "Present",
       // Shown in smaller type under the role, to explain an org people won't know.
-      note: "AI studio that trains its own business-tailored models and ships and hosts them privately for individual and commercial clients.",
+      note: "An AI studio that trains its own business-tailored models and hosts them privately for individual and commercial clients.",
       link: "https://haifa-ai.com",
       bullets: [
-        "Advise on campaign ideas, messaging and target audiences for AI-made posters and promotional videos.",
-        "Translate what client businesses need into clear requirements for their custom AI models.",
-        "Review generated content for brand fit and clarity before it reaches clients.",
+        "Advise on campaign ideas, messaging and audiences for posters and promotional videos made with AI.",
+        "Turn what a client actually needs into clear requirements for their custom model.",
+        "Check the generated work for brand fit and clarity before it goes to the client.",
       ],
     },
     {
@@ -132,8 +138,8 @@ window.CV = {
       end: "Jan 2025",
       note: "Online store selling digital products.",
       bullets: [
-        "Kept the daily books for sales, payments and expenses, and matched incoming payments against orders.",
-        "Monitored transactions to flag unusual fluctuations, and planned accordingly.",
+        "Kept the daily books for sales, payments and expenses, and matched incoming payments to orders.",
+        "Watched the daily transactions for anything out of the ordinary and raised it early.",
         "Prepared regular sales and expense reports in Google Sheets for management.",
       ],
     },
@@ -189,11 +195,11 @@ window.CV = {
         },
       ],
       brief:
-        "Home Inn had been building since 2015 without one consistent public face. The website said \u201cHome Inn\u201d, while the logo and the invoices carried a different version of the name, and there was no agreed palette or print specification.",
+        "The firm had been working since 2015 without a settled public face. The website gave one version of the name, the logo and invoices another, and there was no agreed palette or print specification.",
       did:
-        "Designed the identity and built it out: the logo in thirteen variants for signage, app icons and print; a five-colour palette with fixed hex values; double-sided visiting cards supplied to the printer as CMYK with bleed and crop marks; social covers and highlight icons; and a twenty-page company profile.",
+        "I designed the identity and made the pieces that came out of it: thirteen logo variants for signage, app icons and print, a five-colour palette with fixed values, double-sided visiting cards supplied to the printer as CMYK with bleed and crop marks, social covers and highlight icons, and a twenty-page company profile.",
       outcome:
-        "One name and one look across the website, print, signage and social, and a profile the firm can hand to a prospective corporate client.",
+        "The firm now uses one name and one look across its website, print, signage and social accounts, and has a profile it can hand to a prospective client.",
       link: "https://homeinn.xyz",
     },
     {
@@ -217,11 +223,11 @@ window.CV = {
         },
       ],
       brief:
-        "Residential design at Home Inn runs from the first site visit and measurements through 2D plans and 3D views, revised with the client until the design is signed off and costed.",
+        "Residential work starts with a site visit and measurements, then 2D plans and 3D views, revised with the client until the drawings are signed off and costed.",
       did:
-        "I am Partner and Chief Business Officer. The drawings are the studio's; my side is the budgeting, cost tracking and project costing that decide whether a design can be built to the client's number.",
+        "The drawings are the studio's work. Mine is the costing behind them, working out whether a design can be built for what the client wants to spend.",
       outcome:
-        "Home Inn has designed and built across Bangladesh since 2015, with 57 residential projects in 13 districts to date.",
+        "57 residential projects across 13 districts so far.",
       link: "https://homeinn.xyz",
     },
     {
@@ -249,11 +255,11 @@ window.CV = {
         },
       ],
       brief:
-        "A made-to-order line \u2014 wardrobes, dressing units, workstations, executive desks and display shelving \u2014 where each piece is drawn for the room it will stand in rather than picked from a catalogue.",
+        "Wardrobes, dressing units, workstations, desks and display shelving, all made to order. Each piece is drawn for the room it will stand in rather than picked from a catalogue.",
       did:
-        "Made-to-order work only pays if every piece is costed properly before it is quoted. Costing and pricing this line is my part of it, alongside the books.",
+        "I cost and price this line before anything is quoted. Nothing here is standard, so each piece has to be worked out on its own.",
       outcome:
-        "Built in Home Inn's own workshop, which keeps the margin and the quality control in-house instead of with a subcontractor.",
+        "Everything is built in our own workshop, so the margin and the quality control stay with us.",
       link: "https://homeinn.xyz/en/furniture",
     },
     {
@@ -269,11 +275,11 @@ window.CV = {
         },
       ],
       brief:
-        "Home Inn builds duplex and triplex homes alongside the interiors work, with one team from the first visit through construction, fit-out and after-service.",
+        "We build duplex and triplex homes alongside the interiors work, with one team from the first visit through construction, fit-out and after-service.",
       did:
-        "Construction is where a budget goes wrong quietly. I track cost against plan as the job runs, so an overrun shows up while there is still time to act on it.",
+        "I track cost against plan while the job is running, so an overrun shows up early enough to do something about it.",
       outcome:
-        "Part of a body of work covering 73 corporate and 57 residential projects across 13 districts of Bangladesh.",
+        "Part of 73 corporate and 57 residential projects across 13 districts.",
       link: "https://homeinn.xyz",
     },
   ],
@@ -301,8 +307,8 @@ window.CV = {
       title: "CreditSense AI — Loan Approval Prediction",
       period: "Banking domain contributor",
       question: "Which model predicts loan approval most reliably, and how should the errors be weighted when a bank is the one acting on them?",
-      method: "Team machine learning project comparing five classifiers, with leak-free, cross-validated evaluation. My contribution was the banking side: explaining how lenders actually weigh credit history, income and loan amount.",
-      finding: "Framed model errors in lending terms rather than accuracy alone — approving a risky loan costs a lender far more than declining a safe one, so the two error types can't be treated as equivalent.",
+      method: "A team project comparing five classifiers, evaluated leak-free and cross-validated. I covered the banking side, explaining how lenders weigh credit history, income and loan amount.",
+      finding: "We judged the models on what their mistakes would cost rather than on accuracy alone. Approving a bad loan costs a lender far more than turning down a good one, so the two mistakes should not carry equal weight.",
       tools: ["Python", "scikit-learn"],
       link: "https://github.com/Danial-Dirar/CreditSense-AI",
     },
@@ -349,7 +355,7 @@ window.CV = {
       start: "Dec 2021",
       end: "Dec 2022",
       bullets: [
-        "Helped plan and run the club's science fairs, from scheduling and logistics to coordinating participants.",
+        "Helped plan and run the club's science fairs, from scheduling and logistics to looking after participants.",
         "Handled executive and administrative work for the club committee.",
       ],
     },

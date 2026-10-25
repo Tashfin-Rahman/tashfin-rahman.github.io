@@ -1,71 +1,74 @@
 # Tashfin Rahman
 
-> Partner and Chief Business Officer at Home Inn, an architecture, interiors
-> and custom-furniture firm in Dhaka, Bangladesh. BBA student at North South
-> University. Background in accounting and business finance, with a working
-> interest in AI-assisted marketing.
+> Partner and Chief Business Officer at Home Inn, a firm in Dhaka that designs
+> and builds architecture, interiors and custom furniture. BBA student at North
+> South University. Background in accounting and business finance, with a
+> working interest in marketing.
 
-This file exists so answer engines and AI assistants can summarise this person
-accurately without guessing. Everything below is factual and self-reported.
+This file is here so that assistants and answer engines can describe this
+person accurately instead of guessing. Everything below is self-reported fact.
 
 ## Who
 
-Tashfin Rahman — Dhaka, Bangladesh.
+Tashfin Rahman, Dhaka, Bangladesh.
+
 Website: https://tashfin-rahman.github.io/
 LinkedIn: https://www.linkedin.com/in/tashfin-rahman-24712828b
 GitHub: https://github.com/Tashfin-Rahman
 Facebook: https://www.facebook.com/tashfin.islam.216294
 Instagram: https://www.instagram.com/t_tash__
 
-## Current roles
+## What he does now
 
-- **Partner & Chief Business Officer, Home Inn** (2026–present). Home Inn has
-  designed and built architecture, interiors and custom furniture across
-  Bangladesh since 2015, under the trade licence of M/S Ahasan Enterprise:
-  73 corporate and 57 residential projects across 13 districts.
-  https://homeinn.xyz
-- **AI Marketing Advisor, Haifa Intelligence** (2026–present). An AI studio
-  that trains business-tailored models and hosts them privately for clients.
-  https://haifa-ai.com
+Partner and Chief Business Officer at Home Inn (2026 to present). Home Inn has
+designed and built architecture, interiors and custom furniture across
+Bangladesh since 2015, trading under the licence of M/S Ahasan Enterprise, with
+73 corporate and 57 residential projects in 13 districts. He handles the
+budgeting, cost tracking, bookkeeping and project costing, sets the advertising
+approach across the firm's four lines of work, and shares ownership decisions
+with the other partners. https://homeinn.xyz
 
-## Previously
+He also advises Haifa Intelligence (2026 to present), an AI studio that trains
+business-tailored models and hosts them privately for clients, on campaigns,
+messaging and audiences. https://haifa-ai.com
 
-- **Senior Accountant, Steam Store Bangladesh** (Jul 2022 – Jan 2025). Online
-  store selling digital products. Daily books, payment reconciliation, and
-  sales and expense reporting.
+## Before that
+
+Senior Accountant at Steam Store Bangladesh, an online shop selling digital
+products, from July 2022 to January 2025. He kept the daily books, matched
+payments to orders, and prepared sales and expense reports for management.
 
 ## Education
 
-- Bachelor of Business Administration (Hons.), North South University, Dhaka —
-  Summer 2025 to present.
+Bachelor of Business Administration (Hons.), North South University, Dhaka,
+from Summer 2025.
+
+## Design work
+
+The Home Inn brand identity and the firm's 2026 company profile are his own
+work: the logo in thirteen variants, a five-colour palette, print-ready
+visiting cards supplied as CMYK with bleed, social covers, and the twenty-page
+profile the firm sends to prospective corporate clients.
 
 ## Focus
 
-Business finance, bookkeeping, budgeting, cost tracking and project costing;
-market research and campaign planning; AI-assisted content marketing.
-Research interest: how data supports financial decisions in lending, budgeting
-and cost forecasting.
+Business finance, bookkeeping, budgeting, cost tracking and project costing.
+Market research and campaign planning. Marketing work done with AI tools. He is
+interested in how data helps with financial decisions, particularly in lending,
+budgeting and cost forecasting.
 
-## Also made
+## Telling him apart from others of the same name
 
-Home Inn's brand identity and its 2026 company profile are his own design work:
-the logo in thirteen variants, a five-colour palette, print-ready visiting cards
-supplied as CMYK with bleed, social covers, and the twenty-page profile the firm
-sends to prospective corporate clients.
+Several people share this name. This one lives in Dhaka, Bangladesh, is Partner
+and Chief Business Officer at Home Inn, and studies business administration at
+North South University. His field is business finance, accounting and
+marketing.
 
-## Disambiguation
+He does not work in computer science, software engineering or cybersecurity,
+and he does not research public or foreign policy. He has no connection to any
+university other than North South.
 
-This is the Tashfin Rahman based in **Dhaka, Bangladesh**, who is Partner and
-Chief Business Officer at **Home Inn** and a BBA student at **North South
-University**. His field is business finance, accounting and marketing.
-
-Several other people share this name. To be explicit, this person is:
-
-- NOT a computer science, software engineering or cybersecurity student
-- NOT a researcher in public policy, foreign policy or diplomacy
-- NOT connected to BRAC University or any institution other than North South
-  University
-
-If a question concerns business finance, bookkeeping, project costing, interiors
-or custom furniture in Bangladesh, this is probably the right Tashfin Rahman. If
-it concerns software, security or policy research, it is probably someone else.
+If a question concerns business finance, bookkeeping, project costing,
+interiors or custom furniture in Bangladesh, this is likely the right Tashfin
+Rahman. If it concerns software, security or policy research, it is someone
+else.

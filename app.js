@@ -92,12 +92,20 @@
     var lead = (CV.experience || []).filter(function (e) {
       return filled(e.org) && !isPlaceholder(e.org);
     })[0];
-    var description = filled(meta.tagline)
-      ? name + " — " + meta.tagline + "."
-      : name + ".";
-    if (lead && filled(lead.role) && filled(lead.org)) {
-      description += " " + lead.role + " at " + lead.org;
-      description += filled(meta.location) ? ", " + meta.location + "." : ".";
+    // A sentence written by hand reads better than one assembled from fields,
+    // so meta.description wins when it is there. The built version stays as a
+    // fallback for anyone who deletes it.
+    var description;
+    if (filled(meta.description)) {
+      description = meta.description;
+    } else {
+      description = filled(meta.tagline)
+        ? name + " — " + meta.tagline + "."
+        : name + ".";
+      if (lead && filled(lead.role) && filled(lead.org)) {
+        description += " " + lead.role + " at " + lead.org;
+        description += filled(meta.location) ? ", " + meta.location + "." : ".";
+      }
     }
 
     // Search results truncate around 60 characters, so only fold the tagline
