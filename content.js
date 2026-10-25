@@ -40,7 +40,7 @@ window.CV = {
     phone: "+880 1568 116144",
     formEndpoint: null,
 
-    linkedin: null,         // TODO: your LinkedIn URL
+    linkedin: "https://www.linkedin.com/in/tashfin-rahman-24712828b",
     github: null,           // optional
     cvFile: "assets/cv.pdf",
 
