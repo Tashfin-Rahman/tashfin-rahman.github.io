@@ -89,9 +89,16 @@
 
   function renderHead() {
     var name = filled(meta.name) ? meta.name : "Portfolio";
+    var lead = (CV.experience || []).filter(function (e) {
+      return filled(e.org) && !isPlaceholder(e.org);
+    })[0];
     var description = filled(meta.tagline)
-      ? meta.name + " — " + meta.tagline
-      : "Personal portfolio and CV.";
+      ? name + " — " + meta.tagline + "."
+      : name + ".";
+    if (lead && filled(lead.role) && filled(lead.org)) {
+      description += " " + lead.role + " at " + lead.org;
+      description += filled(meta.location) ? ", " + meta.location + "." : ".";
+    }
 
     // Search results truncate around 60 characters, so only fold the tagline
     // into the title when the whole thing still fits.
@@ -104,37 +111,118 @@
     setMeta("property", "og:description", description);
     if (filled(meta.siteUrl)) setMeta("property", "og:url", meta.siteUrl);
 
-    var schema = {
-      "@context": "https://schema.org",
+    // Absolute URLs, because social scrapers and search engines will not
+    // resolve a relative path from a tag.
+    var base = "";
+    if (filled(meta.siteUrl)) {
+      base = meta.siteUrl;
+      while (base.charAt(base.length - 1) === "/") base = base.slice(0, -1);
+    }
+    function absolute(path) {
+      if (!filled(path)) return null;
+      if (path.indexOf("http") === 0) return path;
+      return base ? base + "/" + path : path;
+    }
+    var photoUrl = absolute(meta.heroBanner) || absolute(meta.headshot);
+
+    if (base) {
+      setMeta("property", "og:url", base + "/");
+      setLink("canonical", base + "/");
+    }
+    if (photoUrl) {
+      setMeta("property", "og:image", photoUrl);
+      setMeta("property", "og:image:alt", name + ", " + (meta.tagline || ""));
+      setMeta("name", "twitter:image", photoUrl);
+      setMeta("name", "twitter:card", "summary_large_image");
+    }
+
+    // A ProfilePage wrapping a Person is the pattern search engines and answer
+    // engines use to decide this page IS this person, rather than a page that
+    // happens to mention them. That distinction is what gets your own site
+    // ranked for your own name.
+    var person = {
       "@type": "Person",
+      "@id": base + "/#person",
       name: name,
     };
-    if (filled(meta.tagline)) schema.description = meta.tagline;
-    if (filled(meta.location)) schema.address = meta.location;
-    if (filled(meta.siteUrl)) schema.url = meta.siteUrl;
-    if (filled(meta.email)) schema.email = meta.email;
-    if (filled(meta.phone)) schema.telephone = meta.phone;
+    if (filled(meta.tagline)) person.description = meta.tagline;
+    if (base) person.url = base + "/";
+    if (filled(meta.email)) person.email = meta.email;
+    if (filled(meta.phone)) person.telephone = meta.phone;
 
+    if (filled(meta.location)) {
+      var where = meta.location.split(",");
+      person.address = { "@type": "PostalAddress", addressLocality: where[0].trim() };
+      if (where.length > 1) {
+        person.address.addressCountry = where[where.length - 1].trim();
+      }
+    }
+
+    if (photoUrl) {
+      person.image = {
+        "@type": "ImageObject",
+        url: photoUrl,
+        caption: name,
+      };
+    }
+
+    // sameAs is for other pages about the SAME person — profiles, not
+    // employers. Getting this wrong confuses the entity rather than helping.
     var profiles = [meta.linkedin, meta.github].filter(filled);
-    if (profiles.length) schema.sameAs = profiles;
+    if (profiles.length) person.sameAs = profiles;
 
     var school = (CV.education || []).filter(function (e) {
       return filled(e.institution) && !isPlaceholder(e.institution);
     })[0];
     if (school) {
-      schema.alumniOf = { "@type": "EducationalOrganization", name: school.institution };
+      person.alumniOf = { "@type": "EducationalOrganization", name: school.institution };
     }
 
     var job = (CV.experience || []).filter(function (e) {
       return filled(e.org) && !isPlaceholder(e.org);
     })[0];
     if (job) {
-      if (filled(job.role)) schema.jobTitle = job.role;
-      schema.worksFor = { "@type": "Organization", name: job.org };
+      if (filled(job.role)) person.jobTitle = job.role;
+      person.worksFor = { "@type": "Organization", name: job.org };
+      // The employer's own site ties the two entities together.
+      if (filled(job.link)) person.worksFor.url = job.link;
     }
 
-    document.getElementById("person-schema").textContent = JSON.stringify(schema);
+    var topics = [];
+    (CV.skills || []).forEach(function (group) {
+      (group.items || []).filter(filled).forEach(function (item) {
+        if (topics.indexOf(item) === -1) topics.push(item);
+      });
+    });
+    if (topics.length) person.knowsAbout = topics.slice(0, 24);
+
+    var graph = {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "ProfilePage",
+          "@id": base + "/#page",
+          url: base + "/",
+          name: document.title,
+          inLanguage: "en",
+          mainEntity: { "@id": base + "/#person" },
+        },
+        person,
+      ],
+    };
+
+    document.getElementById("person-schema").textContent = JSON.stringify(graph);
     setFavicon(name);
+  }
+
+  function setLink(rel, href) {
+    var tag = document.head.querySelector('link[rel="' + rel + '"]');
+    if (!tag) {
+      tag = document.createElement("link");
+      tag.setAttribute("rel", rel);
+      document.head.appendChild(tag);
+    }
+    tag.setAttribute("href", href);
   }
 
   function setMeta(attr, key, value) {
@@ -186,7 +274,11 @@
       var banner = el("div", "hero-banner");
       var bannerImg = document.createElement("img");
       bannerImg.src = meta.heroBanner;
-      bannerImg.alt = "";
+      // Descriptive, not empty: this is the image that should come back when
+      // someone searches the name, so it needs text a crawler can read.
+      bannerImg.alt = filled(meta.name)
+        ? meta.name + (filled(meta.tagline) ? " — " + meta.tagline : "")
+        : "";
       // A wrong path would leave a dead letterbox at the top of the page.
       bannerImg.addEventListener("error", function () {
         banner.remove();

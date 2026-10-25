@@ -47,11 +47,11 @@ window.CV = {
     // Full-width photo across the top of the page. Wants a LANDSCAPE image,
     // ideally 2000px wide or more — see assets/README.md for what works.
     //
-    // PRE-WIRED: save your photo as assets/banner.jpg and it appears on the
+    // PRE-WIRED: save your photo as assets/tashfin-rahman.jpg and it appears
     // next reload, with no code change needed. Until that file exists the
     // hero quietly falls back to the plain text layout (you'll see one
     // harmless 404 in the browser console; it goes away once the file is in).
-    heroBanner: "assets/banner.jpg",
+    heroBanner: "assets/tashfin-rahman.jpg",
 
     headshot: null,         // optional small circular photo, square crop
   },
@@ -60,7 +60,7 @@ window.CV = {
      2. ABOUT
      ----------------------------------------------------------------------- */
   about: [
-    "BBA student at North South University with over two years of hands-on accounting experience in online retail. I co-own Home Inn, where I run the budgeting and bookkeeping, and I advise Haifa Intelligence, an AI studio, on marketing.",
+    "BBA student at North South University with over two years of hands-on accounting experience in online retail. I am Partner and Chief Business Officer at Home Inn, an architecture, interiors and custom-furniture firm that has delivered 130 projects across 13 districts of Bangladesh since 2015, where I run the budgeting, cost tracking and bookkeeping. I also advise Haifa Intelligence, an AI studio, on marketing.",
     "I'm now building my own agency, bringing together the two things I keep coming back to: keeping a business's numbers straight, and using AI tools to make its marketing actually land.",
     "My research interest is in how data can support financial decisions — lending, budgeting and cost forecasting in particular.",
   ],
@@ -81,14 +81,17 @@ window.CV = {
          },
     */
     {
-      role: "Co-Partner & Finance",
+      role: "Partner & Chief Business Officer",
       org: "Home Inn",
       location: "Dhaka, Bangladesh",
       start: "2026",
       end: "Present",
+      note: "Architecture, interiors and custom furniture, designed and built across Bangladesh since 2015 under the trade licence of M/S Ahasan Enterprise — 73 corporate and 57 residential projects in 13 districts.",
+      link: "https://homeinn.xyz",
       bullets: [
-        "Co-own the business and share in key decisions on direction, spending and growth with the other founders.",
-        "Run budgeting, cost tracking and bookkeeping, set advertising strategy, and prepare the financial summaries used for planning.",
+        "Co-own the business and share in key decisions on direction, spending and growth with the other partners.",
+        "Run budgeting, cost tracking and bookkeeping, and prepare the financial summaries the partners plan against.",
+        "Set advertising strategy across the firm's four lines: architectural design, interior design and implementation, custom furniture, and property.",
       ],
     },
     {
@@ -188,7 +191,7 @@ window.CV = {
     },
     {
       group: "Finance & Accounting",
-      items: ["Bookkeeping", "Budgeting", "Cost tracking", "Financial reporting"],
+      items: ["Bookkeeping", "Budgeting", "Cost tracking", "Financial reporting", "Project costing"],
     },
     {
       group: "Tools",
