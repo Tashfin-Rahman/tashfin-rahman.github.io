@@ -293,6 +293,25 @@ a:hover { text-decoration-thickness: 2px; }
   display: block;
   overflow: visible;
 }
+/* Added for one turn on each press, then taken off again by the script. */
+.toggle-icon.is-turning { animation: toggle-turn 0.62s var(--ease); }
+@keyframes toggle-turn {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(180deg); }
+}
+
+/* --- The theme sweep -----------------------------------------------------
+   The new theme opens as a circle from the button. Both snapshots keep their
+   own animation off so the only movement is the clip the script drives, and
+   the new one sits on top of the old.
+   -------------------------------------------------------------------- */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) { z-index: 1; }
+::view-transition-new(root) { z-index: 2; }
 .toggle-disc {
   fill: currentColor;
   transform-box: fill-box;

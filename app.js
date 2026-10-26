@@ -1199,15 +1199,75 @@
       toggle.setAttribute("aria-label", "Switch to " + next + " theme");
     }
 
+    function quiet() {
+      try {
+        return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      } catch (err) {
+        return false;
+      }
+    }
+
+    // How far the circle has to grow to reach the furthest corner of the
+    // window from where it started. Without this the sweep stops short on a
+    // wide screen and the old theme is left showing in a corner.
+    function reach(x, y) {
+      return Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+    }
+
     toggle.addEventListener("click", function () {
       var next = current() === "dark" ? "light" : "dark";
-      document.documentElement.setAttribute("data-theme", next);
-      try {
-        localStorage.setItem("portfolio-theme", next);
-      } catch (err) {
-        /* Not persisted; the choice still applies for this visit. */
+      var root = document.documentElement;
+
+      function apply() {
+        root.setAttribute("data-theme", next);
+        try {
+          localStorage.setItem("portfolio-theme", next);
+        } catch (err) {
+          /* Not persisted; the choice still applies for this visit. */
+        }
+        paint();
       }
-      paint();
+
+      // The icon spins once as it changes shape. Independent of the sweep,
+      // so it still happens where view transitions are unavailable.
+      var icon = toggle.querySelector(".toggle-icon");
+      if (icon && !quiet()) {
+        icon.classList.remove("is-turning");
+        void icon.offsetWidth; // restart the animation rather than ignore it
+        icon.classList.add("is-turning");
+      }
+
+      if (!document.startViewTransition || quiet()) {
+        apply();
+        return;
+      }
+
+      var box = toggle.getBoundingClientRect();
+      var x = box.left + box.width / 2;
+      var y = box.top + box.height / 2;
+      var to = reach(x, y);
+
+      var change = document.startViewTransition(apply);
+      change.ready
+        .then(function () {
+          root.animate(
+            {
+              clipPath: [
+                "circle(0px at " + x + "px " + y + "px)",
+                "circle(" + to + "px at " + x + "px " + y + "px)"
+              ]
+            },
+            {
+              duration: 620,
+              easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+              pseudoElement: "::view-transition-new(root)"
+            }
+          );
+        })
+        .catch(function () {
+          /* A transition can be interrupted by a second click. The theme is
+             already applied either way, so there is nothing to undo. */
+        });
     });
 
     paint();

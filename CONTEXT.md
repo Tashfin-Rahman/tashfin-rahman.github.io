@@ -327,6 +327,17 @@ is CSS driven by `data-theme` on `<html>`, so the icon is already correct
 before any script runs and `app.js` only updates the `aria-label`. There is
 no glyph to swap any more; do not reintroduce one.
 
+Pressing it does two things at once. The icon spins half a turn, driven by a
+class the script adds and removes. And the new theme opens as a circle from
+the button and spreads to the furthest corner of the window, built on the
+View Transitions API: `document.startViewTransition` snapshots the old page,
+the new one is laid over it, and the script animates a `clip-path` circle on
+`::view-transition-new(root)`. The radius is the distance to the furthest
+corner, or the sweep stops short and leaves the old theme in a corner.
+
+Where the API is missing, or reduced motion is asked for, the theme simply
+switches. The spin still runs; only the sweep is skipped.
+
 ### Animation and reduced motion
 
 Anything that starts hidden and is revealed by a transition must also be put
