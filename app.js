@@ -76,6 +76,7 @@
   var sections = [
     { id: "about", label: "About", render: renderAbout },
     { id: "experience", label: "Experience", render: renderExperience },
+    { id: "reach", label: "Reach", render: renderReach },
     { id: "work", label: "Work", render: renderWork },
     { id: "writing", label: "Writing", render: renderWriting },
     { id: "projects", label: "Projects", render: renderProjects },
@@ -802,6 +803,249 @@
     return true;
   }
 
+
+  /* --- The map -----------------------------------------------------------
+     An outline of Bangladesh with a dot on every district the firm has
+     worked in. The outline is Natural Earth's 50m boundary, projected once
+     on the way in and pasted here as a path. MAP keeps the numbers that
+     projection used, so a latitude and longitude put a dot in the right
+     place on it.
+     -------------------------------------------------------------------- */
+
+  var MAP = {
+    viewBox: "0 0 1000 1361",
+    lon0: 88.023438,
+    lat1: 26.571533,
+    kx: 0.9157959636063627,
+    scale: 231.27010113568417,
+    pad: 12,
+    path: "M229.7 1047.7L230.7 1026.2L229.4 1005.8L212.8 951.1L202 923.1L203.4 914L202.6 910.2L197.6 874.2L190.7 852.1L187.2 828.6L203.6 794.8L197 789.3L178.1 784.9L160.5 779L156.1 770.3L163.9 737L154.8 724L141.7 710.8L137.6 705.5L133.3 698.7L127.2 682L138.9 646.9L155.3 606.1L158.2 590.6L160.9 563.6L162.4 553.3L160.3 543.1L143.1 531.3L112.6 526.6L91.1 516.7L78.5 501.8L67.8 495.8L54.7 500.2L37.9 494.4L23.8 479.5L12 461.5L13.4 453.1L16.6 441.8L38.8 395.2L47 393.8L66.2 402.8L73.4 402.8L86 384.3L103.7 331.9L128.6 332L150.5 333.7L165.4 336.4L180.1 334.7L195.6 330.5L204 323.9L208.6 315.5L207 308.2L188.1 298.3L180.8 290.9L175.5 269.9L169.9 262L132.7 260.9L113.5 251.3L102.8 242.6L83.9 214L60.6 192.8L38.3 187.8L29.6 180.9L24.9 170L27.7 154.3L34.4 140L39 124L56.8 103L77.8 84.6L87.1 72L100.3 58.7L101.9 51.4L99.5 43.1L88.8 35.1L81.5 32.6L80.3 27.4L85.4 13.7L95.6 12L116.8 24.4L138.4 44.6L151.2 62.5L151.7 76.7L160 79L168.4 79.6L182.4 85.9L196.9 83.9L206.3 87.4L212.6 86.2L214.9 78L207.9 66L202.8 57.4L208.7 48.9L215.3 47.2L222.8 49.3L233 57L240.4 72.9L241.8 97.4L258.3 119.7L280.1 135.5L297.1 142.8L317.7 148L335.3 143L344.1 127.4L340.1 113.6L342.9 101.2L349.9 94.3L360.9 94.7L369.2 104.6L393.1 157.7L388.2 181.3L393.5 245.9L387.5 288.5L388.5 297.7L391.2 304.8L395.3 307.7L402.3 307.6L431.4 315.7L456 324.6L483.7 332.7L523.7 339L548.2 336.9L560.5 336.7L585.3 338.6L650.5 335.2L704.5 334.3L726.4 340.4L744 342.6L804.1 338.3L864.7 336.3L897.6 349.8L933.3 371.9L953.4 388.4L957 397.8L954.8 405.9L948.1 410.3L935.8 410.4L907.4 399.7L902.6 402.9L903.1 424.9L902.2 428.4L896.2 448.1L879.1 492.5L875.8 512.3L872.2 517.4L867.8 520.1L854.4 520.9L844 524.2L839.6 531.4L832.8 546.4L828.2 561.5L821.6 566.2L806 558L796.3 559.3L784.1 562.8L771.9 571.4L763.4 582.1L753.9 585.7L725.6 583.6L720.2 585.1L716.6 592.7L713.7 602.4L691.6 625.1L683.2 661.6L676.4 685.2L677.5 703.6L696.2 751.6L709.2 813.8L714.2 820.2L718.5 822.2L720.5 820.7L720.1 807.8L720.9 792.2L727 788.5L734.8 791.8L742.3 805.3L750.7 830.2L759.7 839.9L773.6 842.7L789.6 836.9L801.5 825.6L806.3 813.5L802.9 789.5L802.2 771.5L809.8 754.5L837.1 729.1L841.1 721.3L839.3 699.6L839.3 679.3L849.7 678L863.5 681.2L881.1 671.2L886.5 671L893.8 681.8L906.3 679.9L915.5 724.1L925 763.1L924.9 781.9L926.5 821.8L930.8 854.4L937.5 861.8L945.4 879.2L952.6 899.4L958.3 910.7L962.1 947.7L966.9 974.4L973.1 1058.1L976 1074.3L977.7 1083.1L978 1159.7L979.9 1192.4L986.7 1219.4L988 1229.7L981.3 1238L974.6 1239.6L968.4 1226.6L954.2 1216.6L933.1 1205.9L924.2 1198.8L913.5 1201.6L898.3 1217.8L892.3 1232.7L894.9 1253.8L899.7 1274.5L910.2 1286.3L911.1 1299.4L914.8 1316.3L920.3 1331.9L922.9 1348.7L919.4 1349L906.8 1327.5L895.4 1304.2L866.1 1260.1L856.5 1181.1L855.9 1142.2L835.8 1096.3L822.5 1032.9L817.1 1016.4L824.1 995.9L825.3 988.2L821.5 989.9L811.2 1000.5L797.9 975.2L789.2 952.5L754.6 905.6L744.5 884.8L744.1 864.6L729.2 884.9L708.9 899.2L688.2 920.7L674.5 927.2L630.9 931.2L605.7 902.4L569.6 832.1L564.8 816.2L569.6 774.8L561 735.7L561.1 715L558.6 701.2L552.1 704.3L549.6 713.8L550.9 728.3L548.3 740.5L517 738.1L487.6 732.6L513.5 753.1L541.3 757.9L555.8 776.4L557.5 790.8L556.7 807L542.4 818.3L529.3 825.5L531.8 841L547.6 860L528.4 865.3L523.2 877.7L522.8 895.4L532.4 910.9L536.2 922.4L533.9 933.1L543.2 944.5L556.8 968.5L561.1 985.5L555.5 1009.5L547.7 1018.8L535.3 1027.9L506 1058.1L491.7 1092.5L479.5 1108.6L464.3 1111.6L458.3 1104.5L445.7 1095.3L445.5 1078.5L449.2 1065.2L475 1033L461 1037.4L445.1 1046.5L420.9 1064L413.3 1042.4L408.2 1022.4L408.1 997.9L427.5 961.4L405.6 979.6L399.5 1002.4L402.2 1029.2L399.4 1048.2L390.8 1073.1L379.1 1088L360.3 1097.5L351.9 1112.2L339.2 1123L338.8 1101.5L334.8 1073L321.2 1005.5L318.2 1020L325.3 1061.9L324.9 1089.1L314.6 1110.6L293.7 1133.8L277.8 1137L268.5 1133.5L254.2 1119.1L238.7 1098.7L236.1 1065.8L229.7 1047.7ZM595.3 1048.6L558.5 1056.7L539.7 1054.2L574.7 993.5L573.6 966.4L568.1 944.2L550.3 926.4L549.3 913.7L541.3 896.4L537.1 876.1L557 869.6L573 881.2L575.3 887.6L578.7 904.2L586.7 921.5L614.5 957.1L614 978.9L606.4 1032.3L595.3 1048.6Z",
+  };
+
+  // Every district, so a name in content.js is all it takes. Government
+  // spellings, with the older ones people still type kept as aliases.
+  var DISTRICTS = {
+    Dhaka: [23.81, 90.41], Gazipur: [23.99, 90.42], Narayanganj: [23.62, 90.5],
+    Narsingdi: [23.92, 90.72], Manikganj: [23.86, 90.0], Munshiganj: [23.55, 90.53],
+    Tangail: [24.25, 89.92], Kishoreganj: [24.44, 90.78], Faridpur: [23.6, 89.84],
+    Gopalganj: [23.01, 89.83], Madaripur: [23.17, 90.2], Shariatpur: [23.2, 90.35],
+    Rajbari: [23.76, 89.64],
+    Mymensingh: [24.75, 90.4], Jamalpur: [24.92, 89.94], Netrokona: [24.88, 90.73],
+    Sherpur: [25.02, 90.02],
+    Chattogram: [22.36, 91.78], "Cox's Bazar": [21.44, 92.0], Cumilla: [23.46, 91.18],
+    Noakhali: [22.87, 91.1], Feni: [23.02, 91.4], Brahmanbaria: [23.96, 91.11],
+    Chandpur: [23.23, 90.65], Lakshmipur: [22.94, 90.83], Khagrachhari: [23.12, 91.98],
+    Rangamati: [22.65, 92.17], Bandarban: [22.19, 92.22],
+    Sylhet: [24.9, 91.87], Moulvibazar: [24.48, 91.77], Habiganj: [24.37, 91.41],
+    Sunamganj: [25.07, 91.4],
+    Rajshahi: [24.37, 88.6], Natore: [24.41, 89.0], Pabna: [24.0, 89.24],
+    Bogura: [24.85, 89.37], Sirajganj: [24.45, 89.7], Naogaon: [24.8, 88.94],
+    "Chapai Nawabganj": [24.6, 88.28], Joypurhat: [25.1, 89.02],
+    Rangpur: [25.75, 89.24], Dinajpur: [25.63, 88.64], Thakurgaon: [26.03, 88.47],
+    Panchagarh: [26.33, 88.56], Nilphamari: [25.93, 88.86], Lalmonirhat: [25.92, 89.45],
+    Kurigram: [25.81, 89.64], Gaibandha: [25.33, 89.54],
+    Khulna: [22.81, 89.56], Jashore: [23.17, 89.21], Satkhira: [22.72, 89.07],
+    Bagerhat: [22.65, 89.79], Narail: [23.17, 89.5], Magura: [23.49, 89.42],
+    Jhenaidah: [23.54, 89.17], Kushtia: [23.9, 89.12], Chuadanga: [23.64, 88.84],
+    Meherpur: [23.76, 88.63],
+    Barishal: [22.7, 90.37], Patuakhali: [22.36, 90.33], Bhola: [22.69, 90.65],
+    Pirojpur: [22.58, 89.98], Jhalokathi: [22.64, 90.2], Barguna: [22.15, 90.13],
+    // Older spellings, same places.
+    Barisal: [22.7, 90.37], Chittagong: [22.36, 91.78], Comilla: [23.46, 91.18],
+    Bogra: [24.85, 89.37], Jessore: [23.17, 89.21]
+  };
+
+  function place(lat, lng) {
+    return [
+      (lng - MAP.lon0) * MAP.kx * MAP.scale + MAP.pad,
+      (MAP.lat1 - lat) * MAP.scale + MAP.pad
+    ];
+  }
+
+  function svgEl(tag, attrs) {
+    var node = document.createElementNS("http://www.w3.org/2000/svg", tag);
+    Object.keys(attrs || {}).forEach(function (key) {
+      node.setAttribute(key, attrs[key]);
+    });
+    return node;
+  }
+
+  function renderReach() {
+    var reach = CV.reach || {};
+    var names = (reach.districts || []).filter(function (name) {
+      return DISTRICTS[name];
+    });
+    if (!names.length) return false;
+
+    if (filled(reach.heading)) {
+      document.getElementById("reach-h").textContent = reach.heading;
+    }
+
+    var grid = el("div", "reach");
+
+    var figure = reveal(el("figure", "reach-map"), "pop");
+    var svg = svgEl("svg", {
+      viewBox: MAP.viewBox,
+      role: "img",
+      "aria-label": "Map of Bangladesh with " + names.length + " districts marked: " + names.join(", ")
+    });
+    // pathLength normalises the outline to 1 so the dash animation that draws
+    // it does not need to know how long it really is.
+    svg.appendChild(svgEl("path", { class: "reach-outline", d: MAP.path, pathLength: "1" }));
+
+    names.forEach(function (name, i) {
+      var at = place(DISTRICTS[name][0], DISTRICTS[name][1]);
+      var home = name === reach.home;
+      var pin = svgEl("g", {
+        class: "reach-pin" + (home ? " is-home" : ""),
+        style: "--d:" + (900 + i * 90) + "ms"
+      });
+      pin.appendChild(svgEl("circle", { class: "reach-halo", cx: at[0], cy: at[1], r: home ? 54 : 34 }));
+      pin.appendChild(svgEl("circle", { class: "reach-dot", cx: at[0], cy: at[1], r: home ? 16 : 10 }));
+      var label = svgEl("title", {});
+      label.textContent = name;
+      pin.appendChild(label);
+      svg.appendChild(pin);
+    });
+
+    figure.appendChild(svg);
+    grid.appendChild(figure);
+
+    var side = el("div", "reach-side");
+    if (filled(reach.lead)) side.appendChild(reveal(el("p", "reach-lead", reach.lead)));
+
+    var stats = (reach.stats || []).filter(function (s) {
+      return s && s.value != null;
+    });
+    if (stats.length) {
+      var row = el("div", "stats");
+      stats.forEach(function (stat) {
+        var card = reveal(el("div", "stat"), "up");
+        var value = el("strong", "stat-value", "0");
+        value.setAttribute("data-count", stat.value);
+        if (stat.plain) value.setAttribute("data-plain", "");
+        card.appendChild(value);
+        if (filled(stat.label)) card.appendChild(el("span", "stat-label", stat.label));
+        row.appendChild(card);
+      });
+      side.appendChild(row);
+    }
+
+    var list = reveal(el("ul", "district-list"));
+    names.forEach(function (name) {
+      list.appendChild(el("li", null, name));
+    });
+    side.appendChild(list);
+
+    if (filled(reach.note)) side.appendChild(reveal(el("p", "reach-note", reach.note)));
+
+    grid.appendChild(side);
+    document.getElementById("reach-body").appendChild(grid);
+    return true;
+  }
+
+  /* --- Counting numbers --------------------------------------------------
+     Any element carrying data-count runs from zero to that number when it
+     first scrolls into view. data-plain leaves a year unformatted.
+     -------------------------------------------------------------------- */
+
+  function setupCounters() {
+    var nodes = [].slice.call(document.querySelectorAll("[data-count]"));
+    if (!nodes.length) return;
+
+    function show(node, value) {
+      node.textContent = value.toLocaleString("en");
+    }
+
+    // A year counting up from zero reads as a wrong number for a second,
+    // so data-plain writes it out and leaves it alone.
+    nodes = nodes.filter(function (node) {
+      if (!node.hasAttribute("data-plain")) return true;
+      node.textContent = node.getAttribute("data-count");
+      return false;
+    });
+    if (!nodes.length) return;
+
+    var still = false;
+    try {
+      still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    } catch (err) {
+      still = false;
+    }
+
+    if (still || !("IntersectionObserver" in window)) {
+      nodes.forEach(function (node) {
+        show(node, Number(node.getAttribute("data-count")));
+      });
+      return;
+    }
+
+    function run(node) {
+      var target = Number(node.getAttribute("data-count"));
+      var started = null;
+      var span = 1100;
+      function frame(now) {
+        if (started === null) started = now;
+        var t = Math.min(1, (now - started) / span);
+        var eased = 1 - Math.pow(1 - t, 3);
+        show(node, Math.round(target * eased));
+        if (t < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    var watcher = new IntersectionObserver(
+      function (records, obs) {
+        records.forEach(function (record) {
+          if (!record.isIntersecting) return;
+          run(record.target);
+          obs.unobserve(record.target);
+        });
+      },
+      { threshold: 0.4 }
+    );
+    nodes.forEach(function (node) {
+      watcher.observe(node);
+    });
+  }
+
+  /* --- The travelling rail -----------------------------------------------
+     A gold line that fills down each timeline as you scroll past it, with a
+     dot at the leading end. Progress is published as --p on the list.
+     -------------------------------------------------------------------- */
+
+  function setupRails() {
+    var lists = [].slice.call(document.querySelectorAll(".timeline"));
+    if (!lists.length) return;
+
+    lists.forEach(function (list) {
+      // Absolutely positioned, so it never becomes a row of the grid.
+      list.appendChild(el("div", "rail"));
+    });
+
+    var ticking = false;
+    function update() {
+      lists.forEach(function (list) {
+        var box = list.getBoundingClientRect();
+        var mark = window.innerHeight * 0.58;
+        var ratio = box.height > 0 ? (mark - box.top) / box.height : 0;
+        list.style.setProperty("--p", Math.min(1, Math.max(0, ratio)).toFixed(4));
+      });
+      ticking = false;
+    }
+    window.addEventListener(
+      "scroll",
+      function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(update);
+      },
+      { passive: true }
+    );
+    window.addEventListener("resize", update, { passive: true });
+    update();
+  }
+
   /* --- Navigation -------------------------------------------------------- */
 
   function buildNav(live) {
@@ -990,6 +1234,8 @@
   buildNav(live);
   setupMotion();
   setupProgress();
+  setupCounters();
+  setupRails();
 
   document.getElementById("footer-year").textContent = new Date().getFullYear();
 

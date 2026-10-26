@@ -94,6 +94,9 @@ able to edit it in a year without fighting tooling.
   **Never convert it to JSON.**
 - **`app.js`** renders `content.js` into the DOM and builds the JSON-LD.
 - **`styles.css`** holds every style, including the article pages.
+- **`article.js`** is the small script the written pieces load: reading time,
+  the progress bar along the top, and the year in the footer. The pieces are
+  plain HTML and read correctly without it.
 - Empty arrays remove their section and its nav link. `TODO`-prefixed values
   render on the page but are kept out of the JSON-LD.
 
@@ -107,6 +110,27 @@ render function, and one line in that array.
 - `index.html` — the single-page site.
 - `cv/index.html` — a one-page A4 CV, printed to `assets/cv.pdf`. `noindex`.
 - `writing/<slug>/index.html` — one page per written piece.
+
+### The map
+
+The Reach section draws an outline of Bangladesh with a dot on every district
+in `CV.reach.districts`. Three things make it work and none should be
+rediscovered:
+
+- The outline is Natural Earth's 50m boundary, projected once and pasted into
+  `app.js` as a path. `MAP` holds the exact numbers that projection used
+  (`lon0`, `lat1`, `kx`, `scale`, `pad`), so `place(lat, lng)` puts a dot in
+  the right spot. **Change one of those numbers and every dot moves.**
+- `DISTRICTS` in `app.js` holds all 64 districts by name, so `content.js`
+  needs only a list of names. Older spellings (Barisal, Chittagong, Comilla,
+  Bogra, Jessore) are aliases of the same coordinates. A name that is not in
+  the table is skipped without complaint.
+- The path carries `pathLength="1"`, which is what lets the draw-on animation
+  use a dash offset of 1 without knowing the real length.
+
+**Twelve districts are listed, not thirteen.** The company profile names
+twelve by project; the firm's own figure is 13. The missing one has not been
+established, so it is not invented. The `note` under the map says so.
 
 **The Writing list is written twice on purpose.** `index.html` carries a plain
 copy of it, and `renderWriting()` clears that before rendering from
@@ -284,6 +308,25 @@ how rendering should be checked when the pane misbehaves.
   carry `?isSelfProfile=true`, which breaks the match.
 - **GitHub does not redirect old Pages URLs or old profile URLs after a
   username change.** Claude wrongly said it does. Both 404.
+
+### Animation and reduced motion
+
+Anything that starts hidden and is revealed by a transition must also be put
+back inside the `@media (prefers-reduced-motion: reduce)` block. That block
+switches transitions off globally, so an element left at `opacity: 0` stays
+invisible forever. The map hit this: the pins and the outline were blank for
+anyone who had asked for less motion. The print block needs the same care,
+which is why `#reach` and `.rail` are hidden there outright.
+
+### Screenshots of a long page
+
+A headless screenshot taken with a very tall window (`--window-size=390,9000`)
+lays the page out wrongly and catches transitions half-finished. It showed
+text apparently clipped at the right edge and a counter reading 717 on its
+way to 2015. Neither was real. Measure instead: serve the folder, set the
+viewport, and read `document.documentElement.scrollWidth` against
+`window.innerWidth`. Add `--force-prefers-reduced-motion` when a still of the
+finished state is what you want.
 
 ### Verifying PDFs
 

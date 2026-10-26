@@ -17,6 +17,12 @@ Settled: title is Partner & Chief Business Officer, the CV shows only
    part of, what it was, your part, and one outcome.
 5. **Pick the next writing topic** and one real example for it.
 
+## The map
+
+The company profile names twelve districts by project. The firm's own figure
+is thirteen. **Which is the thirteenth?** One line in `content.js` adds it to
+the map. Until then the note under the map explains the gap.
+
 ## Selected Work
 
 Taken off the site and the CV on 2026-10-26, to be rebuilt. The four entries

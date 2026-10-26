@@ -91,6 +91,52 @@ window.CV = {
   ],
 
   /* --------------------------------------------------------------------------
+     2b. REACH — the map of where the work has been.
+     ----------------------------------------------------------------------------
+     Empty the `districts` list and the whole section disappears, map and all.
+
+     Names are matched against a table of every district in Bangladesh, held
+     in app.js, spelled the way the government spells them: Barishal,
+     Chattogram, Cumilla, Bogura, Jashore, Jhenaidah. A name that is not in
+     that table is skipped quietly, so check your spelling if a dot is
+     missing.
+     ----------------------------------------------------------------------- */
+  reach: {
+    heading: "Where the work has been",
+    lead:
+      "Home Inn has designed, built and fitted out across Bangladesh since 2015: corporate offices and banks, showrooms, resorts and homes. These are the districts its company profile names by project.",
+
+    // Counted up from zero as the section scrolls into view. `plain` keeps a
+    // year written as 2015 rather than 2,015.
+    stats: [
+      { value: 2015, label: "building since", plain: true },  // plain: shown as a year, not counted
+      { value: 130, label: "projects delivered" },
+      { value: 13, label: "districts reached" },
+    ],
+
+    // Drawn slightly larger than the rest. Leave it out for no emphasis.
+    home: "Dhaka",
+
+    districts: [
+      "Dhaka",
+      "Narayanganj",
+      "Narsingdi",
+      "Manikganj",
+      "Tangail",
+      "Gopalganj",
+      "Natore",
+      "Rangpur",
+      "Sylhet",
+      "Noakhali",
+      "Chattogram",
+      "Barishal",
+    ],
+
+    note:
+      "Twelve districts are named by project in the company profile. The firm's own figure is thirteen, so one is not listed there; add it to the list above and it appears on the map.",
+  },
+
+  /* --------------------------------------------------------------------------
      3. EXPERIENCE — most recent first.
      ----------------------------------------------------------------------- */
   experience: [

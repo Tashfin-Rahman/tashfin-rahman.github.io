@@ -121,6 +121,20 @@ a:hover { text-decoration-thickness: 2px; }
     transform: none;
     transition: none;
   }
+  /* The map hides its own parts until they animate in, so without this it
+     would stay an empty frame for anyone who asked for less motion. */
+  .anim .reach-pin,
+  .anim .reach-map.is-in .reach-pin {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .anim .reach-outline,
+  .anim .reach-map.is-in .reach-outline {
+    stroke-dashoffset: 0;
+    fill-opacity: 1;
+    transition: none;
+  }
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
@@ -893,6 +907,145 @@ a.org:hover { color: var(--accent); border-bottom-color: var(--accent); }
    Animation states are forced off here: an element that never scrolled into
    view would otherwise print blank.
    ========================================================================= */
+/* --- Reach: the map ------------------------------------------------------ */
+.reach { display: grid; gap: 30px; }
+@media (min-width: 820px) {
+  .reach {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 44px;
+    align-items: center;
+  }
+}
+
+.reach-map { margin: 0; }
+.reach-map svg {
+  display: block;
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+  margin-inline: auto;
+  overflow: visible;
+}
+.reach-outline {
+  fill: color-mix(in srgb, var(--accent) 8%, transparent);
+  stroke: var(--border-strong);
+  stroke-width: 4;
+  stroke-linejoin: round;
+}
+.reach-halo { fill: var(--accent); opacity: 0.13; }
+.reach-dot { fill: var(--accent); }
+.reach-pin.is-home .reach-dot { stroke: var(--bg); stroke-width: 5; }
+.reach-pin { cursor: default; }
+
+/* The coast draws itself, the fill arrives behind it, then the dots land. */
+.anim .reach-outline {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  fill-opacity: 0;
+}
+.anim .reach-map.is-in .reach-outline {
+  stroke-dashoffset: 0;
+  fill-opacity: 1;
+  transition: stroke-dashoffset 1.9s var(--ease), fill-opacity 0.9s linear 0.9s;
+}
+.anim .reach-pin {
+  opacity: 0;
+  transform: scale(0);
+  transform-origin: center;
+  transform-box: fill-box;
+}
+.anim .reach-map.is-in .reach-pin {
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    transform 0.6s cubic-bezier(0.34, 1.7, 0.5, 1) var(--d, 0ms),
+    opacity 0.3s linear var(--d, 0ms);
+}
+
+.reach-lead { color: var(--text-muted); max-width: var(--measure); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 24px 0 22px;
+}
+.stat-value {
+  display: block;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(1.8rem, 6vw, 2.5rem);
+  line-height: 1.02;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.stat-label {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.78rem;
+  color: var(--text-faint);
+  letter-spacing: 0.02em;
+}
+
+.district-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 8px;
+}
+.district-list li {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px 11px;
+}
+.reach-note {
+  margin: 16px 0 0;
+  font-size: 0.8rem;
+  color: var(--text-faint);
+  max-width: var(--measure);
+}
+
+/* --- The travelling rail ------------------------------------------------- */
+.timeline { position: relative; }
+.timeline .rail {
+  position: absolute;
+  left: 0;
+  top: 9px;
+  bottom: 9px;
+  width: 1px;
+  pointer-events: none;
+}
+.timeline .rail::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: calc(var(--p, 0) * 100%);
+  background: var(--accent);
+}
+.timeline .rail::after {
+  content: "";
+  position: absolute;
+  left: -3px;
+  top: calc(var(--p, 0) * 100%);
+  width: 7px;
+  height: 7px;
+  margin-top: -3px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 20%, transparent);
+  opacity: min(calc(var(--p, 0) * 25), 1);
+}
+
+/* --- Articles: reading time and progress --------------------------------- */
+/* Non-breaking spaces: a plain space on either side of the dot collapses. */
+.article-meta .read-time::before { content: "\00a0\00b7\00a0"; }
+
 @media print {
   :root, :root[data-theme="light"] {
     --bg: #fff;
@@ -937,6 +1090,8 @@ a.org:hover { color: var(--accent); border-bottom-color: var(--accent); }
   .progress,
   .contact-form,
   .contact-actions,
+  .rail,
+  #reach,
   #contact { display: none !important; }
 
   .wrap { max-width: none; padding: 0; }
