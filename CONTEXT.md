@@ -108,6 +108,13 @@ render function, and one line in that array.
 - `cv/index.html` — a one-page A4 CV, printed to `assets/cv.pdf`. `noindex`.
 - `writing/<slug>/index.html` — one page per written piece.
 
+**The Writing list is written twice on purpose.** `index.html` carries a plain
+copy of it, and `renderWriting()` clears that before rendering from
+`content.js`. Everything else on the page is invisible without JavaScript;
+this one list is not, because it is the only internal link to the articles.
+**If you add a piece to the `writing` array, add it to the markup too**, or
+the two will disagree.
+
 ### The CV
 
 He rejected a CV that was a long print of the site: "a CV is not like that."
@@ -286,7 +293,9 @@ left alone.
   Education, Skills, Leadership and Contact.
 - A one-page CV at `assets/cv.pdf`, printed from `cv/index.html`.
 - One written piece at `/writing/fit-out-quote/`, listed in the sitemap and
-  `llms.txt`, with its own `BlogPosting` schema.
+  `llms.txt`, carrying `BlogPosting` and `FAQPage` schema in one `@graph`.
+  The four questions are answered in the page's own text; keep them that way
+  if the article is edited.
 - Search Console verified; the homepage was indexed the day it went live.
 - GitHub profile: README, website field, company, location, four social links.
 - LinkedIn: headline, About, three roles, seven skills, portfolio in contact

@@ -46,14 +46,17 @@ Done so far: sitemap, robots, canonical, Person and ProfilePage schema,
 BlogPosting schema on the article, disambiguation in both the schema and
 llms.txt, IndexNow submissions, Search Console verified, four identity links.
 
+Done since: `FAQPage` schema on the article, four questions answered in its
+own text, which is what answer engines quote from. And a plain HTML link to
+the article in `index.html`, so a crawler that does not run JavaScript still
+follows it.
+
 Worth doing next:
 - More writing. Each piece is another page that can rank on its own, and the
   first one is already live.
 - A real inbound link. LinkedIn and GitHub both point at the site now; a third
-  from somewhere with its own audience would be worth more than both.
-- FAQ schema on the article, which is what answer engines quote from.
-- A hard-coded HTML link to the article from the front page. The current link
-  is built by JavaScript, so a crawler that does not run JS will not follow it.
+  from somewhere with its own audience would be worth more than both. This is
+  the biggest remaining lever and nothing technical substitutes for it.
 
 ## Rewriting across the three places
 

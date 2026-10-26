@@ -619,6 +619,11 @@
     if (!entries.length) return false;
 
     var body = document.getElementById("writing-body");
+
+    // index.html carries a plain copy of the list for crawlers without
+    // JavaScript. Clear it before rendering so nothing appears twice.
+    body.textContent = "";
+
     entries.forEach(function (piece) {
       var card = reveal(el("article", "piece"), "up");
 
