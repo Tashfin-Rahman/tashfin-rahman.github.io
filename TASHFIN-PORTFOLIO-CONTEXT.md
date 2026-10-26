@@ -1,7 +1,7 @@
-# Context
+# Tashfin Portfolio Context
 
-**Read this first, before doing anything in this project. Update it after
-every piece of work, not just at the end of a session.**
+**Read this first, before doing anything in this project. Write back to it
+after every piece of work, not at the end of a session.**
 
 This file is the memory for this project. It holds who the work is for, what
 has been decided, how the pieces fit together, and the traps that have already
@@ -9,17 +9,23 @@ been hit. `TODO.md` holds what is still to do. `DEPLOY.md` holds the commands.
 
 Tashfin asked on 2026-10-26 that context live here rather than being carried in
 conversation, so that a session can be compacted at any point and the next one
-picks up from this file with nothing lost. That means:
+picks up from this file with nothing lost. On 2026-10-27 he asked for the file
+to carry its own name, and for everything from a session to go into it. That
+means:
 
 1. Read this file before starting.
 2. Do the work.
 3. Write what changed back into this file, and into `TODO.md` if the list of
-   outstanding things moved.
+   outstanding things moved. Do this as each piece finishes, so that losing
+   the conversation loses nothing.
 4. Commit it with the work.
 
 Anything learned the hard way belongs in **Traps already hit**. Anything
 settled belongs in **Decisions already made**. Neither section should have to
 be rediscovered.
+
+It was called `CONTEXT.md` until 2026-10-27. Anything still pointing at that
+name is out of date.
 
 ---
 
@@ -395,8 +401,17 @@ left alone.
 
 **Live and verified**
 
-- The site, dark by default, with About, Experience, Writing, Projects,
-  Education, Skills, Leadership and Contact.
+- The site, dark by default, with About, Experience, Reach, Writing,
+  Projects, Education, Skills, Leadership and Contact.
+- The Reach section: an outline of Bangladesh with a dot on each of the
+  twelve districts named in the company profile, beside 2015, 130 and 13 as
+  large figures, the last two counting up as the section arrives. See
+  **The map** above for how it is built.
+- A gold rail that fills downward through each timeline as you scroll, with a
+  dot at the leading end, driven by `--p` on the list.
+- The theme toggle: a sun that folds into a moon, and a circle of the new
+  theme sweeping out of the button across the page.
+- Reading time and a progress bar on the written pieces, from `article.js`.
 - A one-page CV at `assets/cv.pdf`, printed from `cv/index.html`.
 - Two written pieces, newest first: `/writing/bookkeeping-shop-vs-project/`
   and `/writing/fit-out-quote/`. Both are listed in the sitemap and `llms.txt`
@@ -439,6 +454,26 @@ page does not render its About card there (see Traps). The text is in
 Also found on 2026-10-27: the **Open to Work** banner is on, set to
 "Recruiters only", location Mirpur. It contradicts a profile that says he
 co-owns the firm. His call, raised in `LINKEDIN.md`.
+
+**Done on 2026-10-27**, in order, so a cold session knows what moved:
+
+1. `FAQPage` schema on the fit-out article, and a plain HTML link to the
+   piece in `index.html` for crawlers that do not run JavaScript.
+2. A second written piece, "Keeping the books for a shop and for a project
+   business", argued from his own bookkeeping work with no invented figures.
+3. The wording pass over the site finished: the last two em-dashes in public
+   prose, in the contact line, and a meta description that still advertised a
+   Selected Work section that had come off the page.
+4. His GitHub profile checked live. Three things left, all his to do: the bio
+   is still the old casual one, `For-Claude` and `Anti-Gravity` sit above his
+   portfolio with no descriptions and one of them empty, and the portfolio
+   repo has no topics.
+5. His own browser ruled out as a way in (see Traps), and the LinkedIn
+   profile read through the `/details/` pages.
+6. The Reach map, the counting figures, the travelling rail, reading time.
+7. The theme toggle rebuilt: the stuck tilt on phones fixed, the glyph
+   replaced by SVG, and the theme change itself made into a sweep.
+8. This file renamed from `CONTEXT.md`.
 
 Everything else outstanding is in `TODO.md`.
 

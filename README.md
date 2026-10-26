@@ -1,6 +1,7 @@
 # Tashfin Rahman — personal portfolio
 
-> **Working on this project?** Read [CONTEXT.md](CONTEXT.md) first. It holds
+> **Working on this project?** Read
+> [TASHFIN-PORTFOLIO-CONTEXT.md](TASHFIN-PORTFOLIO-CONTEXT.md) first. It holds
 > who this is for, how the pieces fit together, what has been decided, and the
 > traps already hit. [TODO.md](TODO.md) holds what is still to do.
 
