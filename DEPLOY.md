@@ -40,20 +40,22 @@ your GitHub login, so it has to be you.
 
 ### 2. Regenerating the CV
 
-`assets/cv.pdf` is printed from the site itself, so the page and the CV can
-never drift apart. After changing anything in `content.js`, regenerate it:
+`assets/cv.pdf` is printed from `cv/index.html`, a one-page A4 layout that
+reads the same `content.js` as the site, so the CV and the site can never
+disagree about titles or dates.
+
+It uses shorter wording than the site. Those lines live in `content.js` too:
+`cvProfile` under `meta`, `cvBullets` on each job, and `cvLine` on the project
+and the leadership entry. Anything without one falls back to the site's text.
+
+After changing anything, regenerate it:
 
 ```
-"C:\Program Files\Google\Chrome\Application\chrome.exe" --headless=new --disable-gpu --no-pdf-header-footer --print-to-pdf="E:\Claude code\portfolio\assets\cv.pdf" --virtual-time-budget=20000 "https://tashfin-rahman.github.io/"
+"C:\Program Files\Google\Chrome\Application\chrome.exe" --headless=new --disable-gpu --no-pdf-header-footer --print-to-pdf="E:\Claude code\portfolio\assets\cv.pdf" --virtual-time-budget=15000 "file:///E:/Claude%20code/portfolio/cv/index.html"
 ```
 
-Then commit and push as usual. You can also do it by hand: open the site,
-press Ctrl+P and save as PDF.
-
-The print stylesheet drops the navigation, the buttons, the contact section,
-every image, and the Brief and What I made lines from Selected Work. What
-reaches paper is your experience, the work titles with their outcomes, the
-project, education, skills and leadership. Two pages.
+Then commit and push as usual. Check it is still one page: if a change pushes
+it onto a second, shorten a `cvBullets` line rather than shrinking the type.
 
 ### 3. Strengthen the work entries
 

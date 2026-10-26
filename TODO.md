@@ -2,25 +2,20 @@
 
 Things raised but not yet done. Newest concerns first.
 
-## Needs a decision from Tashfin
+## Next steps for Tashfin (as of 2026-10-26)
 
-**The CV is two pages, the original was one.** Getting to one means cutting,
-and the choice of what to cut is his. Candidates, roughly in order of what a
-reader would miss least: the Leadership section (school science club, 2021–22),
-the Projects detail (keep the title and one line), the third profile sentence.
+Settled: title is Partner & Chief Business Officer, the CV shows only
+"Dhaka, Bangladesh", and the CV is one modern page.
 
-**His title.** The original CV said "Co-Partner & Finance". The site and
-LinkedIn now say "Partner & Chief Business Officer". Both cannot be right.
-
-**Address on the CV.** The original carried "Mirpur-12, Dhaka". The site
-deliberately shows only "Dhaka, Bangladesh" because it is a public page. The
-CV is handed to people he chooses, so the full address can go back if he wants
-it.
-
-**What else is out of date about him.** He has said several details need
-changing but not which ones. Everything on the site came from the old CV, the
-Home Inn visiting card and the company profile deck, so anything that has
-changed since needs saying.
+1. **List what is out of date about you.** You said yes, some details have
+   changed, but not which. One message, roughly written, is enough.
+2. **Approve the shorter LinkedIn About**, then sign into LinkedIn and GitHub
+   in the app's browser pane so the change can be saved.
+3. **Connect the tools** with `/mcp`: Trackian (analytics), SEO-AEO-GEO
+   Ultimate (SEO and AEO), Design (wording and accessibility).
+4. **Give the Work section content**: for each project you were personally
+   part of, what it was, your part, and one outcome.
+5. **Pick the next writing topic** and one real example for it.
 
 ## Selected Work
 

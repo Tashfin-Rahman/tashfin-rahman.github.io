@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tashfin Rahman · CV</title>
+
+  <!-- This page exists to be printed into assets/cv.pdf. Kept out of search
+       so it does not compete with the main page for his name. -->
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://tashfin-rahman.github.io/">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='13' fill='%230c0e13'/%3E%3C/svg%3E">
+
+  <style>
+    :root {
+      --ink: #16181d;
+      --muted: #4a4d55;
+      --faint: #6b6e76;
+      --rule: #d9d4c7;
+      --accent: #8a6212;
+      --sans: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      --serif: Georgia, "Times New Roman", serif;
+    }
+
+    @page { size: A4; margin: 0; }
+
+    * { box-sizing: border-box; }
+
+    html { background: #e9e6df; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 9.9pt;
+      line-height: 1.45;
+    }
+
+    /* One A4 sheet. On screen it sits on a grey desk; on paper it is the page. */
+    .sheet {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 24px auto;
+      padding: 15mm 15mm 13mm;
+      background: #fff;
+      box-shadow: 0 2px 18px rgba(0, 0, 0, 0.12);
+    }
+
+    header {
+      padding-bottom: 9pt;
+      border-bottom: 1.4pt solid var(--accent);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: 24pt;
+      font-weight: 700;
+      letter-spacing: 0.2pt;
+      line-height: 1.1;
+    }
+
+    .headline {
+      margin: 3pt 0 0;
+      color: var(--accent);
+      font-size: 10.5pt;
+      font-weight: 600;
+    }
+
+    .contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2pt 12pt;
+      margin: 7pt 0 0;
+      padding: 0;
+      color: var(--muted);
+      font-size: 8.6pt;
+      list-style: none;
+    }
+
+    .contact a { color: inherit; text-decoration: none; }
+
+    .columns {
+      display: grid;
+      grid-template-columns: 1fr 58mm;
+      gap: 0 9mm;
+      margin-top: 14pt;
+    }
+
+    section { margin-bottom: 13pt; }
+    section:last-child { margin-bottom: 0; }
+
+    h2 {
+      margin: 0 0 5pt;
+      padding-bottom: 2pt;
+      border-bottom: 0.6pt solid var(--rule);
+      color: var(--accent);
+      font-size: 8.2pt;
+      font-weight: 700;
+      letter-spacing: 1.4pt;
+      text-transform: uppercase;
+    }
+
+    .profile { margin: 0; color: var(--muted); }
+
+    .item { margin-bottom: 9pt; }
+    .item:last-child { margin-bottom: 0; }
+
+    .item-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8pt;
+    }
+
+    .item-title { font-weight: 700; font-size: 9.8pt; }
+
+    .item-date {
+      flex: none;
+      color: var(--faint);
+      font-size: 8.4pt;
+      white-space: nowrap;
+    }
+
+    .item-org { color: var(--muted); font-size: 8.8pt; }
+
+    ul {
+      margin: 3pt 0 0;
+      padding-left: 11pt;
+    }
+
+    li { margin-bottom: 1.5pt; color: var(--ink); }
+    li::marker { color: var(--accent); }
+
+    .line { margin: 2pt 0 0; color: var(--muted); }
+
+    .side-block { margin-bottom: 6pt; }
+    .side-block:last-child { margin-bottom: 0; }
+
+    .side-label {
+      margin: 0 0 1pt;
+      font-size: 8.6pt;
+      font-weight: 700;
+    }
+
+    .side-text { margin: 0; color: var(--muted); font-size: 8.6pt; }
+
+    @media print {
+      html { background: #fff; }
+      .sheet { margin: 0; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+    <header>
+      <h1 id="name"></h1>
+      <p class="headline" id="headline"></p>
+      <ul class="contact" id="contact"></ul>
+    </header>
+
+    <div class="columns">
+      <main>
+        <section id="profile-section">
+          <h2>Profile</h2>
+          <p class="profile" id="profile"></p>
+        </section>
+
+        <section id="experience-section">
+          <h2>Experience</h2>
+          <div id="experience"></div>
+        </section>
+
+        <section id="projects-section">
+          <h2>Projects</h2>
+          <div id="projects"></div>
+        </section>
+
+        <section id="leadership-section">
+          <h2>Leadership</h2>
+          <div id="leadership"></div>
+        </section>
+      </main>
+
+      <aside>
+        <section id="education-section">
+          <h2>Education</h2>
+          <div id="education"></div>
+        </section>
+
+        <section id="skills-section">
+          <h2>Skills</h2>
+          <div id="skills"></div>
+        </section>
+
+        <section id="languages-section">
+          <h2>Languages</h2>
+          <p class="side-text" id="languages"></p>
+        </section>
+      </aside>
+    </div>
+  </div>
+
+  <script src="../content.js"></script>
+  <script>
+    (function () {
+      var CV = window.CV || {};
+      var meta = CV.meta || {};
+
+      function filled(v) {
+        return typeof v === "string" ? v.trim() !== "" && !/^TODO/i.test(v.trim()) : !!v;
+      }
+
+      function el(tag, cls, text) {
+        var node = document.createElement(tag);
+        if (cls) node.className = cls;
+        if (text !== undefined) node.textContent = text;
+        return node;
+      }
+
+      function dates(entry) {
+        return [entry.start, entry.end].filter(filled).join(" – ");
+      }
+
+      function drop(id) {
+        var node = document.getElementById(id);
+        if (node) node.remove();
+      }
+
+      function bare(url) {
+        return url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
+      }
+
+      // Header ---------------------------------------------------------------
+      document.getElementById("name").textContent = meta.name || "";
+
+      var jobs = (CV.experience || []).filter(function (e) { return filled(e.org); });
+      var lead = jobs[0];
+      document.getElementById("headline").textContent = lead
+        ? lead.role + ", " + lead.org
+        : (meta.tagline || "");
+
+      var contact = document.getElementById("contact");
+      [
+        { text: meta.location },
+        { text: meta.phone, href: filled(meta.phone) ? "tel:" + meta.phone.replace(/\s+/g, "") : null },
+        { text: meta.email, href: filled(meta.email) ? "mailto:" + meta.email : null },
+        { text: filled(meta.siteUrl) ? bare(meta.siteUrl) : "", href: meta.siteUrl },
+        { text: filled(meta.linkedin) ? bare(meta.linkedin) : "", href: meta.linkedin },
+      ].forEach(function (c) {
+        if (!filled(c.text)) return;
+        var li = el("li");
+        if (c.href) {
+          var a = el("a", null, c.text);
+          a.href = c.href;
+          li.appendChild(a);
+        } else {
+          li.textContent = c.text;
+        }
+        contact.appendChild(li);
+      });
+
+      // Profile --------------------------------------------------------------
+      var profile = meta.cvProfile || (CV.about || [])[0];
+      if (filled(profile)) {
+        document.getElementById("profile").textContent = profile;
+      } else {
+        drop("profile-section");
+      }
+
+      // One entry: title and date on a line, organisation under it, then
+      // either the short CV bullets or a single line.
+      function item(title, date, org, bullets, line) {
+        var box = el("div", "item");
+        var head = el("div", "item-head");
+        head.appendChild(el("span", "item-title", title));
+        if (filled(date)) head.appendChild(el("span", "item-date", date));
+        box.appendChild(head);
+        if (filled(org)) box.appendChild(el("div", "item-org", org));
+        if (bullets && bullets.length) {
+          var ul = el("ul");
+          bullets.forEach(function (b) { ul.appendChild(el("li", null, b)); });
+          box.appendChild(ul);
+        } else if (filled(line)) {
+          box.appendChild(el("p", "line", line));
+        }
+        return box;
+      }
+
+      // Experience -----------------------------------------------------------
+      var exp = document.getElementById("experience");
+      jobs.forEach(function (e) {
+        var bullets = (e.cvBullets || (e.bullets || []).slice(0, 2)).filter(filled);
+        var org = [e.org, e.location].filter(filled).join(", ");
+        exp.appendChild(item(e.role, dates(e), org, bullets));
+      });
+      if (!jobs.length) drop("experience-section");
+
+      // Projects -------------------------------------------------------------
+      var projects = (CV.projects || []).filter(function (p) { return filled(p.title); });
+      var projBox = document.getElementById("projects");
+      projects.forEach(function (p) {
+        var tools = (p.tools || []).filter(filled).join(", ");
+        projBox.appendChild(item(p.title, tools, p.period, null, p.cvLine || p.finding));
+      });
+      if (!projects.length) drop("projects-section");
+
+      // Leadership -----------------------------------------------------------
+      var roles = (CV.leadership || []).filter(function (l) { return filled(l.org); });
+      var leadBox = document.getElementById("leadership");
+      roles.forEach(function (l) {
+        var line = l.cvLine || (l.bullets || [])[0];
+        leadBox.appendChild(item(l.role, dates(l), l.org, null, line));
+      });
+      if (!roles.length) drop("leadership-section");
+
+      // Education ------------------------------------------------------------
+      var schools = (CV.education || []).filter(function (s) { return filled(s.institution); });
+      var eduBox = document.getElementById("education");
+      schools.forEach(function (s) {
+        var box = el("div", "side-block");
+        box.appendChild(el("p", "side-label", s.degree));
+        box.appendChild(el("p", "side-text", s.institution));
+        var when = [dates(s), s.result].filter(filled).join(" · ");
+        if (filled(when)) box.appendChild(el("p", "side-text", when));
+        eduBox.appendChild(box);
+      });
+      if (!schools.length) drop("education-section");
+
+      // Skills and languages -------------------------------------------------
+      // Research interests are already in the profile, so they stay off here.
+      var skillBox = document.getElementById("skills");
+      var languages = [];
+      (CV.skills || []).forEach(function (g) {
+        var items = (g.items || []).filter(filled);
+        if (!items.length) return;
+        if (/language/i.test(g.group || "")) { languages = items; return; }
+        if (/research/i.test(g.group || "")) return;
+        var box = el("div", "side-block");
+        box.appendChild(el("p", "side-label", g.group));
+        box.appendChild(el("p", "side-text", items.join(", ")));
+        skillBox.appendChild(box);
+      });
+      if (!skillBox.children.length) drop("skills-section");
+
+      if (languages.length) {
+        document.getElementById("languages").textContent = languages.join(", ");
+      } else {
+        drop("languages-section");
+      }
+    })();
+  </script>
+</body>
+</html>

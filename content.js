@@ -46,6 +46,11 @@ window.CV = {
     phone: "+880 1568 116144",
     formEndpoint: null,
 
+    // The two-sentence profile at the top of the one-page CV. The About
+    // section on the site is longer; a CV cannot afford that.
+    cvProfile:
+      "Partner and Chief Business Officer at Home Inn, a Dhaka firm that designs and builds architecture, interiors and custom furniture. BBA student at North South University with a background in accounting, budgeting and cost tracking, and an interest in how data supports financial decisions.",
+
     linkedin: "https://www.linkedin.com/in/tashfinrahman",
     github: "https://github.com/Tashfin-Rahman",
 
@@ -103,6 +108,11 @@ window.CV = {
     {
       role: "Partner & Chief Business Officer",
       org: "Home Inn",
+      cvBullets: [
+        "Co-own the firm and share decisions on direction, spending and growth.",
+        "Run budgeting, cost tracking and bookkeeping, and prepare the summaries the partners plan against.",
+        "Set the advertising approach, and designed the firm's brand identity and company profile.",
+      ],
       location: "Dhaka, Bangladesh",
       start: "2026",
       end: "Present",
@@ -118,6 +128,10 @@ window.CV = {
     {
       role: "AI Marketing Advisor",
       org: "Haifa Intelligence",
+      cvBullets: [
+        "Advise on campaign ideas, messaging and audiences for AI-made posters and videos.",
+        "Turn client needs into clear requirements for custom models, and check output for brand fit.",
+      ],
       location: "Dhaka, Bangladesh",
       start: "2026",
       end: "Present",
@@ -133,6 +147,10 @@ window.CV = {
     {
       role: "Senior Accountant",
       org: "Steam Store Bangladesh",
+      cvBullets: [
+        "Kept the daily books for sales, payments and expenses, and matched payments to orders.",
+        "Prepared regular sales and expense reports in Google Sheets for management.",
+      ],
       location: "Dhaka, Bangladesh",
       start: "Jul 2022",
       end: "Jan 2025",
@@ -216,6 +234,7 @@ window.CV = {
     {
       title: "CreditSense AI — Loan Approval Prediction",
       period: "Banking domain contributor",
+      cvLine: "Team project comparing five loan-approval models. I covered the banking side and framed model errors in lending terms.",
       question: "Which model predicts loan approval most reliably, and how should the errors be weighted when a bank is the one acting on them?",
       method: "A team project comparing five classifiers, evaluated leak-free and cross-validated. I covered the banking side, explaining how lenders weigh credit history, income and loan amount.",
       finding: "We judged the models on what their mistakes would cost rather than on accuracy alone. Approving a bad loan costs a lender far more than turning down a good one, so the two mistakes should not carry equal weight.",
@@ -261,6 +280,7 @@ window.CV = {
     {
       role: "Assistant Organizing Secretary",
       org: "Monipur School and College Science Club",
+      cvLine: "Helped plan and run the club's science fairs and handled committee administration.",
       location: "Dhaka, Bangladesh",
       start: "Dec 2021",
       end: "Dec 2022",
