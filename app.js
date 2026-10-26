@@ -1192,11 +1192,11 @@
         : "dark";
     }
 
+    // The icon itself is drawn by the stylesheet from data-theme, so there is
+    // nothing to redraw here beyond what a screen reader is told.
     function paint() {
       var next = current() === "dark" ? "light" : "dark";
       toggle.setAttribute("aria-label", "Switch to " + next + " theme");
-      toggle.querySelector("[data-theme-icon]").textContent =
-        current() === "dark" ? "☀" : "☾";
     }
 
     toggle.addEventListener("click", function () {

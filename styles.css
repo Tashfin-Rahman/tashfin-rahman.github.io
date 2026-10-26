@@ -256,22 +256,65 @@ a:hover { text-decoration-thickness: 2px; }
 
 .theme-toggle {
   flex: none;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   display: grid;
   place-items: center;
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 50%;
   background: transparent;
   color: var(--text-muted);
-  font-size: 0.95rem;
   cursor: pointer;
-  transition: color 0.25s, border-color 0.25s, transform 0.4s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.25s, border-color 0.25s, background-color 0.25s,
+    box-shadow 0.3s, transform 0.18s var(--ease);
 }
-.theme-toggle:hover {
+
+/* A tap on a phone leaves :hover stuck on, which used to leave the button
+   tilted for good. Nothing moves on hover unless there is a real pointer. */
+@media (hover: hover) and (pointer: fine) {
+  .theme-toggle:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+}
+.theme-toggle:focus-visible {
   color: var(--accent);
   border-color: var(--accent);
-  transform: rotate(-25deg);
+}
+/* :active is only held while the finger is down, so it is safe to move. */
+.theme-toggle:active { transform: scale(0.9); }
+
+.toggle-icon {
+  width: 19px;
+  height: 19px;
+  display: block;
+  overflow: visible;
+}
+.toggle-disc {
+  fill: currentColor;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.5s var(--ease);
+}
+.toggle-bite { transition: transform 0.55s var(--ease); }
+.toggle-rays {
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  transform-origin: 12px 12px;
+  transition: transform 0.55s var(--ease), opacity 0.3s ease 0.08s;
+}
+
+/* Light theme: the sun has already been chosen, so the button offers the
+   moon. The bite slides in, the disc grows into it, the rays fold away. */
+:root[data-theme="light"] .toggle-bite { transform: translateX(-10.5px); }
+:root[data-theme="light"] .toggle-disc { transform: scale(1.45); }
+:root[data-theme="light"] .toggle-rays {
+  opacity: 0;
+  transform: scale(0.35) rotate(-70deg);
 }
 
 /* ============================================================================

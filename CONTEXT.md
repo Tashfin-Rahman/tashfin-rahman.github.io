@@ -309,6 +309,24 @@ how rendering should be checked when the pane misbehaves.
 - **GitHub does not redirect old Pages URLs or old profile URLs after a
   username change.** Claude wrongly said it does. Both 404.
 
+### Sticky hover on a phone
+
+A phone has no hover, so a tap leaves `:hover` applied until something else
+is touched. Anything that **moves** on hover therefore stays moved. The theme
+toggle rotated 25 degrees on hover and stayed tilted after every tap on a
+phone, which is exactly what Tashfin reported. Hover effects that change
+`transform` belong behind `@media (hover: hover) and (pointer: fine)`.
+`:active` is safe: it is only held while the finger is down.
+
+### The theme toggle
+
+It is a sun that folds into a moon, drawn as inline SVG in `index.html`. A
+mask circle parked off the canvas slides across the disc to bite a crescent
+out of it, the disc grows, and the rays retract and fade. Every bit of that
+is CSS driven by `data-theme` on `<html>`, so the icon is already correct
+before any script runs and `app.js` only updates the `aria-label`. There is
+no glyph to swap any more; do not reintroduce one.
+
 ### Animation and reduced motion
 
 Anything that starts hidden and is revealed by a transition must also be put

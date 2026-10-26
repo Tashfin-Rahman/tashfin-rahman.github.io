@@ -48,8 +48,28 @@
         <!-- Links are generated from the sections that actually have content. -->
       </nav>
 
+      <!-- The sun folds into a moon: the mask circle slides across the disc
+           to bite a crescent out of it while the rays retract. Both states
+           are driven by data-theme on <html>, so the icon is correct before
+           any script runs. -->
       <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch colour theme">
-        <span aria-hidden="true" data-theme-icon>◐</span>
+        <svg class="toggle-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <mask id="theme-bite">
+            <rect width="24" height="24" fill="#fff"/>
+            <circle class="toggle-bite" cx="25" cy="9" r="6.5" fill="#000"/>
+          </mask>
+          <circle class="toggle-disc" cx="12" cy="12" r="5" mask="url(#theme-bite)"/>
+          <g class="toggle-rays">
+            <line x1="12" y1="1.6" x2="12" y2="4.2"/>
+            <line x1="12" y1="19.8" x2="12" y2="22.4"/>
+            <line x1="1.6" y1="12" x2="4.2" y2="12"/>
+            <line x1="19.8" y1="12" x2="22.4" y2="12"/>
+            <line x1="4.9" y1="4.9" x2="6.7" y2="6.7"/>
+            <line x1="17.3" y1="17.3" x2="19.1" y2="19.1"/>
+            <line x1="4.9" y1="19.1" x2="6.7" y2="17.3"/>
+            <line x1="17.3" y1="6.7" x2="19.1" y2="4.9"/>
+          </g>
+        </svg>
       </button>
     </div>
   </header>
