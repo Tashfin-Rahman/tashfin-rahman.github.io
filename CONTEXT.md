@@ -259,6 +259,17 @@ how rendering should be checked when the pane misbehaves.
   an announcement was asked for. Turn the Notify network toggle off first.
 - Skills are added one at a time; after each save it offers "Add more skills"
   which loops straight back. Click the "+" on a row, not the row's name.
+- **The profile page does not fully render in the pane.** On 2026-10-27, with
+  the session signed in, `/in/tashfinrahman/` showed only the top card, the
+  Open to Work strip, Analytics and Activity. About, Education and Skills
+  never appeared, so the About pencil could not be reached. The console held
+  over 500 `ERR_BLOCKED_BY_CLIENT` errors, which is what stops the cards
+  loading. Widening the viewport to 1280 and reloading did not help.
+  The data is intact: `/in/<slug>/details/experience/` renders in full and
+  showed all three roles with their descriptions. Use the `/details/` pages to
+  **read** the profile. There is no equivalent URL for About; `/details/about/`
+  and `/edit/forms/summary/` both 404, and the `profileView` Voyager endpoint
+  now returns 410. So About currently cannot be edited from the pane at all.
 
 ### GitHub
 
@@ -346,11 +357,16 @@ The shorter LinkedIn About. He approved this text:
 >
 > tashfin-rahman.github.io
 
-It is **not saved**. His profile still shows the five-paragraph version. Two
-attempts failed because the browser pane opened a fresh session and hit
-LinkedIn's sign-in wall. He believed he was signed in, but he was signed in to
-his own Opera, which the pane does not share. The same text is in
-`LINKEDIN.md` so he can paste it himself.
+It is **not saved**. His profile still shows the five-paragraph version.
+Three attempts have now failed. The first two hit LinkedIn's sign-in wall,
+because he was signed in to his own Opera rather than to the pane. On
+2026-10-27 the pane was genuinely signed in and it failed anyway: the profile
+page does not render its About card there (see Traps). The text is in
+`LINKEDIN.md` so he can paste it himself, which is now the only way.
+
+Also found on 2026-10-27: the **Open to Work** banner is on, set to
+"Recruiters only", location Mirpur. It contradicts a profile that says he
+co-owns the firm. His call, raised in `LINKEDIN.md`.
 
 Everything else outstanding is in `TODO.md`.
 
