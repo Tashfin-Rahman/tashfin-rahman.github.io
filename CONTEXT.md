@@ -216,6 +216,24 @@ Hard-won. Re-reading this will save hours.
 - **Prefer email and password over "Sign in with Google"** when he does sign
   in. Google opens a popup window, and a page-opened popup freezes the pane.
 
+### His own browser cannot be used instead
+
+Tried on 2026-10-27, because he asked. None of the three routes work:
+
+- **Claude in Chrome** reports no connected browser. The extension is not
+  installed, and he uses Opera GX rather than Chrome.
+- **Opera GX through computer use** cannot be granted. `request_access` keeps
+  answering "doesn't match any installed application" while suggesting the
+  same name back. Even if it were granted, browsers are given a read-only
+  tier: screenshots work, clicks and typing are blocked. It could never save
+  anything.
+- **The LinkedIn app for Windows** is in the Start menu and grants at full
+  tier, but opening it produces no window of its own on either monitor. It
+  appears to hand off to the default browser.
+
+So the app's browser pane is the only way to change LinkedIn, and it needs him
+to sign in there. Do not spend calls re-testing this.
+
 ### Headless Chrome is the reliable alternative
 
 `C:\Program Files\Google\Chrome\Application\chrome.exe` with `--headless=new`
