@@ -313,6 +313,21 @@
 
     var hero = document.getElementById("top");
 
+    // A contact line for the printed CV only. The buttons and the contact
+    // section are both hidden on paper, so without this the CV goes out with
+    // no way to reach him.
+    var reach = [meta.location, meta.phone, meta.email].filter(filled);
+    if (reach.length) {
+      var line = el("p", "print-contact", reach.join("  \u00b7  "));
+      var heroText = hero.querySelector(".hero-text");
+      var tagline = heroText.querySelector(".tagline");
+      if (tagline) {
+        tagline.insertAdjacentElement("afterend", line);
+      } else {
+        heroText.appendChild(line);
+      }
+    }
+
     // Full-width photo banner. Only built when meta.heroBanner is set, so the
     // hero falls back to the plain layout until you add a picture.
     if (filled(meta.heroBanner)) {
