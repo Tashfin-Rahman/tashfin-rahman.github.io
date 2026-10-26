@@ -1,11 +1,25 @@
 # Context
 
-**Read this first, before doing anything in this project. Update it at the end
-of every working session.**
+**Read this first, before doing anything in this project. Update it after
+every piece of work, not just at the end of a session.**
 
 This file is the memory for this project. It holds who the work is for, what
 has been decided, how the pieces fit together, and the traps that have already
 been hit. `TODO.md` holds what is still to do. `DEPLOY.md` holds the commands.
+
+Tashfin asked on 2026-10-26 that context live here rather than being carried in
+conversation, so that a session can be compacted at any point and the next one
+picks up from this file with nothing lost. That means:
+
+1. Read this file before starting.
+2. Do the work.
+3. Write what changed back into this file, and into `TODO.md` if the list of
+   outstanding things moved.
+4. Commit it with the work.
+
+Anything learned the hard way belongs in **Traps already hit**. Anything
+settled belongs in **Decisions already made**. Neither section should have to
+be rediscovered.
 
 ---
 
@@ -182,7 +196,13 @@ Hard-won. Re-reading this will save hours.
 - **Screenshots lag.** A blank hero usually means a stale frame, not a bug.
   Verify against the DOM, then re-shoot.
 - The pane is a **different browser from his own**. Signing into Opera does
-  not sign in the pane.
+  not sign in the pane. This has caught him three times: he says "I am signed
+  in" meaning his own browser. Its LinkedIn and GitHub sessions also do not
+  reliably survive a pane restart. Check whether the session is live before
+  planning any work that depends on it, and if it is not, say so immediately
+  rather than after several failed attempts.
+- **Prefer email and password over "Sign in with Google"** when he does sign
+  in. Google opens a popup window, and a page-opened popup freezes the pane.
 
 ### Headless Chrome is the reliable alternative
 
@@ -258,23 +278,48 @@ left alone.
 
 ## Current state
 
-Live and verified: the site, the one-page CV, one written piece at
-`/writing/fit-out-quote/`, a Writing section driven by a `writing` array in
-`content.js`.
+*Last updated 2026-10-26.*
 
-**Selected Work is off the site and the CV.** He wants it rebuilt from
-scratch. The four entries are parked in `drafts/work-entries.js` and the
-images are still in `assets/work/`. Nothing is lost. What was wrong with it:
-three of the four pieces described the firm's work rather than his, and
-carried firm-wide figures instead of anything he personally did.
+**Live and verified**
 
-LinkedIn has a headline, an About section, three roles and seven skills. A
-shorter About is drafted and approved but **not yet saved** — it needs the
-browser pane signed in.
+- The site, dark by default, with About, Experience, Writing, Projects,
+  Education, Skills, Leadership and Contact.
+- A one-page CV at `assets/cv.pdf`, printed from `cv/index.html`.
+- One written piece at `/writing/fit-out-quote/`, listed in the sitemap and
+  `llms.txt`, with its own `BlogPosting` schema.
+- Search Console verified; the homepage was indexed the day it went live.
+- GitHub profile: README, website field, company, location, four social links.
+- LinkedIn: headline, About, three roles, seven skills, portfolio in contact
+  info, clean URL `/in/tashfinrahman`.
 
-What is still open is in `TODO.md`.
+**Off the site deliberately**
 
----
+Selected Work. He wants it rebuilt from scratch. The four entries are parked
+in `drafts/work-entries.js`, the images are still in `assets/work/`, and the
+renderer still supports them, so putting the array back restores the section.
+What was wrong with it: three of the four pieces described the firm's work
+rather than his, and carried firm-wide figures instead of anything he did.
+
+**Outstanding, blocked on him**
+
+The shorter LinkedIn About. He approved this text:
+
+> I am Partner and Chief Business Officer at Home Inn, a Dhaka firm that
+> designs and builds architecture, interiors and custom furniture. I look
+> after budgeting, cost tracking and bookkeeping, set our advertising
+> approach, and designed the firm's brand identity. I also advise Haifa
+> Intelligence, an AI studio, on marketing, and I'm studying for a BBA at
+> North South University.
+>
+> tashfin-rahman.github.io
+
+It is **not saved**. His profile still shows the five-paragraph version. Two
+attempts failed because the browser pane opened a fresh session and hit
+LinkedIn's sign-in wall. He believed he was signed in, but he was signed in to
+his own Opera, which the pane does not share. The same text is in
+`LINKEDIN.md` so he can paste it himself.
+
+Everything else outstanding is in `TODO.md`.
 
 ## Working agreement
 
