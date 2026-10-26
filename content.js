@@ -26,7 +26,7 @@ window.CV = {
     // that shows when someone shares the link. Keep it under about 155
     // characters or it gets cut off mid-sentence.
     description:
-      "Tashfin Rahman, Partner and Chief Business Officer at Home Inn in Dhaka. Business finance, costing and marketing, with selected work and a CV to download.",
+      "Tashfin Rahman, Partner and Chief Business Officer at Home Inn in Dhaka. Business finance, costing and marketing, with writing and a CV to download.",
 
     // Suburb-level detail left off deliberately: your CV goes to people you
     // chose, this page is public. Change it if you'd rather be precise.
@@ -203,6 +203,13 @@ window.CV = {
        }
      ----------------------------------------------------------------------- */
   writing: [
+    {
+      title: "Keeping the books for a shop and for a project business",
+      date: "Oct 2026",
+      summary:
+        "A shop's books are a volume problem and a project business's books are a timing problem. What changes between them, and the habit I had to drop carrying one over to the other.",
+      url: "writing/bookkeeping-shop-vs-project/",
+    },
     {
       title: "What you are actually paying for in a fit-out quote",
       date: "Oct 2026",

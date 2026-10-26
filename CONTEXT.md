@@ -115,6 +115,11 @@ this one list is not, because it is the only internal link to the articles.
 **If you add a piece to the `writing` array, add it to the markup too**, or
 the two will disagree.
 
+Adding a written piece means touching four files, every time: the new page
+under `writing/<slug>/`, the `writing` array in `content.js`, the fallback
+markup in `index.html`, and both `sitemap.xml` and `llms.txt`. Then submit
+the new URL to IndexNow. Miss one and the piece is live but invisible.
+
 ### The CV
 
 He rejected a CV that was a long print of the site: "a CV is not like that."
@@ -285,17 +290,18 @@ left alone.
 
 ## Current state
 
-*Last updated 2026-10-26.*
+*Last updated 2026-10-27.*
 
 **Live and verified**
 
 - The site, dark by default, with About, Experience, Writing, Projects,
   Education, Skills, Leadership and Contact.
 - A one-page CV at `assets/cv.pdf`, printed from `cv/index.html`.
-- One written piece at `/writing/fit-out-quote/`, listed in the sitemap and
-  `llms.txt`, carrying `BlogPosting` and `FAQPage` schema in one `@graph`.
-  The four questions are answered in the page's own text; keep them that way
-  if the article is edited.
+- Two written pieces, newest first: `/writing/bookkeeping-shop-vs-project/`
+  and `/writing/fit-out-quote/`. Both are listed in the sitemap and `llms.txt`
+  and carry `BlogPosting` and `FAQPage` schema in one `@graph`. The questions
+  are answered in each page's own text; keep them that way if an article is
+  edited, or the schema stops matching the page.
 - Search Console verified; the homepage was indexed the day it went live.
 - GitHub profile: README, website field, company, location, four social links.
 - LinkedIn: headline, About, three roles, seven skills, portfolio in contact

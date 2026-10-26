@@ -780,8 +780,8 @@
           "contact-lead",
           mode === "email"
             ? filled(meta.phone)
-              ? "Email or call, whichever suits you — I read everything that comes in."
-              : "The quickest way to reach me is by email — I read everything that comes in."
+              ? "Email or call, whichever suits you. I read everything that comes in."
+              : "Email is the quickest way to reach me. I read everything that comes in."
             : "The best place to reach me is LinkedIn."
         )
       )

@@ -59,6 +59,12 @@ budgeting and cost forecasting.
 
 ## Writing
 
+- "Keeping the books for a shop and for a project business" (October 2026).
+  Why a shop's books are a volume problem and a project business's books are a
+  timing problem, why costing belongs per job rather than per month, and what
+  a short summary for business owners should answer.
+  https://tashfin-rahman.github.io/writing/bookkeeping-shop-vs-project/
+
 - "What you are actually paying for in a fit-out quote" (October 2026).
   How an interior fit-out quote is built, what moves the number after it is
   agreed, and what a client can do to keep it steady.

@@ -2,7 +2,7 @@
 
 Things raised but not yet done. Newest concerns first.
 
-## Next steps for Tashfin (as of 2026-10-26)
+## Next steps for Tashfin (as of 2026-10-27)
 
 Settled: title is Partner & Chief Business Officer, the CV shows only
 "Dhaka, Bangladesh", and the CV is one modern page.
@@ -46,23 +46,32 @@ Done so far: sitemap, robots, canonical, Person and ProfilePage schema,
 BlogPosting schema on the article, disambiguation in both the schema and
 llms.txt, IndexNow submissions, Search Console verified, four identity links.
 
-Done since: `FAQPage` schema on the article, four questions answered in its
-own text, which is what answer engines quote from. And a plain HTML link to
-the article in `index.html`, so a crawler that does not run JavaScript still
-follows it.
+Done since: `FAQPage` schema on both articles, with every question answered
+in the page's own text, which is what answer engines quote from. A plain HTML
+link to each piece in `index.html`, so a crawler that does not run JavaScript
+still follows it. And a second piece, "Keeping the books for a shop and for a
+project business", written from his own bookkeeping work with no invented
+figures.
 
 Worth doing next:
-- More writing. Each piece is another page that can rank on its own, and the
-  first one is already live.
 - A real inbound link. LinkedIn and GitHub both point at the site now; a third
   from somewhere with its own audience would be worth more than both. This is
-  the biggest remaining lever and nothing technical substitutes for it.
+  the biggest remaining lever and nothing technical substitutes for it. It
+  needs him: posting a piece somewhere that has its own readers.
+- More writing, once he picks a topic. Two pieces are live and both argue from
+  method. A third with one real example in it would be worth more than a
+  fourth without.
 
 ## Rewriting across the three places
 
 He wants another pass over the wording on the site, GitHub and LinkedIn. The
 voice is settled now: plain, first person, short sentences, no aphorisms, no
 em-dashes doing a full stop's work.
+
+The site is done. The last two em-dashes in public prose were in the contact
+line and are gone, and the meta description no longer advertises a Selected
+Work section that is off the page. What is left is GitHub and LinkedIn, and
+both need the browser pane signed in.
 
 ## Parked
 

@@ -12,6 +12,11 @@
     </image:image>
   </url>
   <url>
+    <loc>https://tashfin-rahman.github.io/writing/bookkeeping-shop-vs-project/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://tashfin-rahman.github.io/writing/fit-out-quote/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
