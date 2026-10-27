@@ -1268,3 +1268,58 @@ a.org:hover { color: var(--accent); border-bottom-color: var(--accent); }
 
   a { color: #000; text-decoration: none; }
 }
+
+/* --- Blog ----------------------------------------------------------------
+   The home page shows the newest three pieces and then this link; /blog/
+   shows all of them, grouped by year.
+   ---------------------------------------------------------------------- */
+
+.blog-all {
+  margin: 4px 0 0;
+  font-size: 0.95rem;
+}
+.blog-all a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+}
+/* The arrow is decorative, so it is drawn here rather than typed into the
+   markup, where a screen reader would read it out. */
+.blog-all a::after {
+  content: "\2192";
+  transition: transform 0.3s var(--ease);
+}
+.blog-all a:hover::after { transform: translateX(4px); }
+
+.blog-index {
+  display: grid;
+  gap: 14px;
+  margin-top: 26px;
+}
+.blog-year {
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin: 22px 0 2px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.blog-year:first-child { margin-top: 0; }
+
+.blog-feed {
+  margin-top: 38px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+@media print {
+  /* A printed copy of the index is a list, not a set of cards, and the feed
+     line is pointing at something you cannot click on paper. */
+  .blog-feed { display: none; }
+  .piece { border: 0; padding: 4px 0; background: none; box-shadow: none; }
+}

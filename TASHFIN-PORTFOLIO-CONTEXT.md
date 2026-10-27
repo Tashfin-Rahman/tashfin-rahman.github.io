@@ -102,6 +102,7 @@ reading all of them every session is what this split exists to avoid.
 | [notes/how-the-site-works.md](notes/how-the-site-works.md) | Changing the site's code: the render pipeline, the pages, the map, the CV. |
 | [notes/traps.md](notes/traps.md) | Touching the browser pane, LinkedIn, GitHub, animation, screenshots, PDFs or the shell. Every entry there cost time to learn. |
 | [notes/seo.md](notes/seo.md) | Working on search, answer engines, schema, the sitemap or Search Console. |
+| [notes/publishing-a-post.md](notes/publishing-a-post.md) | Adding or changing a blog post. Six places have to move together and three of them fail silently. |
 
 Beside them: `TODO.md` for what is outstanding, `DEPLOY.md` for the commands,
 `LINKEDIN.md` for the LinkedIn text.
@@ -152,8 +153,20 @@ Do not reopen these without being asked.
   theme sweeping out of the button across the page.
 - Reading time and a progress bar on the written pieces, from `article.js`.
 - A one-page CV at `assets/cv.pdf`, printed from `cv/index.html`.
-- Two written pieces, newest first: `/writing/bookkeeping-shop-vs-project/`
-  and `/writing/fit-out-quote/`. Both are listed in the sitemap and `llms.txt`
+- **The Blog.** Renamed from Writing on 2026-10-27 at his request: the nav,
+  the heading and the URLs all say Blog now. The home page shows the newest
+  three and links to `/blog/`, which lists everything grouped by year. Both
+  pages keep a hand-written copy of the list for crawlers without JavaScript,
+  and both clear it before rendering from `content.js`.
+  **The posts moved from `/writing/<slug>/` to `/blog/<slug>/`.** The old paths
+  are still there as stubs with a canonical tag and a meta refresh, because
+  GitHub Pages cannot send a 301 and those URLs were live and indexable for two
+  days. Do not delete them.
+- An Atom feed at `/feed.xml`, advertised from every page head. Hand-maintained.
+- **An interactive tool at `/tools/fit-out-quote/`.** Five choices, and the
+  number moves. See **The tool** below.
+- Two written pieces, newest first: `/blog/bookkeeping-shop-vs-project/`
+  and `/blog/fit-out-quote/`. Both are listed in the sitemap and `llms.txt`
   and carry `BlogPosting` and `FAQPage` schema in one `@graph`. The questions
   are answered in each page's own text; keep them that way if an article is
   edited, or the schema stops matching the page.
@@ -212,6 +225,30 @@ What was wrong with them: three of the four described the firm's work rather
 than his, and carried firm-wide figures instead of anything he did. Do not
 put those back as they are.
 
+**The tool, and why it does not quote money**
+
+`/tools/fit-out-quote/` is a sensitivity model, not a calculator. The output is
+an index: the starting quote is 100 and everything else is movement away from
+it. The five cost bands and their multipliers are **illustrative**, in one
+`MODEL` object at the top of the page's script, and the page says plainly that
+they are not Home Inn's figures. That is what keeps it inside the rule about
+never inventing figures: nothing here is presented as his.
+
+Two of the four questions in `drafts/README.md` (offcut proportion, standard
+contingency) are exactly the numbers that would let `MODEL` be replaced with
+real ones. That is the single biggest upgrade available to that page.
+
+**He writes the posts himself.** Asked on 2026-10-27, offered the alternative
+of having them drafted from his notes, and he chose to write them. Suggesting
+a topic is fine. Writing the piece is not, unless he asks. He expects to post
+roughly monthly. `drafts/README.md` is addressed to him and says how to hand
+one over; `notes/publishing-a-post.md` is the checklist for doing the
+publishing.
+
+**Tags were considered and declined.** He picked the plain index over tags,
+and tags across two posts look like scaffolding with nothing on it. Revisit at
+around ten.
+
 **Visitor counting is wired but switched off.** `meta.analytics` in
 `content.js` is null. Put a GoatCounter code there and the loader in `app.js`
 and `article.js` adds the script on every page; leave it null and no
@@ -260,6 +297,9 @@ co-owns the firm. His call, raised in `LINKEDIN.md`.
 9. The back of the visiting card unpublished, with ten other unreferenced
    images, and a 404 page added. His GitHub repo topics, description and the
    two scratch repos done through the API.
+10. Writing became the Blog: posts moved to `/blog/`, redirect stubs left
+    behind, an index page at `/blog/`, an Atom feed, and the interactive
+    fit-out tool at `/tools/fit-out-quote/`.
 
 Everything else outstanding is in `TODO.md`.
 

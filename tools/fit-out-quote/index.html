@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>What moves a fit-out quote — Tashfin Rahman</title>
+  <meta name="description" content="An interactive model of how an interior fit-out quote responds to the decisions a client makes: finish, joinery, site access, room condition and changes after cutting has started.">
+  <meta name="author" content="Tashfin Rahman">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="What moves a fit-out quote">
+  <meta property="og:description" content="Change the decisions and watch the number move. A model of how a fit-out quote is built, from Tashfin Rahman of Home Inn, Dhaka.">
+  <meta property="og:site_name" content="Tashfin Rahman">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:url" content="https://tashfin-rahman.github.io/tools/fit-out-quote/">
+  <meta property="og:image" content="https://tashfin-rahman.github.io/assets/work/home-inn-carved-wooden-wardrobe.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://tashfin-rahman.github.io/assets/work/home-inn-carved-wooden-wardrobe.jpg">
+
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://tashfin-rahman.github.io/tools/fit-out-quote/">
+  <meta name="theme-color" content="#0c0e13">
+
+  <link rel="alternate" type="application/atom+xml" title="Tashfin Rahman" href="/feed.xml">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='13' fill='%230c0e13'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../../styles.css">
+
+  <script>
+    try {
+      var saved = localStorage.getItem("portfolio-theme");
+      if (saved) document.documentElement.setAttribute("data-theme", saved);
+    } catch (err) {
+      /* No storage available; the dark default applies. */
+    }
+  </script>
+
+  <style>
+    /* Everything the tool needs and nothing else uses. The site's tokens do
+       the colours, so this follows the theme toggle without knowing about it. */
+
+    .tool-lede { color: var(--text-muted); max-width: var(--measure); }
+
+    .tool-caveat {
+      margin: 22px 0 30px;
+      padding: 14px 16px;
+      border-left: 3px solid var(--accent);
+      background: var(--bg-raised);
+      border-radius: 0 8px 8px 0;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      max-width: var(--measure);
+    }
+    .tool-caveat strong { color: var(--text); }
+
+    .tool-grid { display: grid; gap: 30px; }
+    @media (min-width: 900px) {
+      .tool-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 20rem); align-items: start; }
+      .tool-output { position: sticky; top: calc(var(--header-h) + 20px); }
+    }
+
+    .control { border: 0; margin: 0 0 22px; padding: 0; }
+    .control legend {
+      padding: 0;
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 3px;
+    }
+    .control-hint {
+      margin: 0 0 10px;
+      font-size: 0.86rem;
+      color: var(--text-faint);
+    }
+
+    /* A segmented control built from real radios. The input stays in the DOM
+       for keyboard and screen readers and is drawn off-screen rather than
+       display:none, which would take it out of the tab order. */
+    .segmented { display: flex; flex-wrap: wrap; gap: 8px; }
+    .segmented input {
+      position: absolute;
+      opacity: 0;
+      width: 1px;
+      height: 1px;
+      pointer-events: none;
+    }
+    .segmented label {
+      flex: 1 1 auto;
+      min-width: 7.5rem;
+      padding: 9px 13px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--bg-raised);
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.2s var(--ease);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .segmented label:hover { border-color: var(--border-strong); color: var(--text); }
+    }
+    .segmented label:active { transform: scale(0.97); }
+    .segmented input:checked + label {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--accent-ink);
+      font-weight: 600;
+    }
+    /* Keyboard focus has to be visible even though the input itself is not. */
+    .segmented input:focus-visible + label {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .tool-output {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--bg-raised);
+      padding: 20px;
+    }
+
+    .readout { display: flex; align-items: baseline; gap: 10px; }
+    .readout-number {
+      font-family: var(--serif);
+      font-size: 3.4rem;
+      line-height: 1;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+    }
+    .readout-unit { font-size: 0.82rem; color: var(--text-faint); line-height: 1.35; }
+    .readout-delta {
+      margin: 10px 0 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      min-height: 2.6em;
+    }
+
+    .bands { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 11px; }
+    .band-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 0.84rem;
+      margin-bottom: 4px;
+      color: var(--text-muted);
+    }
+    .band-top b { color: var(--text); font-weight: 600; }
+    .band-track {
+      height: 8px;
+      border-radius: 999px;
+      background: var(--bg-sunken);
+      overflow: hidden;
+    }
+    .band-fill {
+      display: block;
+      height: 100%;
+      border-radius: 999px;
+      background: var(--accent);
+      transition: width 0.45s var(--ease), background 0.3s;
+    }
+    /* The band that has moved furthest from the starting quote, so the eye
+       lands on the thing the tool is trying to teach. */
+    .band.is-mover .band-fill { background: var(--text); }
+
+    .tool-reset {
+      margin-top: 4px;
+      font-size: 0.88rem;
+      font-family: inherit;
+      background: none;
+      border: 0;
+      padding: 0;
+      color: var(--text-muted);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+    }
+    .tool-reset:hover { color: var(--accent); }
+
+    .tool-verdict {
+      margin: 36px 0 0;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      max-width: var(--measure);
+    }
+
+    .tool-noscript {
+      padding: 16px 18px;
+      border: 1px dashed var(--border-strong);
+      border-radius: 10px;
+      color: var(--text-muted);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .band-fill, .segmented label { transition: none; }
+    }
+
+    @media print {
+      /* On paper the controls do nothing. The explanation is the part worth
+         keeping, so the bars and buttons come off and the prose stays. */
+      .tool-controls, .tool-output { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <main id="main">
+    <section class="section article">
+      <div class="wrap">
+        <a class="article-back" href="../../">&larr; Tashfin Rahman</a>
+
+        <h1>What moves a fit-out quote</h1>
+        <p class="article-meta">October 2026 &middot; Tashfin Rahman, Home Inn</p>
+
+        <p class="tool-lede">Clients usually assume the materials decide the
+        price. In my experience materials are the part people expect, and
+        rarely the part that moves a quote after it has been agreed. Change the
+        five decisions below and watch which ones actually do.</p>
+
+        <div class="tool-caveat">
+          <strong>This is a model, not a price list.</strong> The number it
+          gives is an index: the quote you started from is 100, and everything
+          after that is movement away from it. The shares between the five
+          bands are illustrative, chosen to show which decisions matter and
+          which barely do. They are not Home Inn&rsquo;s costing, and no amount
+          of money is implied. If you want a price, the first step is letting
+          somebody measure the room.
+        </div>
+
+        <noscript>
+          <p class="tool-noscript">This page is interactive and needs
+          JavaScript. The argument behind it is written out in full in
+          <a href="/blog/fit-out-quote/">What you are actually paying for in a
+          fit-out quote</a>, which needs none.</p>
+        </noscript>
+
+        <div class="tool-grid">
+          <form class="tool-controls" id="tool-controls">
+
+            <fieldset class="control">
+              <legend>Finish</legend>
+              <p class="control-hint">What the surfaces are made of.</p>
+              <div class="segmented">
+                <input type="radio" name="finish" id="finish-0" value="0">
+                <label for="finish-0">Basic laminate</label>
+                <input type="radio" name="finish" id="finish-1" value="1" checked>
+                <label for="finish-1">Mid-range</label>
+                <input type="radio" name="finish" id="finish-2" value="2">
+                <label for="finish-2">Veneer or solid timber</label>
+              </div>
+            </fieldset>
+
+            <fieldset class="control">
+              <legend>Joinery</legend>
+              <p class="control-hint">How much is drawn for this room rather than taken off a standard.</p>
+              <div class="segmented">
+                <input type="radio" name="joinery" id="joinery-0" value="0" checked>
+                <label for="joinery-0">Standard</label>
+                <input type="radio" name="joinery" id="joinery-1" value="1">
+                <label for="joinery-1">Part custom</label>
+                <input type="radio" name="joinery" id="joinery-2" value="2">
+                <label for="joinery-2">Fully bespoke</label>
+              </div>
+            </fieldset>
+
+            <fieldset class="control">
+              <legend>Site access</legend>
+              <p class="control-hint">How the finished pieces get into the room.</p>
+              <div class="segmented">
+                <input type="radio" name="access" id="access-0" value="0" checked>
+                <label for="access-0">Ground floor</label>
+                <input type="radio" name="access" id="access-1" value="1">
+                <label for="access-1">Upper floor, lift</label>
+                <input type="radio" name="access" id="access-2" value="2">
+                <label for="access-2">Upper floor, stairs only</label>
+              </div>
+            </fieldset>
+
+            <fieldset class="control">
+              <legend>The room itself</legend>
+              <p class="control-hint">Whether the walls are square and the floor is level.</p>
+              <div class="segmented">
+                <input type="radio" name="room" id="room-0" value="0" checked>
+                <label for="room-0">Square and true</label>
+                <input type="radio" name="room" id="room-1" value="1">
+                <label for="room-1">Minor corrections</label>
+                <input type="radio" name="room" id="room-2" value="2">
+                <label for="room-2">Noticeably out of true</label>
+              </div>
+            </fieldset>
+
+            <fieldset class="control">
+              <legend>Changes after cutting starts</legend>
+              <p class="control-hint">A different handle, two more drawers, a unit a little wider.</p>
+              <div class="segmented">
+                <input type="radio" name="changes" id="changes-0" value="0" checked>
+                <label for="changes-0">None</label>
+                <input type="radio" name="changes" id="changes-1" value="1">
+                <label for="changes-1">A few</label>
+                <input type="radio" name="changes" id="changes-2" value="2">
+                <label for="changes-2">Several</label>
+              </div>
+            </fieldset>
+
+            <button type="button" class="tool-reset" id="tool-reset">Put everything back to the starting quote</button>
+          </form>
+
+          <aside class="tool-output" aria-label="Result">
+            <div class="readout">
+              <span class="readout-number" id="readout-number">100</span>
+              <span class="readout-unit">indexed to the<br>starting quote</span>
+            </div>
+            <p class="readout-delta" id="readout-delta" role="status" aria-live="polite">
+              This is the quote you started from. Change something on the left.
+            </p>
+
+            <ul class="bands" id="bands"></ul>
+          </aside>
+        </div>
+
+        <div class="tool-verdict">
+          <h2>What the model is saying</h2>
+
+          <p>Two of these five are decisions a client makes freely, and they
+          are the two that move the number most. The finish is chosen before
+          anything is cut, so deciding it late, or changing it afterwards,
+          means paying for the work twice. Changes after cutting starts are
+          each small on their own, which is exactly why they add up without
+          anyone noticing.</p>
+
+          <p>The other three are facts about the job rather than choices. A
+          room that is out of true, a third floor with no lift, joinery that
+          has to be drawn from scratch: none of those can be negotiated away,
+          and all of them should be in the number before anyone signs rather
+          than discovered later.</p>
+
+          <p>The full argument, including what to ask a firm before you agree
+          to anything, is in
+          <a href="/blog/fit-out-quote/">What you are actually paying for in a
+          fit-out quote</a>.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p><a class="piece-link" href="../../">Tashfin Rahman</a> &middot; <span id="footer-year">2026</span></p>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    "use strict";
+
+    /* ======================================================================
+       THE MODEL
+
+       Everything this tool believes is in one object, so replacing the
+       illustrative numbers with real ones later is an edit here and nowhere
+       else.
+
+       `base` is how a starting quote divides between the five bands, summing
+       to 100. `controls` holds, for each option of each control, what it
+       multiplies each band by. A band left out of an option is untouched.
+
+       These shares are illustrative. The page says so plainly above, and it
+       has to keep saying so for as long as they are.
+       =================================================================== */
+
+    var MODEL = {
+      base: {
+        materials: 40,
+        labour: 28,
+        site: 14,
+        wastage: 9,
+        contingency: 9
+      },
+
+      labels: {
+        materials: "Materials",
+        labour: "Workshop labour",
+        site: "Site work",
+        wastage: "Wastage",
+        contingency: "Contingency"
+      },
+
+      controls: {
+        finish: [
+          { materials: 0.80 },
+          {},
+          { materials: 1.45, labour: 1.10 }
+        ],
+        joinery: [
+          {},
+          { labour: 1.22, wastage: 1.08 },
+          { labour: 1.55, wastage: 1.18, materials: 1.06 }
+        ],
+        access: [
+          {},
+          { site: 1.30 },
+          { site: 1.80, labour: 1.05 }
+        ],
+        room: [
+          {},
+          { wastage: 1.15, labour: 1.06 },
+          { wastage: 1.40, labour: 1.18 }
+        ],
+        changes: [
+          {},
+          { materials: 1.08, labour: 1.14, contingency: 1.25 },
+          { materials: 1.20, labour: 1.40, contingency: 1.70 }
+        ]
+      },
+
+      /* Which option each control starts on, as an index into the arrays
+         above. These must match the `checked` attributes in the markup. */
+      start: { finish: 1, joinery: 0, access: 0, room: 0, changes: 0 }
+    };
+
+    var KEYS = ["materials", "labour", "site", "wastage", "contingency"];
+    var CONTROLS = ["finish", "joinery", "access", "room", "changes"];
+
+    var MOVER_WORDS = {
+      finish: "the finish",
+      joinery: "the joinery",
+      access: "site access",
+      room: "the state of the room",
+      changes: "the changes after cutting started"
+    };
+
+    /* --- Working the number out ------------------------------------------ */
+
+    function compute(choice) {
+      var out = { total: 0 };
+      KEYS.forEach(function (k) {
+        var v = MODEL.base[k];
+        CONTROLS.forEach(function (c) {
+          var mult = MODEL.controls[c][choice[c]] || {};
+          if (mult[k]) v *= mult[k];
+        });
+        out[k] = v;
+        out.total += v;
+      });
+      return out;
+    }
+
+    /* Which single control is doing the most work right now. Found by putting
+       each one back to its starting option in turn and seeing how far the
+       total falls back. That is more honest than ranking the multipliers,
+       because two controls can pull on the same band. */
+    function biggestMover(choice, total) {
+      var best = null;
+      var bestGap = 0;
+      CONTROLS.forEach(function (c) {
+        if (choice[c] === MODEL.start[c]) return;
+        var without = {};
+        CONTROLS.forEach(function (k) { without[k] = choice[k]; });
+        without[c] = MODEL.start[c];
+        var gap = Math.abs(total - compute(without).total);
+        if (gap > bestGap) { bestGap = gap; best = c; }
+      });
+      return best;
+    }
+
+    /* Which band has moved furthest from the starting quote. */
+    function biggestBand(result) {
+      var name = null;
+      var gap = 0;
+      KEYS.forEach(function (k) {
+        var d = Math.abs(result[k] - MODEL.base[k]);
+        if (d > gap) { gap = d; name = k; }
+      });
+      return gap >= 1 ? name : null;
+    }
+
+    /* --- Drawing it ------------------------------------------------------ */
+
+    var form = document.getElementById("tool-controls");
+    var numberEl = document.getElementById("readout-number");
+    var deltaEl = document.getElementById("readout-delta");
+    var bandsEl = document.getElementById("bands");
+
+    /* The five rows are built once; after that only widths and text change. */
+    var rows = {};
+    KEYS.forEach(function (k) {
+      var li = document.createElement("li");
+      li.className = "band";
+
+      var top = document.createElement("div");
+      top.className = "band-top";
+      var name = document.createElement("b");
+      name.textContent = MODEL.labels[k];
+      var val = document.createElement("span");
+      top.appendChild(name);
+      top.appendChild(val);
+
+      var track = document.createElement("div");
+      track.className = "band-track";
+      var fill = document.createElement("span");
+      fill.className = "band-fill";
+      track.appendChild(fill);
+
+      li.appendChild(top);
+      li.appendChild(track);
+      bandsEl.appendChild(li);
+
+      rows[k] = { li: li, val: val, fill: fill };
+    });
+
+    function readChoices() {
+      var choice = {};
+      CONTROLS.forEach(function (c) {
+        var picked = form.querySelector('input[name="' + c + '"]:checked');
+        choice[c] = picked ? Number(picked.value) : MODEL.start[c];
+      });
+      return choice;
+    }
+
+    function render() {
+      var choice = readChoices();
+      var result = compute(choice);
+      var total = Math.round(result.total);
+
+      numberEl.textContent = total;
+
+      /* Bar widths are shares of the largest band in this run, not of the
+         total, so a small band holding still stays visible beside a big one. */
+      var widest = Math.max.apply(null, KEYS.map(function (k) { return result[k]; }));
+      var mover = biggestBand(result);
+
+      KEYS.forEach(function (k) {
+        var r = rows[k];
+        r.fill.style.width = (result[k] / widest * 100).toFixed(1) + "%";
+        r.val.textContent = Math.round(result[k]);
+        r.li.classList.toggle("is-mover", k === mover);
+      });
+
+      if (total === 100) {
+        deltaEl.textContent =
+          "This is the quote you started from. Change something on the left.";
+        return;
+      }
+
+      var worst = biggestMover(choice, result.total);
+      deltaEl.textContent =
+        Math.abs(total - 100) + "% " + (total > 100 ? "above" : "below") +
+        " the starting quote." +
+        (worst ? " Most of that is " + MOVER_WORDS[worst] + "." : "");
+    }
+
+    form.addEventListener("change", render);
+
+    document.getElementById("tool-reset").addEventListener("click", function () {
+      CONTROLS.forEach(function (c) {
+        var input = form.querySelector(
+          'input[name="' + c + '"][value="' + MODEL.start[c] + '"]'
+        );
+        if (input) input.checked = true;
+      });
+      render();
+    });
+
+    render();
+
+    var y = document.getElementById("footer-year");
+    if (y) y.textContent = new Date().getFullYear();
+  })();
+  </script>
+</body>
+</html>

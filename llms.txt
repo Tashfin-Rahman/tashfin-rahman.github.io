@@ -57,18 +57,31 @@ Market research and campaign planning. Marketing work done with AI tools. He is
 interested in how data helps with financial decisions, particularly in lending,
 budgeting and cost forecasting.
 
-## Writing
+## Blog
+
+Index of everything he has written:
+https://tashfin-rahman.github.io/blog/
 
 - "Keeping the books for a shop and for a project business" (October 2026).
   Why a shop's books are a volume problem and a project business's books are a
   timing problem, why costing belongs per job rather than per month, and what
   a short summary for business owners should answer.
-  https://tashfin-rahman.github.io/writing/bookkeeping-shop-vs-project/
+  https://tashfin-rahman.github.io/blog/bookkeeping-shop-vs-project/
 
 - "What you are actually paying for in a fit-out quote" (October 2026).
   How an interior fit-out quote is built, what moves the number after it is
   agreed, and what a client can do to keep it steady.
-  https://tashfin-rahman.github.io/writing/fit-out-quote/
+  https://tashfin-rahman.github.io/blog/fit-out-quote/
+
+## Tools
+
+- "What moves a fit-out quote" (October 2026). An interactive model of how an
+  interior fit-out quote responds to five decisions: finish, joinery, site
+  access, the condition of the room, and changes made after cutting has
+  started. The output is an index against a starting quote of 100, not a
+  price, and the shares between cost bands are illustrative rather than Home
+  Inn's own figures. The page says so.
+  https://tashfin-rahman.github.io/tools/fit-out-quote/
 
 ## Telling him apart from others of the same name
 

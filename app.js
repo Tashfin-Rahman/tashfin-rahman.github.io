@@ -78,7 +78,7 @@
     { id: "experience", label: "Experience", render: renderExperience },
     { id: "reach", label: "Reach", render: renderReach },
     { id: "work", label: "Work", render: renderWork },
-    { id: "writing", label: "Writing", render: renderWriting },
+    { id: "blog", label: "Blog", render: renderWriting },
     { id: "projects", label: "Projects", render: renderProjects },
     { id: "education", label: "Education", render: renderEducation },
     { id: "skills", label: "Skills", render: renderSkills },
@@ -624,13 +624,18 @@
     });
     if (!entries.length) return false;
 
-    var body = document.getElementById("writing-body");
+    var body = document.getElementById("blog-body");
 
     // index.html carries a plain copy of the list for crawlers without
     // JavaScript. Clear it before rendering so nothing appears twice.
     body.textContent = "";
 
-    entries.forEach(function (piece) {
+    // The home page shows the newest few and sends the rest to /blog/. At one
+    // piece a month the full list would otherwise push Projects, Education and
+    // Contact a long way down the page within a year.
+    var HOME_MAX = 3;
+
+    entries.slice(0, HOME_MAX).forEach(function (piece) {
       var card = reveal(el("article", "piece"), "up");
 
       var head = el("div", "entry-head");
@@ -650,6 +655,19 @@
 
       body.appendChild(card);
     });
+
+    var all = reveal(el("p", "blog-all"), "up");
+    var allLink = el(
+      "a",
+      "piece-link",
+      entries.length > HOME_MAX
+        ? "All " + entries.length + " posts"
+        : "All posts"
+    );
+    allLink.href = "blog/";
+    all.appendChild(allLink);
+    body.appendChild(all);
+
     return true;
   }
 

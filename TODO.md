@@ -45,6 +45,19 @@ down once already.
 The rest of the profile is correct: website field, company, location, and all
 four social links showing their proper brand icons.
 
+## The blog
+
+Built on 2026-10-27. Nothing outstanding in the code. What it needs is posts.
+
+**He writes them.** He turned down having them drafted for him. The handover
+is in `drafts/README.md`: a rough text file in `drafts/`, then tell me. About
+one a month is the rate he expects.
+
+Open: **pick the next topic.** The four questions under Selected Work below
+would each make a piece on their own, and answers to the first two would also
+let the illustrative numbers in `/tools/fit-out-quote/` be replaced with real
+ones, which is the biggest single upgrade available to that page.
+
 ## The map
 
 The company profile names twelve districts by project. The firm's own figure

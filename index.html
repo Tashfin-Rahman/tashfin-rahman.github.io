@@ -33,6 +33,7 @@
 
   <!-- Inline placeholder so the browser never requests /favicon.ico and 404s.
        app.js replaces it with one drawn from your initials. -->
+  <link rel="alternate" type="application/atom+xml" title="Tashfin Rahman" href="/feed.xml">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='13' fill='%230c0e13'/%3E%3C/svg%3E">
 
   <link rel="stylesheet" href="styles.css">
@@ -111,27 +112,30 @@
       </div>
     </section>
 
-    <section class="section" id="writing" aria-labelledby="writing-h">
+    <section class="section" id="blog" aria-labelledby="blog-h">
       <div class="wrap">
-        <h2 id="writing-h">Writing</h2>
+        <h2 id="blog-h">Blog</h2>
         <!-- app.js replaces this from the `writing` array in content.js. It
              is written out here as well so a crawler that does not run
-             JavaScript still finds the piece. Keep it matching content.js. -->
-        <div class="writing" id="writing-body">
+             JavaScript still finds the pieces. Keep it matching content.js.
+             app.js also appends the "All posts" link, so it is written here
+             too and removed along with the rest before rendering. -->
+        <div class="writing" id="blog-body">
           <article class="piece">
             <div class="entry-head">
-              <h3><a class="piece-link" href="writing/bookkeeping-shop-vs-project/">Keeping the books for a shop and for a project business</a></h3>
+              <h3><a class="piece-link" href="blog/bookkeeping-shop-vs-project/">Keeping the books for a shop and for a project business</a></h3>
               <span class="entry-dates">Oct 2026</span>
             </div>
             <p class="piece-summary">A shop's books are a volume problem and a project business's books are a timing problem. What changes between them, and the habit I had to drop carrying one over to the other.</p>
           </article>
           <article class="piece">
             <div class="entry-head">
-              <h3><a class="piece-link" href="writing/fit-out-quote/">What you are actually paying for in a fit-out quote</a></h3>
+              <h3><a class="piece-link" href="blog/fit-out-quote/">What you are actually paying for in a fit-out quote</a></h3>
               <span class="entry-dates">Oct 2026</span>
             </div>
             <p class="piece-summary">Most people ask for a price before anyone has seen the room, and a price given at that stage has to be padded. Here is how a quote is actually built, what moves it, and what a client can do to keep it steady.</p>
           </article>
+          <p class="blog-all"><a class="piece-link" href="blog/">All posts</a></p>
         </div>
       </div>
     </section>

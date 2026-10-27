@@ -265,14 +265,14 @@ window.CV = {
       date: "Oct 2026",
       summary:
         "A shop's books are a volume problem and a project business's books are a timing problem. What changes between them, and the habit I had to drop carrying one over to the other.",
-      url: "writing/bookkeeping-shop-vs-project/",
+      url: "blog/bookkeeping-shop-vs-project/",
     },
     {
       title: "What you are actually paying for in a fit-out quote",
       date: "Oct 2026",
       summary:
         "Most people ask for a price before anyone has seen the room, and a price given at that stage has to be padded. Here is how a quote is actually built, what moves it, and what a client can do to keep it steady.",
-      url: "writing/fit-out-quote/",
+      url: "blog/fit-out-quote/",
     },
   ],
 
