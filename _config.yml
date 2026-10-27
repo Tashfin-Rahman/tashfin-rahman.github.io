@@ -1,0 +1,19 @@
+# GitHub Pages builds this repo with Jekyll. Everything listed here is kept
+# out of the built site, so the project's own notes are not published.
+#
+# They already 404 today, but that is Jekyll's default behaviour rather than
+# a decision, and defaults change. This makes it explicit.
+#
+# Add anything new of the same kind to this list, or put it in notes/.
+exclude:
+  - CLAUDE.md
+  - TASHFIN-PORTFOLIO-CONTEXT.md
+  - TODO.md
+  - DEPLOY.md
+  - LINKEDIN.md
+  - README.md
+  - notes
+  - drafts
+
+# cv/index.html is deliberately NOT excluded. It carries noindex already, and
+# the risk of changing what the live site serves is not worth the tidiness.

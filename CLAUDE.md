@@ -7,8 +7,23 @@ built, what has already been decided, the traps already hit, and the current
 state. Reading it is not optional and it is not a formality: nearly everything
 in it was learned the expensive way.
 
+That file is the core and is deliberately short. The detail lives in three
+files beside it, and **you open one only when the work touches it** — reading
+all of them every time is what the split exists to avoid:
+
+- `notes/how-the-site-works.md` — changing the site's code: the render
+  pipeline, the pages, the map, the CV.
+- `notes/traps.md` — the browser pane, LinkedIn, GitHub, animation,
+  screenshots, PDFs, the shell. Read it **before** touching any of those, not
+  after something fails.
+- `notes/seo.md` — search, answer engines, schema, the sitemap, Search
+  Console.
+
 `TODO.md` holds what is still to do. `DEPLOY.md` holds the commands.
 `LINKEDIN.md` holds the LinkedIn text, ready to paste.
+
+None of these are published: `_config.yml` keeps them out of the built site.
+Anything new of the same kind goes in `notes/` or into that exclude list.
 
 ## Write everything down, as you go
 
