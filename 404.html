@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Page not found — Tashfin Rahman</title>
+  <meta name="description" content="That page is not here. Links back to the rest of the site.">
+
+  <!-- A 404 must never be indexed, or it competes with the real pages. -->
+  <meta name="robots" content="noindex, follow">
+  <meta name="theme-color" content="#0c0e13">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='13' fill='%230c0e13'/%3E%3C/svg%3E">
+
+  <!-- Absolute paths, not relative: GitHub Pages serves this one file for a
+       missing URL at any depth, so ../styles.css would resolve differently
+       for /writing/typo/ than for /typo. -->
+  <link rel="stylesheet" href="/styles.css">
+
+  <!-- Same pre-paint theme read as the written pieces, so arriving here does
+       not flash dark at someone who chose light. -->
+  <script>
+    try {
+      var saved = localStorage.getItem("portfolio-theme");
+      if (saved) document.documentElement.setAttribute("data-theme", saved);
+    } catch (err) {
+      /* No storage available; the dark default applies. */
+    }
+  </script>
+
+  <style>
+    /* Only what this page needs. Everything else comes from styles.css. */
+    .notfound { min-height: 72vh; display: flex; align-items: center; }
+    .notfound-code {
+      font-size: clamp(3.5rem, 14vw, 7rem);
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      color: var(--accent);
+      margin: 0 0 0.4em;
+    }
+    .notfound h1 { margin-top: 0; }
+    .notfound-links {
+      list-style: none;
+      padding: 0;
+      margin: 2rem 0 0;
+      display: grid;
+      gap: 0.85rem;
+      max-width: 34rem;
+    }
+    .notfound-links a { font-weight: 600; }
+    .notfound-links span { display: block; font-size: 0.92rem; opacity: 0.72; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <main id="main">
+    <section class="section notfound">
+      <div class="wrap">
+        <p class="notfound-code" aria-hidden="true">404</p>
+
+        <h1>That page is not here</h1>
+
+        <p>Either the address has a typo in it, or something I had here has
+        moved. Nothing is broken on your end.</p>
+
+        <ul class="notfound-links">
+          <li>
+            <a href="/">Start at the top</a>
+            <span>Who I am, where I work, what I have written.</span>
+          </li>
+          <li>
+            <a href="/writing/bookkeeping-shop-vs-project/">Keeping the books for a shop and for a project business</a>
+            <span>Why the same set of accounts tells you much less about a project business.</span>
+          </li>
+          <li>
+            <a href="/writing/fit-out-quote/">What you are actually paying for in a fit-out quote</a>
+            <span>How the number is built, and what moves it after it is agreed.</span>
+          </li>
+          <li>
+            <a href="/assets/cv.pdf">My CV, one page</a>
+            <span>PDF, opens in the browser.</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p><a class="piece-link" href="/">Tashfin Rahman</a> · <span id="footer-year">2026</span></p>
+  </footer>
+
+  <script>
+    var y = document.getElementById("footer-year");
+    if (y) y.textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

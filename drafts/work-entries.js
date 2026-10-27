@@ -1,6 +1,14 @@
-/* The four Selected Work entries, parked while the section is reworked.
-   Paste the array back into content.js to bring the section back; the
-   images are still in assets/work/ and the renderer still supports them. */
+/* The four Selected Work entries, parked and superseded.
+
+   Do not paste these back as they are. Three of the four describe the firm's
+   work rather than Tashfin's, and carry firm-wide figures instead of anything
+   he did himself. The brand identity piece was the only one clearly his, and
+   it has been rewritten in work-brand-identity.js beside this file.
+
+   THE IMAGES THESE POINT AT HAVE MOVED. On 2026-10-27 everything in
+   assets/work/ that nothing published referenced was moved to drafts/images/,
+   so it is no longer served from the live site. See drafts/images/README.md.
+   Restoring an entry means copying its image back into assets/work/ first. */
 
   work: [
     {
