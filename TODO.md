@@ -19,28 +19,28 @@ Settled: title is Partner & Chief Business Officer, the CV shows only
 
 ## GitHub
 
-Checked live on 2026-10-27. Three things left, all of them his to do, because
-the token has no `user` scope and `gh` is not on this machine's PATH.
+**One thing left, and it needs him.** The other two were done through the API
+on 2026-10-27 with the stored token.
 
-**1. The bio is still the old one.** It reads "Just an ordinary BBA guy trying
-to learn, grow, and hopefully make a meaningful change in the corporate
-world." It sits directly above a README that calls him Partner and Chief
-Business Officer, and it is the line GitHub shows beside his name in search.
-Replace it at github.com/settings/profile with:
+**The bio is still the old one.** It reads "Just an ordinary BBA guy trying to
+learn, grow, and hopefully make a meaningful change in the corporate world."
+It sits directly above a README that calls him Partner and Chief Business
+Officer, and it is the line GitHub shows beside his name in search. This
+cannot be done for him: changing a profile bio needs `user` scope and the
+stored token has `gist, repo, workflow`. Go to
+github.com/settings/profile and replace it with:
 
 ```
 Partner & Chief Business Officer at Home Inn. Business finance, costing and marketing. Dhaka, Bangladesh.
 ```
 
-**2. Two scratch repos are the first thing on his profile.** `For-Claude` and
-`Anti-Gravity` sit above the portfolio, both with no description, and
-`Anti-Gravity` is empty at 0 KB. Make them private under Settings, Danger
-Zone, Change visibility. Describing them is not worth it; neither is work he
-would show anyone.
-
-**3. The portfolio repo has no topics.** `portfolio`, `business-finance`,
-`dhaka`. Two minutes, helps a little inside GitHub's own search. Skip it if
-time is short.
+**Done, 2026-10-27.** `For-Claude` and `Anti-Gravity` are private, so the
+portfolio is now the first repo on his profile. The portfolio repo has seven
+topics (`portfolio`, `cv`, `personal-website`, `business-finance`, `dhaka`,
+`bangladesh`, `github-pages`), and its description lost the em-dash it had in
+it. The repo itself is still public and Pages is still on; both were checked
+straight afterwards, because making that repo private is what took the site
+down once already.
 
 The rest of the profile is correct: website field, company, location, and all
 four social links showing their proper brand icons.
@@ -84,6 +84,19 @@ brand identity piece was the only one clearly his.
 Still open from before: one real number from one job. A budget held, a cost
 cut, an order won.
 
+### Four questions left over from the fit-out piece
+
+These were marked `[NEED]` in the draft and the article was published without
+them, generalised instead. Any one of them would sharpen a future piece, and
+none needs a client's permission:
+
+1. Roughly what proportion of sheet material ends up as offcut on a typical
+   job?
+2. Is there a standard contingency percentage, or is it judged per job?
+3. A real site surprise he has hit. A wall out of square, a floor that slopes,
+   a beam nobody mentioned. What did it cost to solve?
+4. How long does Home Inn hold a quote for before the price moves?
+
 ## LinkedIn
 
 **The About section is too long.** Five paragraphs. It should be shorter.
@@ -126,6 +139,19 @@ The site is done. The last two em-dashes in public prose were in the contact
 line and are gone, and the meta description no longer advertises a Selected
 Work section that is off the page. What is left is GitHub and LinkedIn, and
 both need the browser pane signed in.
+
+## Done and not worth re-raising
+
+- **A 404 page**, 2026-10-27. GitHub's generic one is gone; a missing URL now
+  gets the site's own page with links to the home page, both pieces and the
+  CV. Verified at `/typo` and at `/writing/typo/`.
+- **Eleven images unpublished**, 2026-10-27. Everything in `assets/work/` that
+  no published page referenced, including the back of the visiting card, which
+  was fetchable at its own URL. Moved to `drafts/images/`, which the build
+  excludes. See `drafts/images/README.md`.
+- **`drafts/what-youre-paying-for.md` deleted**, 2026-10-27. It was the draft
+  of the fit-out article, which has been live for two days. Its four open
+  questions are under Selected Work above so they are not lost with it.
 
 ## Parked
 

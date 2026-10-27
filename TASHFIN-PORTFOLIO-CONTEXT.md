@@ -157,8 +157,20 @@ Do not reopen these without being asked.
   and carry `BlogPosting` and `FAQPage` schema in one `@graph`. The questions
   are answered in each page's own text; keep them that way if an article is
   edited, or the schema stops matching the page.
+- A 404 page in the site's own style at `404.html`, which GitHub Pages serves
+  for any missing URL at any depth. It links to the home page, both written
+  pieces and the CV, and is marked `noindex`. Its paths are absolute
+  (`/styles.css`), not relative, because the one file answers `/typo` and
+  `/writing/typo/` alike.
 - Search Console verified; the homepage was indexed the day it went live.
 - GitHub profile: README, website field, company, location, four social links.
+  The portfolio repo now carries seven topics and a description with no
+  em-dash in it. `For-Claude` and `Anti-Gravity` are private, so the portfolio
+  is the first repo on his profile. All three were done through the API with
+  the stored token (`repo` scope), not by hand.
+  **The bio is still the old casual one and still needs him**: changing it
+  takes `user` scope, which the token does not have. The replacement text is
+  in `TODO.md`.
 - LinkedIn: headline, About, three roles, seven skills, portfolio in contact
   info, clean URL `/in/tashfinrahman`.
 
@@ -182,6 +194,18 @@ card.
 **The back of the visiting card was never published, on purpose.** It carries
 the factory address, a hotline and a second email that are not otherwise
 public. Use the front only unless he says otherwise.
+
+That decision was about which image a *page* used. The file itself was sitting
+in `assets/work/`, which GitHub Pages serves, so it was fetchable at its own
+URL the whole time. Nothing linked to it, but `robots.txt` welcomes image
+crawlers and the address was one guess away. On 2026-10-27 it and the ten
+other images in `assets/work/` that no published page referenced were moved to
+`drafts/images/`, which `_config.yml` excludes from the build. Verified 404
+afterwards. Nothing was deleted and `drafts/images/README.md` says what moved.
+
+**The lesson, which is more general than this one file: deciding not to show
+something on a page does not unpublish it.** Anything under `assets/` is
+served to anyone who asks for the URL. Only `_config.yml` actually removes it.
 
 The four older entries are in `drafts/work-entries.js` and are superseded.
 What was wrong with them: three of the four described the firm's work rather
@@ -232,6 +256,10 @@ co-owns the firm. His call, raised in `LINKEDIN.md`.
 7. The theme toggle rebuilt: the stuck tilt on phones fixed, the glyph
    replaced by SVG, and the theme change itself made into a sweep.
 8. This file renamed from `CONTEXT.md`.
+
+9. The back of the visiting card unpublished, with ten other unreferenced
+   images, and a 404 page added. His GitHub repo topics, description and the
+   two scratch repos done through the API.
 
 Everything else outstanding is in `TODO.md`.
 
