@@ -5,7 +5,9 @@ after every piece of work, not at the end of a session.**
 
 This file is the memory for this project. It holds who the work is for, what
 has been decided, how the pieces fit together, and the traps that have already
-been hit. `TODO.md` holds what is still to do. `DEPLOY.md` holds the commands.
+been hit. `CLAUDE.md` beside it points here and loads automatically. `TODO.md` holds
+what is still to do. `DEPLOY.md` holds the commands. `LINKEDIN.md` holds the
+LinkedIn text.
 
 Tashfin asked on 2026-10-26 that context live here rather than being carried in
 conversation, so that a session can be compacted at any point and the next one
@@ -480,7 +482,15 @@ Everything else outstanding is in `TODO.md`.
 
 ## Working agreement
 
-- Read this file first. Update it at the end of every session.
+- Read this file first. Write back to it after each piece of work, not at the
+  end of a session. He compacts the conversation often and on purpose, so
+  anything held only in the chat is lost the moment he does. `CLAUDE.md` in
+  this folder says the same thing and loads on its own at the start of a
+  session; this is the copy that survives if that file is ever moved.
+- **Anything he says in conversation that the next session would need gets
+  written down**, not just acted on. Drafted text goes in verbatim, not
+  described. The GitHub bio was nearly lost this way on 2026-10-27: it had
+  been written for him in chat and nowhere else.
 - Verify rather than assume. Check the live URL, the API, the rendered DOM —
   not the form that looks like it saved.
 - Say plainly what failed or went unchecked.
