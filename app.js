@@ -529,7 +529,12 @@
       ["outcome", "Outcome"],
     ];
 
+    // The markup was taken out of index.html when the section came off the
+    // site, so this is null until it is put back. Without the guard, adding
+    // entries to content.js alone would throw instead of saying nothing.
     var body = document.getElementById("work-body");
+    if (!body) return false;
+
     entries.forEach(function (item) {
       var card = reveal(el("article", "work-item"), "pop");
 

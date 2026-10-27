@@ -11,6 +11,20 @@
    The back of the card was deliberately never published: it carries the
    factory address, a hotline and an email that are not otherwise public.
 
+   PUTTING THE SECTION BACK TAKES TWO PASTES, not one. The markup was taken
+   out of index.html on 2026-10-27 so that the page source carried no empty
+   "Selected Work" heading. Put this back into index.html, directly above the
+   <section id="writing"> block:
+
+     <section class="section" id="work" aria-labelledby="work-h">
+       <div class="wrap">
+         <h2 id="work-h">Selected Work</h2>
+         <div class="work" id="work-body"></div>
+       </div>
+     </section>
+
+   Then paste the array below over `work: []` in content.js.
+
    This supersedes the older, longer version in work-entries.js, whose three
    Home Inn pieces described the firm's work rather than his. */
 

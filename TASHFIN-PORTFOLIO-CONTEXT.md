@@ -168,8 +168,13 @@ It was live for about an hour on 2026-10-27 with the Home Inn brand identity
 piece. He asked for it to come off the same day: he wants to supply other
 work first. Nothing was wrong with the piece itself.
 
-It is parked whole in `drafts/work-brand-identity.js` — paste that array over
-`work: []` and the section and its nav link return. Its three images are
+It is parked whole in `drafts/work-brand-identity.js`. **Putting it back
+takes two pastes, not one:** the `<section id="work">` markup was removed
+from `index.html` as well, so the page source carries no empty "Selected
+Work" heading. He checked the source and reasonably concluded the section was
+still there. Both pastes are written out at the top of that drafts file, and
+`renderWork()` now returns false instead of throwing if the array is filled
+while the markup is still missing. Its three images are
 still in `assets/work/`: the contact sheet of thirteen logo variants built
 from the brand kit, the five-colour palette, and the front of the visiting
 card.
