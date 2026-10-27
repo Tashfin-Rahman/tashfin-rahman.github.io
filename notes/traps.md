@@ -45,6 +45,27 @@ Tried on 2026-10-27, because he asked. None of the three routes work:
 So the app's browser pane is the only way to change LinkedIn, and it needs him
 to sign in there. Do not spend calls re-testing this.
 
+### Never add a _config.yml to this repo
+
+On 2026-10-27 a `_config.yml` carrying nothing but an `exclude:` list was
+added, to keep the project's notes out of the built site. **The entire site
+started returning 404** within a few minutes: the homepage, every article,
+`app.js`, everything. It was reverted immediately and the site had to wait
+for GitHub to rebuild.
+
+The notes already 404'd without it. It was hardening something that was not
+broken, which is the worst kind of change to make to a live site.
+
+If a reason ever genuinely requires one: push it, then watch the Pages build
+through to completion before doing anything else, and be ready to revert
+within the minute. Better still, do not.
+
+Also worth knowing from the same hour: unauthenticated `api.github.com` calls
+rate-limit quickly, so build status cannot be checked that way, and `gh` is
+not installed on this machine. The only signal available is polling the live
+URL with a cache-busting query string. A plain request can be served a stale
+404 from the edge with an `Age` header of several hundred seconds.
+
 ### Headless Chrome is the reliable alternative
 
 `C:\Program Files\Google\Chrome\Application\chrome.exe` with `--headless=new`
