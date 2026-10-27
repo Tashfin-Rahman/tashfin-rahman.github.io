@@ -162,22 +162,26 @@ Do not reopen these without being asked.
 - LinkedIn: headline, About, three roles, seven skills, portfolio in contact
   info, clean URL `/in/tashfinrahman`.
 
-**Selected Work is back, with one piece**
+**Selected Work is off the site again**
 
-The Home Inn brand identity, which is his own design work and needs nobody's
-permission. It carries a gallery of three: a contact sheet of the thirteen
-logo variants built from the brand kit, the five-colour palette, and the
-front of the visiting card. Every claim in it is checkable against the kit
-itself, so there is nothing invented.
+It was live for about an hour on 2026-10-27 with the Home Inn brand identity
+piece. He asked for it to come off the same day: he wants to supply other
+work first. Nothing was wrong with the piece itself.
 
-**The back of the visiting card was left out on purpose.** It carries the
-factory address, a hotline and a second email that are not otherwise public.
-Use the front only unless he says otherwise.
+It is parked whole in `drafts/work-brand-identity.js` — paste that array over
+`work: []` and the section and its nav link return. Its three images are
+still in `assets/work/`: the contact sheet of thirteen logo variants built
+from the brand kit, the five-colour palette, and the front of the visiting
+card.
 
-The four old entries are still parked in `drafts/work-entries.js`. What was
-wrong with them: three of the four described the firm's work rather than his,
-and carried firm-wide figures instead of anything he did. Do not put them
-back as they are.
+**The back of the visiting card was never published, on purpose.** It carries
+the factory address, a hotline and a second email that are not otherwise
+public. Use the front only unless he says otherwise.
+
+The four older entries are in `drafts/work-entries.js` and are superseded.
+What was wrong with them: three of the four described the firm's work rather
+than his, and carried firm-wide figures instead of anything he did. Do not
+put those back as they are.
 
 **Visitor counting is wired but switched off.** `meta.analytics` in
 `content.js` is null. Put a GoatCounter code there and the loader in `app.js`

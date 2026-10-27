@@ -64,6 +64,15 @@ is being made blind.
 
 ## Selected Work
 
+**He is going to send other work.** That is what the section is waiting on,
+as of 2026-10-27. For each piece: what the job was, what his part in it was,
+and one outcome. A real number if he has one; if not, the method.
+
+The brand identity piece is ready to drop back in whenever he wants it, from
+`drafts/work-brand-identity.js`.
+
+### Older notes
+
 Taken off the site and the CV on 2026-10-26, to be rebuilt. The four entries
 are parked in `drafts/work-entries.js` and the images are still in
 `assets/work/`. Nothing is lost.
