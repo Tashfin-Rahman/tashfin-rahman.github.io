@@ -464,8 +464,9 @@ co-owns the firm. His call, raised in `LINKEDIN.md`.
 3. The wording pass over the site finished: the last two em-dashes in public
    prose, in the contact line, and a meta description that still advertised a
    Selected Work section that had come off the page.
-4. His GitHub profile checked live. Three things left, all his to do: the bio
-   is still the old casual one, `For-Claude` and `Anti-Gravity` sit above his
+4. His GitHub profile checked live. Three things left, all his to do, written
+   out with the replacement bio text under **GitHub** in `TODO.md`: the bio is
+   still the old casual one, `For-Claude` and `Anti-Gravity` sit above his
    portfolio with no descriptions and one of them empty, and the portfolio
    repo has no topics.
 5. His own browser ruled out as a way in (see Traps), and the LinkedIn

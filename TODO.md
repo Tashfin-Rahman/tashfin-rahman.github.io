@@ -17,6 +17,34 @@ Settled: title is Partner & Chief Business Officer, the CV shows only
    part of, what it was, your part, and one outcome.
 5. **Pick the next writing topic** and one real example for it.
 
+## GitHub
+
+Checked live on 2026-10-27. Three things left, all of them his to do, because
+the token has no `user` scope and `gh` is not on this machine's PATH.
+
+**1. The bio is still the old one.** It reads "Just an ordinary BBA guy trying
+to learn, grow, and hopefully make a meaningful change in the corporate
+world." It sits directly above a README that calls him Partner and Chief
+Business Officer, and it is the line GitHub shows beside his name in search.
+Replace it at github.com/settings/profile with:
+
+```
+Partner & Chief Business Officer at Home Inn. Business finance, costing and marketing. Dhaka, Bangladesh.
+```
+
+**2. Two scratch repos are the first thing on his profile.** `For-Claude` and
+`Anti-Gravity` sit above the portfolio, both with no description, and
+`Anti-Gravity` is empty at 0 KB. Make them private under Settings, Danger
+Zone, Change visibility. Describing them is not worth it; neither is work he
+would show anyone.
+
+**3. The portfolio repo has no topics.** `portfolio`, `business-finance`,
+`dhaka`. Two minutes, helps a little inside GitHub's own search. Skip it if
+time is short.
+
+The rest of the profile is correct: website field, company, location, and all
+four social links showing their proper brand icons.
+
 ## The map
 
 The company profile names twelve districts by project. The firm's own figure
