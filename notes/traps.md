@@ -45,26 +45,37 @@ Tried on 2026-10-27, because he asked. None of the three routes work:
 So the app's browser pane is the only way to change LinkedIn, and it needs him
 to sign in there. Do not spend calls re-testing this.
 
-### Never add a _config.yml to this repo
+### A 404 on the whole site usually means the repo went private
 
-On 2026-10-27 a `_config.yml` carrying nothing but an `exclude:` list was
-added, to keep the project's notes out of the built site. **The entire site
-started returning 404** within a few minutes: the homepage, every article,
-`app.js`, everything. It was reverted immediately and the site had to wait
-for GitHub to rebuild.
+**The repository must stay public.** It is a user Pages site on a free
+account, so Pages is unpublished the moment the repo becomes private, and
+every URL returns GitHub's "There isn't a GitHub Pages site here" page.
 
-The notes already 404'd without it. It was hardening something that was not
-broken, which is the worst kind of change to make to a live site.
+This happened on 2026-10-27. Tashfin had been asked to make two scratch
+repos, `For-Claude` and `Anti-Gravity`, private; `tashfin-rahman.github.io`
+was made private instead. Both scratch repos were still public afterwards,
+which is how it was spotted.
 
-If a reason ever genuinely requires one: push it, then watch the Pages build
-through to completion before doing anything else, and be ready to revert
-within the minute. Better still, do not.
+**How to tell the difference, before changing anything:**
 
-Also worth knowing from the same hour: unauthenticated `api.github.com` calls
-rate-limit quickly, so build status cannot be checked that way, and `gh` is
-not installed on this machine. The only signal available is polling the live
-URL with a cache-busting query string. A plain request can be served a stale
-404 from the edge with an `Age` header of several hundred seconds.
+- Load the site. "There isn't a GitHub Pages site here" means Pages is off or
+  the repo is private. A build failure looks different: the old build keeps
+  serving, or you get a plain 404 from a path that never existed.
+- Load `https://github.com/Tashfin-Rahman?tab=repositories` signed out. If
+  the repo is missing from the list, it is private. `git push` and
+  `git ls-remote` keep working either way, so they prove nothing.
+
+**A wrong diagnosis was reached first.** A `_config.yml` had been added a few
+minutes earlier and was assumed to be the cause, so it was reverted before
+the evidence was gathered. It was not the cause. Check what the 404 page
+actually says before reverting anything.
+
+Also from the same hour: unauthenticated `api.github.com` calls rate-limit
+quickly, so build status cannot be checked that way, and `gh` is not
+installed on this machine. Use the browser pane to read github.com instead.
+A plain request to the site can also be served a stale 404 from the edge with
+an `Age` header of several hundred seconds, so add a cache-busting query
+string when polling.
 
 ### Headless Chrome is the reliable alternative
 

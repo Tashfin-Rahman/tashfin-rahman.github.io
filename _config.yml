@@ -1,0 +1,19 @@
+# Keeps the project's own notes out of the published site.
+#
+# This matters. Until 2026-10-27 these files happened to 404 on their own, so
+# the exclude list looked unnecessary and was removed. When GitHub Pages was
+# recreated for the repository later the same day, the new build served every
+# one of them: TODO.md, LINKEDIN.md and the context file were all readable by
+# anyone who guessed the filename. They hold notes about Tashfin, not content
+# for visitors.
+#
+# Add anything of the same kind here, or put it in notes/.
+exclude:
+  - CLAUDE.md
+  - TASHFIN-PORTFOLIO-CONTEXT.md
+  - TODO.md
+  - DEPLOY.md
+  - LINKEDIN.md
+  - README.md
+  - notes
+  - drafts
