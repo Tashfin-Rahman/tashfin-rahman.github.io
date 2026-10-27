@@ -162,13 +162,30 @@ Do not reopen these without being asked.
 - LinkedIn: headline, About, three roles, seven skills, portfolio in contact
   info, clean URL `/in/tashfinrahman`.
 
-**Off the site deliberately**
+**Selected Work is back, with one piece**
 
-Selected Work. He wants it rebuilt from scratch. The four entries are parked
-in `drafts/work-entries.js`, the images are still in `assets/work/`, and the
-renderer still supports them, so putting the array back restores the section.
-What was wrong with it: three of the four pieces described the firm's work
-rather than his, and carried firm-wide figures instead of anything he did.
+The Home Inn brand identity, which is his own design work and needs nobody's
+permission. It carries a gallery of three: a contact sheet of the thirteen
+logo variants built from the brand kit, the five-colour palette, and the
+front of the visiting card. Every claim in it is checkable against the kit
+itself, so there is nothing invented.
+
+**The back of the visiting card was left out on purpose.** It carries the
+factory address, a hotline and a second email that are not otherwise public.
+Use the front only unless he says otherwise.
+
+The four old entries are still parked in `drafts/work-entries.js`. What was
+wrong with them: three of the four described the firm's work rather than his,
+and carried firm-wide figures instead of anything he did. Do not put them
+back as they are.
+
+**Visitor counting is wired but switched off.** `meta.analytics` in
+`content.js` is null. Put a GoatCounter code there and the loader in `app.js`
+and `article.js` adds the script on every page; leave it null and no
+third-party script is requested at all. It never runs from `file://` or
+localhost, so local testing does not pollute the numbers. GoatCounter sets no
+cookies, so no consent banner is needed. He agreed to this on 2026-10-27 but
+has not made the account yet.
 
 **Outstanding, blocked on him**
 

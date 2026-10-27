@@ -1046,6 +1046,28 @@
     update();
   }
 
+
+  /* --- Visitor counting --------------------------------------------------
+     Only ever runs when meta.analytics holds a code. No code, no request,
+     no third-party script on the page at all.
+     -------------------------------------------------------------------- */
+
+  function setupAnalytics() {
+    var code = (window.CV && window.CV.meta && window.CV.meta.analytics) || null;
+    if (!code || String(code).trim() === "") return;
+    // A local copy of the site should not report visits as if they were real.
+    if (location.protocol === "file:" || location.hostname === "localhost") return;
+
+    var tag = document.createElement("script");
+    tag.async = true;
+    tag.src = "//gc.zgo.at/count.js";
+    tag.setAttribute(
+      "data-goatcounter",
+      "https://" + String(code).trim() + ".goatcounter.com/count"
+    );
+    document.body.appendChild(tag);
+  }
+
   /* --- Navigation -------------------------------------------------------- */
 
   function buildNav(live) {
@@ -1296,6 +1318,7 @@
   setupProgress();
   setupCounters();
   setupRails();
+  setupAnalytics();
 
   document.getElementById("footer-year").textContent = new Date().getFullYear();
 

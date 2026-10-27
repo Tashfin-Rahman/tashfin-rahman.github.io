@@ -50,6 +50,24 @@
   window.addEventListener("resize", update, { passive: true });
   update();
 
+  /* --- Visitor counting --------------------------------------------------
+     The same switch as the home page: content.js is loaded above this file,
+     so one value there covers every page on the site.
+     -------------------------------------------------------------------- */
+
+  var code = (window.CV && window.CV.meta && window.CV.meta.analytics) || null;
+  if (code && String(code).trim() !== "" &&
+      location.protocol !== "file:" && location.hostname !== "localhost") {
+    var tag = document.createElement("script");
+    tag.async = true;
+    tag.src = "//gc.zgo.at/count.js";
+    tag.setAttribute(
+      "data-goatcounter",
+      "https://" + String(code).trim() + ".goatcounter.com/count"
+    );
+    document.body.appendChild(tag);
+  }
+
   /* --- Footer ------------------------------------------------------------ */
 
   var year = document.getElementById("footer-year");

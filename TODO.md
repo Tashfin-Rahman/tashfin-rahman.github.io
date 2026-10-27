@@ -51,6 +51,17 @@ The company profile names twelve districts by project. The firm's own figure
 is thirteen. **Which is the thirteenth?** One line in `content.js` adds it to
 the map. Until then the note under the map explains the gap.
 
+## Analytics
+
+He agreed on 2026-10-27. The wiring is done and waiting on one value.
+
+1. Make a free account at **goatcounter.com**, pick a code, e.g. `tashfin`.
+2. Put that code in `content.js` under `meta.analytics`.
+3. That is all. Home page and every written piece start reporting.
+
+Until then nobody knows whether anyone visits, which means every SEO decision
+is being made blind.
+
 ## Selected Work
 
 Taken off the site and the CV on 2026-10-26, to be rebuilt. The four entries
