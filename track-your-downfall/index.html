@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Track Your Downfall</title>
+<meta name="description" content="A habit tracker that roasts you. Tap-only daily check-ins, an aura score, a graveyard for broken streaks and a leaderboard with friends.">
+<meta name="theme-color" content="#100b1a">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; }
+[hidden] { display: none !important; }
+/* Layout: one phone-width column, sticky top bar, fixed bottom tab bar; single deliberate dark "night-owl neon" look */
+:root {
+  --bg: #100b1a;
+  --bg-2: #1a1228;
+  --card: #211833;
+  --card-2: #2a1f40;
+  --line: #3a2d55;
+  --fg: #f4eefc;
+  --muted: #a99bc4;
+  --pink: #ff4f9a;
+  --cyan: #37e6d3;
+  --amber: #ffc24b;
+  --good: #59e39a;
+  --bad: #ff5e6c;
+  --display: "Unbounded", "Arial Black", system-ui, sans-serif;
+  --body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --r: 18px;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.45; -webkit-tap-highlight-color: transparent; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.app { max-width: 480px; margin: 0 auto; min-height: 100%; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 calc(96px + env(safe-area-inset-bottom, 0px)); }
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); display: flex; align-items: center; gap: 10px; padding-block: 14px 10px; }
+.brand { font-family: var(--display); font-weight: 900; font-size: 15px; letter-spacing: -.01em; line-height: 1.05; flex: 1; min-width: 0; }
+.brand span { color: var(--pink); }
+.me-chip { display: flex; align-items: center; gap: 6px; background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px 5px 6px; font-size: 13px; font-weight: 600; max-width: 55%; }
+.me-chip b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+.ava { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--card-2); font-size: 16px; flex: none; }
+.stack { display: flex; flex-direction: column; gap: 14px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; min-width: 0; }
+.eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+h2 { font-family: var(--display); font-weight: 700; font-size: 20px; line-height: 1.15; }
+h3 { font-size: 16px; font-weight: 700; }
+p { margin: 0; }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+
+/* Aura hero */
+.hero { position: relative; overflow: hidden; padding: 22px 18px 18px; background: radial-gradient(120% 90% at 100% 0%, rgba(255,79,154,.28), transparent 60%), radial-gradient(90% 80% at 0% 100%, rgba(55,230,211,.18), transparent 60%), var(--card); }
+.aura-num { font-family: var(--display); font-weight: 900; font-size: clamp(54px, 18vw, 76px); line-height: .95; letter-spacing: -.04em; font-variant-numeric: tabular-nums; margin-top: 6px; }
+.aura-num.neg { color: var(--bad); }
+.rank { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 13px; background: rgba(255,255,255,.07); border: 1px solid var(--line); }
+.delta { font-weight: 700; font-variant-numeric: tabular-nums; }
+.delta.up { color: var(--good); } .delta.down { color: var(--bad); }
+.hero-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+.roast-card { border-color: rgba(255,79,154,.45); }
+.roast-text { font-family: var(--display); font-weight: 700; font-size: 19px; line-height: 1.3; margin-top: 8px; }
+.soft-card { border-color: rgba(55,230,211,.45); }
+.fix { display: flex; gap: 12px; align-items: flex-start; }
+.fix .ic { font-size: 26px; line-height: 1; }
+
+.cta { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 15px 18px; border-radius: 14px; font-weight: 800; font-size: 16px; background: var(--pink); color: #1a0812; box-shadow: 0 6px 24px rgba(255,79,154,.35); }
+.cta.alt { background: var(--cyan); color: #04201d; box-shadow: 0 6px 24px rgba(55,230,211,.25); }
+.cta.ghost { background: var(--card-2); color: var(--fg); box-shadow: none; border: 1px solid var(--line); }
+.cta:disabled { opacity: .4; cursor: default; }
+.link { color: var(--cyan); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+.bars { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; align-items: end; height: 110px; margin-top: 12px; }
+.bar { display: flex; flex-direction: column; align-items: center; gap: 4px; height: 100%; justify-content: flex-end; min-width: 0; }
+.bar i { display: block; width: 100%; max-width: 30px; border-radius: 6px 6px 3px 3px; background: var(--cyan); min-height: 4px; }
+.bar i.low { background: var(--bad); } .bar i.none { background: var(--line); }
+.bar span { font-size: 11px; color: var(--muted); }
+.bar em { font-style: normal; font-size: 10px; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+.nudge { background: linear-gradient(135deg, #2b1640, #17213d); border: 1px solid #4d3a78; border-radius: var(--r); padding: 14px 16px; display: flex; gap: 12px; align-items: center; }
+.nudge .ic { font-size: 28px; }
+
+/* Damage report */
+.progress { height: 6px; background: var(--card-2); border-radius: 99px; overflow: hidden; }
+.progress i { display: block; height: 100%; background: linear-gradient(90deg, var(--pink), var(--amber)); border-radius: 99px; transition: width .25s; }
+.q-title { font-family: var(--display); font-weight: 700; font-size: 24px; line-height: 1.15; margin-top: 18px; }
+.opts { display: grid; gap: 10px; margin-top: 18px; }
+.opt { display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; padding: 14px 16px; border-radius: 14px; background: var(--card); border: 1.5px solid var(--line); font-weight: 600; font-size: 16px; transition: transform .12s, border-color .12s, background .12s; }
+.opt .em { font-size: 26px; width: 34px; text-align: center; flex: none; }
+.opt .lbl { flex: 1; min-width: 0; }
+.opt .pts { font-size: 12px; font-weight: 800; font-variant-numeric: tabular-nums; padding: 3px 8px; border-radius: 99px; background: var(--card-2); }
+.opt .pts.p { color: var(--good); } .opt .pts.n { color: var(--bad); }
+.opt:active { transform: scale(.98); }
+.opt.on { border-color: var(--pink); background: #3a1a35; }
+.opt-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 9.5rem), 1fr)); }
+.opt-grid .opt { flex-direction: column; text-align: center; gap: 6px; padding: 16px 10px; }
+.opt-grid .opt .em { width: auto; }
+.back-row { display: flex; justify-content: space-between; align-items: center; margin-top: 18px; }
+
+/* Quests and graveyard */
+.quest { display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 14px; background: var(--card); border: 1px solid var(--line); width: 100%; text-align: left; }
+.quest .box { width: 26px; height: 26px; border-radius: 8px; border: 2px solid var(--muted); flex: none; display: grid; place-items: center; font-weight: 900; }
+.quest.done .box { background: var(--good); border-color: var(--good); color: #062014; }
+.quest.done .qt { text-decoration: line-through; color: var(--muted); }
+.quest .qt { flex: 1; min-width: 0; font-weight: 600; }
+.quest .xp { font-size: 12px; font-weight: 800; color: var(--amber); }
+.graves { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 9rem), 1fr)); gap: 10px; }
+.grave { background: linear-gradient(180deg, #3a3350, #262036); border: 1px solid #4b4266; border-radius: 60px 60px 10px 10px; padding: 22px 12px 14px; text-align: center; min-width: 0; }
+.grave .rip { font-family: var(--display); font-weight: 900; font-size: 18px; color: #cfc5e6; letter-spacing: .08em; }
+.grave .gn { font-weight: 700; margin-top: 6px; line-height: 1.2; }
+.grave .gd { font-size: 12px; color: var(--muted); margin-top: 6px; }
+.alive { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: 999px; background: var(--card-2); border: 1px solid var(--line); font-size: 13px; font-weight: 600; }
+
+/* Squad */
+.lb { display: flex; flex-direction: column; gap: 8px; }
+.lb-row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; background: var(--card); border: 1px solid var(--line); width: 100%; text-align: left; }
+.lb-row.me { border-color: var(--cyan); }
+.lb-pos { font-family: var(--display); font-weight: 900; width: 24px; text-align: center; color: var(--muted); font-variant-numeric: tabular-nums; }
+.lb-main { flex: 1; min-width: 0; }
+.lb-name { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lb-sub { font-size: 12px; color: var(--muted); }
+.lb-aura { font-family: var(--display); font-weight: 700; font-variant-numeric: tabular-nums; }
+.badges { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr)); gap: 10px; }
+.badge { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px; min-width: 0; }
+.badge .bt { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.badge .bn { font-weight: 700; margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Sheet */
+.scrim { position: fixed; inset: 0; background: rgba(5,2,10,.7); z-index: 20; display: flex; align-items: flex-end; justify-content: center; }
+.sheet { width: 100%; max-width: 480px; max-height: 88%; overflow: auto; background: var(--bg-2); border: 1px solid var(--line); border-bottom: 0; border-radius: 24px 24px 0 0; padding: 18px max(16px, env(safe-area-inset-right, 0px)) calc(20px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); display: flex; flex-direction: column; gap: 14px; }
+.sheet-head { display: flex; align-items: center; gap: 12px; }
+.sheet-head .x { margin-left: auto; width: 36px; height: 36px; border-radius: 50%; background: var(--card); font-size: 18px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { padding: 8px 12px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); font-size: 13px; font-weight: 600; text-align: left; }
+.chip.on { border-color: var(--pink); background: #3a1a35; }
+textarea, input[type=text] { width: 100%; background: var(--card); color: var(--fg); border: 1.5px solid var(--line); border-radius: 14px; padding: 12px 14px; font: inherit; font-size: 16px; resize: none; }
+.count { font-size: 12px; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+.count.over { color: var(--bad); }
+.roast-item { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+.roast-item .rt { font-weight: 600; overflow-wrap: anywhere; }
+.roast-item .rm { display: flex; gap: 12px; align-items: center; font-size: 12px; color: var(--muted); flex-wrap: wrap; }
+.roast-item .rm button { font-size: 12px; font-weight: 700; color: var(--muted); padding: 4px 0; }
+.roast-item .rm button:hover { color: var(--fg); }
+.err { color: var(--bad); font-size: 13px; font-weight: 600; }
+
+/* Wrapped */
+.story { position: relative; border-radius: 24px; padding: 26px 22px; min-height: 380px; display: flex; flex-direction: column; justify-content: space-between; gap: 16px; overflow: hidden; }
+.story.s0 { background: linear-gradient(160deg, #ff4f9a, #7b2ff7); }
+.story.s1 { background: linear-gradient(160deg, #1f8f86, #1b2a6b); }
+.story.s2 { background: linear-gradient(160deg, #ff8a3d, #c3245b); }
+.story.s3 { background: linear-gradient(160deg, #3b2f6e, #0f0a1c); }
+.story.s4 { background: linear-gradient(160deg, #e6c23a, #c2410c); }
+.story .sk { font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; opacity: .85; }
+.story .big { font-family: var(--display); font-weight: 900; font-size: clamp(44px, 15vw, 64px); line-height: .95; letter-spacing: -.03em; overflow-wrap: anywhere; }
+.story .line { font-family: var(--display); font-weight: 700; font-size: 20px; line-height: 1.2; }
+.story .foot { font-size: 13px; opacity: .85; }
+.dots { display: flex; gap: 6px; justify-content: center; }
+.dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
+.dots i.on { background: var(--pink); width: 22px; border-radius: 99px; }
+.story-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* Onboarding */
+.ob { min-height: 100%; display: flex; flex-direction: column; gap: 18px; padding-top: 18px; }
+.ob-step { font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--pink); }
+.ob h1 { font-family: var(--display); font-weight: 900; font-size: clamp(26px, 8vw, 34px); line-height: 1.08; letter-spacing: -.02em; }
+.splash { text-align: left; padding-top: 30px; }
+.splash .logo { font-family: var(--display); font-weight: 900; font-size: clamp(42px, 14vw, 60px); line-height: .92; letter-spacing: -.04em; }
+.splash .logo span { color: var(--pink); display: block; }
+.reveal { background: radial-gradient(120% 90% at 100% 0%, rgba(255,79,154,.35), transparent 60%), var(--card); border: 1px solid rgba(255,79,154,.5); border-radius: 24px; padding: 24px 20px; }
+.reveal .em { font-size: 54px; }
+.reveal p.story-text { font-family: var(--display); font-weight: 700; font-size: 20px; line-height: 1.3; margin-top: 10px; }
+.reveal .prophecy { margin-top: 14px; color: var(--amber); font-weight: 700; }
+
+/* Tab bar */
+.tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 8; background: rgba(16,11,26,.94); backdrop-filter: blur(10px); border-top: 1px solid var(--line); padding: 8px max(8px, env(safe-area-inset-right, 0px)) calc(8px + env(safe-area-inset-bottom, 0px)) max(8px, env(safe-area-inset-left, 0px)); }
+.tabs-in { max-width: 480px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; }
+.tab { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 2px; border-radius: 12px; font-size: 11px; font-weight: 700; color: var(--muted); position: relative; }
+.tab .ti { font-size: 22px; line-height: 1.1; filter: grayscale(.6); }
+.tab.on { color: var(--fg); background: var(--card); }
+.tab.on .ti { filter: none; }
+.tab .dot { position: absolute; top: 4px; right: calc(50% - 18px); width: 9px; height: 9px; border-radius: 50%; background: var(--pink); border: 2px solid var(--bg); }
+
+.toast { position: fixed; left: 50%; bottom: calc(92px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--fg); color: var(--bg); padding: 10px 16px; border-radius: 999px; font-weight: 700; font-size: 14px; z-index: 30; max-width: calc(100% - 32px); text-align: center; }
+.empty { text-align: center; padding: 26px 16px; }
+.empty .ic { font-size: 42px; }
+@media (prefers-reduced-motion: no-preference) {
+  .pop { animation: pop .35s cubic-bezier(.2,.9,.3,1.3); }
+  @keyframes pop { from { transform: scale(.94); opacity: .4; } to { transform: none; opacity: 1; } }
+}
+</style>
+
+<div class="app" id="app">
+  <div class="ob splash">
+    <div class="logo">Track your<span>downfall.</span></div>
+    <p class="muted">Loading your crimes…</p>
+  </div>
+</div>
+<nav class="tabs" id="tabs" hidden></nav>
+
+<script>
+(() => {
+/* ---------------- content ---------------- */
+const ANIMALS = [['🐈','Cat'],['🦉','Owl'],['🦥','Sloth'],['🐺','Wolf'],['🐧','Penguin']];
+const NICKS = ['Sleepless Samosa','Reel Addict 3000','Captain Snooze','Fuchka Phantom','CGPA Ghost','Biriyani Bandit','Doomscroll Dulal','Cha-holic Chowdhury','Deadline Dodger','NPC Number 7','Kacchi Goblin','3AM Philosopher'];
+const OB = [
+  { id: 'nick', title: 'What do we call you?', sub: 'Your friends see this on the leaderboard. Keep it legal.' },
+  { id: 'status', title: 'What are you, exactly?', opts: [['🎓','Uni student'],['🏫','College student'],['💼','Working'],['🛋️','Unemployed but busy']] },
+  { id: 'app', title: 'Your #1 villain app?', opts: [['🎵','TikTok'],['📸','Instagram'],['▶️','YouTube'],['👴','Facebook'],['🎮','Games'],['🍿','Netflix'],['🌀','All of them, bhai']] },
+  { id: 'bedtime', title: 'Your normal bedtime?', opts: [['🌙','Before 12'],['😬','Around 1 AM'],['💀','3 AM'],['☀️','What is sleep']] },
+  { id: 'goals', title: 'Pick up to 3 goals', sub: 'Your side quests come from these.', multi: 3, opts: [['💪','Gym','gym'],['📚','CGPA','cgpa'],['😴','Sleep','sleep'],['💸','Save money','money'],['📵','Less phone','phone'],['🌿','Touch grass','grass']] },
+  { id: 'weak', title: 'Your weak spots?', sub: 'Pick all that apply. We will use them against you.', multi: 5, opts: [['🐼','Foodpanda','panda'],['☕','Cha addiction','cha'],['🏃','Last-minute assignments','lastmin'],['🛏️','Snooze button','snooze'],['🎮','"One more game"','games']] },
+  { id: 'level', title: 'How hard should we roast you?', opts: [['🌶️','Mild','mild'],['🌶️🌶️','Spicy','spicy'],['💀','Destroy me','savage']] },
+  { id: 'animal', title: 'Pick your aura animal', sub: 'This is your face on the leaderboard.', opts: ANIMALS.map(a => [a[0], a[1], a[0]]) }
+];
+const PROPHECIES = ['Fell off by Thursday.','Locked in for 3 days, then TikTok wins.','Main character arc loading… 2%.','Will say "kal theke shuru" 14 more times.','Destined to submit at 11:59.','Sleep schedule will be found in 2031.'];
+
+// Damage report questions. Each option: [emoji, label, aura]
+const QS = [
+  { id: 'bed', habit: 'Sleep schedule', title: 'When did you actually sleep last night?', sub: 'Be honest. The moon saw you.', opts: [['🌙','Before 12',100],['😬','12–2 AM',-100],['💀','2–4 AM',-250],['☀️','Saw the sunrise',-400]] },
+  { id: 'snooze', when: p => has(p.weak, 'snooze'), habit: 'Morning routine', title: 'Alarm vs you?', opts: [['⚡','Up on the first try',75],['😴','1–3 snoozes',-50],['🛌','4+ snoozes',-150],['🚫','Missed class or work',-250]] },
+  { id: 'screen', habit: 'Attention span', title: 'Screen time yesterday?', sub: 'Check Digital Wellbeing. We will wait.', opts: [['🧘','Under 2h',150],['📱','2–4h',0],['😵‍💫','4–6h',-150],['🫠','6–8h',-300],['🧟','8h+, phone is my organ',-450]] },
+  { id: 'app', title: 'Who ate most of your time?', grid: true, opts: [['🎵','TikTok',-50],['📸','Instagram',-50],['▶️','YouTube',-25],['👴','Facebook',-50],['🎮','Games',-50],['🍿','Netflix',-25],['😇','Nobody, I am healed',100]] },
+  { id: 'gym', when: p => has(p.goals, 'gym'), habit: 'Gains', title: 'Gym today?', opts: [['💪','Went',150],['🛋️','"Rest day" (again)',-100],['🍗','Walked to the fridge',-150]] },
+  { id: 'food', when: p => has(p.weak, 'panda') || has(p.goals, 'money'), habit: 'Wallet', title: 'Food situation?', opts: [['🍳','Home food',100],['🐼','Foodpanda ×1',-50],['🐼🐼','Foodpanda ×2',-150],['🛵','×3+, the rider knows my ammu',-250]] },
+  { id: 'study', when: p => has(p.goals, 'cgpa') || has(p.weak, 'lastmin') || /student/i.test(p.status || ''), habit: 'Academic weapon era', title: 'Academics today?', opts: [['📚','Actually studied',200],['😶','Nothing due, chilling',0],['🏃','Night-before speedrun',-200],['⚰️','Submitted at 11:59',-300],['👻','Bunked class',-200]] },
+  { id: 'cha', when: p => has(p.weak, 'cha'), habit: 'Normal heart rate', title: 'Cups of cha/coffee?', opts: [['🫖','0–1 cup',50],['☕','2–3 cups',0],['☕☕','4–5 cups',-75],['🧪','6+, my blood type is cha',-150]] },
+  { id: 'game', when: p => has(p.weak, 'games'), habit: 'Social life', title: '"One more game" damage?', opts: [['✅','Did not play',75],['🎮','Under 1h',0],['🕹️','1–3h',-150],['💀','3h+, rank or die',-250]] },
+  { id: 'grass', when: p => has(p.goals, 'grass'), habit: 'Vitamin D', title: 'Did you touch grass?', opts: [['🌿','Went outside',150],['🪟','Looked out the window',0],['🦇','Cave mode',-150]] },
+  { id: 'mood', title: 'Vibe check', sub: 'No aura on this one. Just checking on you.', opts: [['🔥','Locked in',0],['😌','Chill',0],['😐','Mid',0],['🫠','Rough day',0]] }
+];
+const SCREEN_HRS = [1, 3, 5, 7, 9];
+const PANDA_N = [0, 1, 2, 3];
+
+const RANKS = [[1400,'Main Character','👑'],[1200,'Locked In','🔒'],[1000,'Side Quest Enjoyer','🗺️'],[800,'NPC','🧍'],[550,'Down Bad','📉'],[300,'Fell Off','🪂'],[-1e9,'Cooked Beyond Repair','💀']];
+const rankOf = a => RANKS.find(r => a >= r[0]);
+
+// Roasts by villain: [mild..., savage...]
+const ROASTS = {
+  bed: { mild: ['Your sleep schedule called. It wants a divorce.','Sleeping at 3 AM is not a personality, bhai.'], savage: ['Your sleep schedule is in a different time zone. Possibly a different planet.','Bhai, tor sleep schedule e Nobel deserve kore. For fiction. 💀','You and the sunrise are on a first-name basis. Not a flex.'] },
+  snooze: { mild: ['The snooze button is not a mindfulness practice.'], savage: ['You and the snooze button are in a committed relationship. The alarm is a side character.','Your alarm has filed a missing person report. The person is your motivation.'] },
+  screen: { mild: ['Your thumb ran a marathon today. The rest of you did not.','The algorithm knows you better than your mother does.'], savage: ['Your screen time is longer than some people\'s work shift. Unpaid.','Phone battery: 4%. Your attention span: also 4%.','Even your phone wants a break from you. 💀'] },
+  app: { mild: ['That app owns you rent-free.'], savage: ['You fed the algorithm a whole day. It did not say thank you.','The app\'s quarterly earnings are thanking you personally.'] },
+  gym: { mild: ['Rest days are important. Five in a row is a lifestyle.'], savage: ['Your gym membership is now officially a charity donation.','Your muscles filed a missing person report.'] },
+  food: { mild: ['Foodpanda has your address memorised. And your feelings.'], savage: ['Foodpanda is considering naming a rider after you.','Your wallet is in the ICU. Visiting hours: never.'] },
+  study: { mild: ['Deadline speedrun any%. Bold strategy.'], savage: ['Your CGPA is doing a free fall. Nobody packed a parachute.','Submitting at 11:59 is not time management. It is a hostage situation.','Your professor saw that timestamp. They remember.'] },
+  cha: { mild: ['At this point your blood type is cha-positive.'], savage: ['Your heart is beating in 3/4 time. Put the cup down.','The tong dokan uncle is planning his retirement around you.'] },
+  game: { mild: ['"One more game" said the man, 4 hours ago.'], savage: ['Your rank went up. Your life rank did not.','You grinded harder in-game than in your whole semester.'] },
+  grass: { mild: ['Grass is free. You are not using it.'], savage: ['Cave mode again? Bats are concerned about you.','Your vitamin D is a rumour at this point.'] }
+};
+const CLEAN_ROASTS = ['Suspiciously functional today. Who are you and what did you do with the real one?','Clean day. We had nothing to roast. This hurts us more than you.','Locked in. Your downfall has been postponed. For now.'];
+const SOFT = ['Rough day? No roast today. Drink some water and sleep a bit earlier tonight.','Rough days happen. Today you get a pass, not a roast. Talk to a friend if it helps.'];
+const FIXES = {
+  bed: ['🌙','Phone on the charger across the room by 12:30. Alarm stays, phone stays far.'],
+  snooze: ['⏰','Put the alarm where you have to stand up to turn it off.'],
+  screen: ['📵','Set a 1-hour limit on your villain app in Digital Wellbeing.'],
+  app: ['🧹','Move your villain app off the home screen. Friction is a superpower.'],
+  gym: ['👟','Pack your gym bag tonight. Tomorrow-you has no excuses.'],
+  food: ['🍳','Keep eggs and bread at home. 10 minutes, ৳50, zero rider.'],
+  study: ['📚','Do 25 minutes on the next deadline tomorrow, before you open any app.'],
+  cha: ['💧','Swap one cup for water. Just one.'],
+  game: ['⏱️','One game means one game. Set a timer before you queue.'],
+  grass: ['🌿','Take a 10-minute walk after class. The grass misses you.']
+};
+const QUESTS = {
+  gym: [['Do 20 push-ups (yes, now)', 100],['Go to the gym, even for 30 minutes', 150]],
+  cgpa: [['Study 45 minutes, phone in another room', 200],['Start the next assignment today, not on deadline night', 150]],
+  sleep: [['Be in bed before 1 AM tonight', 150],['No phone for the last 20 minutes before sleep', 100]],
+  money: [['Zero delivery orders today', 150],['Spend nothing on snacks today', 100]],
+  phone: [['No reels or shorts until 12 PM', 150],['Leave your phone in another room for 1 hour', 100]],
+  grass: [['Walk outside for 15 minutes', 100],['Meet a friend in real life', 150]],
+  any: [['Drink 2 litres of water', 75],['Reply to that message you have been avoiding', 75],['Make your bed', 50],['Clean your desk for 5 minutes', 50]]
+};
+const PRESETS = ['Your sleep schedule is a war crime 💀','Bro thinks 4 AM is a bedtime','Foodpanda sends you birthday cards','Your aura is in debt','Main character? You are the loading screen','Bhai tui sesh 💀','Ratio + touch grass','Your CGPA called. It is scared.'];
+const BLOCK = [/\bkys\b/i, /kill\s*(your|ur|you|u)\s*self/i, /\bgo\s+die\b/i, /\bsuicid/i, /\brape/i, /\bn[i1]gg/i, /\bf[a@]gg?ot/i, /\bretard/i, /\btranny/i, /\bkhanki/i, /\bmagi\b/i, /madar\s*chod/i, /\bchod/i, /\bmore\s+ja\b/i, /\bmor\s+ja\b/i];
+
+/* ---------------- helpers ---------------- */
+function has(arr, v) { return Array.isArray(arr) && arr.includes(v); }
+function h(tag, attrs, ...kids) {
+  const el = document.createElement(tag);
+  if (attrs) for (const [k, v] of Object.entries(attrs)) {
+    if (v == null || v === false) continue;
+    if (k.startsWith('on')) el.addEventListener(k.slice(2), v);
+    else if (k === 'class') el.className = v;
+    else if (k === 'style') el.setAttribute('style', v);
+    else el.setAttribute(k, v === true ? '' : v);
+  }
+  for (const c of kids.flat()) if (c != null && c !== false) el.append(c instanceof Node ? c : document.createTextNode(String(c)));
+  return el;
+}
+const localDate = (d = new Date()) => { const z = new Date(d.getTime() - d.getTimezoneOffset() * 60000); return z.toISOString().slice(0, 10); };
+const addDays = (s, n) => { const d = new Date(s + 'T12:00:00'); d.setDate(d.getDate() + n); return localDate(d); };
+const dayName = s => new Date(s + 'T12:00:00').toLocaleDateString('en', { weekday: 'short' });
+const prettyDate = s => new Date(s + 'T12:00:00').toLocaleDateString('en', { month: 'short', day: 'numeric' });
+const pick = (arr, seed) => arr[Math.abs(seed) % arr.length];
+const hash = s => { let x = 0; for (const c of s) x = (x * 31 + c.charCodeAt(0)) | 0; return x; };
+const fmt = n => (n > 0 ? '+' : '') + n;
+let toastT;
+function toast(msg) { document.querySelectorAll('.toast').forEach(t => t.remove()); const t = h('div', { class: 'toast', role: 'status' }, msg); document.body.append(t); clearTimeout(toastT); toastT = setTimeout(() => t.remove(), 2400); }
+
+/* ---------------- state + storage ---------------- */
+const S = { db: null, user: null, uid: null, online: false, profile: undefined, logs: { days: {} }, players: [], roasts: [], tab: 'home', ob: null, rep: null, story: 0, sheet: null };
+const LS = 'tyd-v1';
+function lsRead() { try { return JSON.parse(localStorage.getItem(LS) || 'null'); } catch { return null; } }
+function lsWrite() { try { localStorage.setItem(LS, JSON.stringify({ profile: S.profile, logs: S.logs })); } catch {} }
+
+const queues = {};
+function writeDoc(path, data) {
+  if (!S.online) { lsWrite(); return Promise.resolve(); }
+  const run = () => S.db.doc(path).set(data).catch(e => { if (e && e.code === 'unavailable') return new Promise(r => setTimeout(r, 600 + Math.random() * 600)).then(() => S.db.doc(path).set(data)); throw e; });
+  queues[path] = (queues[path] || Promise.resolve()).catch(() => {}).then(run);
+  return queues[path].catch(e => { toast(e && (e.code === 'invalid_argument' || e.code === 'permission-denied') ? 'That save was refused. Try signing in again.' : 'Could not save. Check your connection.'); });
+}
+const saveProfile = () => writeDoc(`data/users/${S.uid}/profile`, S.profile);
+const saveLogs = () => writeDoc(`data/users/${S.uid}/logs`, S.logs);
+function savePlayer() {
+  if (!S.online || !S.profile) return;
+  const t = today(), y = S.logs.days[addDays(t, -1)];
+  const aura = reported(t) ? auraOf(t) : null;
+  writeDoc(`players/${S.uid}`, { nick: S.profile.nick, animal: S.profile.animal, aura, rank: aura == null ? null : rankOf(aura)[1], date: t, prev: y ? auraOf(addDays(t, -1)) : null, streak: reportStreak(), updatedAt: Date.now() });
+}
+
+/* ---------------- scoring ---------------- */
+const today = () => localDate();
+function activeQs(p) { return QS.filter(q => !q.when || q.when(p || {})); }
+function questsFor(date) {
+  const g = (S.profile && S.profile.goals) || [];
+  const pool = g.flatMap(k => QUESTS[k] || []);
+  const seed = hash(date + (S.uid || ''));
+  const out = [];
+  const src = pool.length ? pool : QUESTS.any;
+  for (let i = 0; out.length < Math.min(2, src.length) && i < 20; i++) { const q = pick(src, seed + i * 7); if (!out.includes(q)) out.push(q); }
+  for (let i = 0; out.length < 3 && i < 20; i++) { const q = pick(QUESTS.any, seed + i * 3); if (!out.includes(q)) out.push(q); }
+  return out;
+}
+function deltas(day) {
+  const out = {};
+  if (!day || !day.a) return out;
+  for (const q of QS) { const i = day.a[q.id]; if (i != null && q.opts[i]) out[q.id] = q.opts[i][2]; }
+  return out;
+}
+function auraOf(date) {
+  const d = S.logs.days[date];
+  if (!d) return null;
+  const qs = questsFor(date);
+  const qb = (d.quests || []).reduce((a, i) => a + (qs[i] ? qs[i][1] : 0), 0);
+  return 1000 + Object.values(deltas(d)).reduce((a, b) => a + b, 0) + qb;
+}
+function reported(date) { const d = S.logs.days[date]; return !!(d && d.a && Object.keys(d.a).length); }
+function villainOf(day) { const ds = deltas(day); let k = null; for (const [q, v] of Object.entries(ds)) if (v < 0 && (k == null || v < ds[k])) k = q; return k; }
+function reportStreak() { let n = 0, d = today(); if (!reported(d)) d = addDays(d, -1); while (reported(d)) { n++; d = addDays(d, -1); } return n; }
+function roastFor(date) {
+  const d = S.logs.days[date];
+  if (!d) return null;
+  if (d.a && d.a.mood === 3) return { soft: true, text: pick(SOFT, hash(date)) };
+  const v = villainOf(d);
+  if (!v) return { text: pick(CLEAN_ROASTS, hash(date)), v: null };
+  const lvl = (S.profile && S.profile.level) || 'spicy';
+  const set = ROASTS[v];
+  const pool = lvl === 'mild' ? set.mild : lvl === 'savage' ? set.savage : set.mild.concat(set.savage);
+  return { text: pick(pool, hash(date + v)), v };
+}
+function habitHistory() {
+  const dates = Object.keys(S.logs.days).filter(reported).sort();
+  const graves = [], alive = [];
+  for (const q of QS.filter(q => q.habit)) {
+    let run = 0, start = null;
+    for (const dt of dates) {
+      const i = S.logs.days[dt].a[q.id];
+      if (i == null) continue;
+      const good = q.opts[i][2] >= 0;
+      if (good) { if (!run) start = dt; run++; }
+      else { if (run >= 2) graves.push({ name: q.habit, lived: run, born: start, died: dt, killer: q.opts[i][1] }); run = 0; }
+    }
+    if (run >= 1) alive.push({ name: q.habit, days: run });
+  }
+  return { graves: graves.reverse(), alive };
+}
+
+/* ---------------- render ---------------- */
+const app = document.getElementById('app');
+const tabsEl = document.getElementById('tabs');
+function render() {
+  if (S.profile === undefined) return;
+  if (!S.profile || S.ob) { tabsEl.hidden = true; renderOnboarding(); return; }
+  if (S.rep) { tabsEl.hidden = true; renderReport(); return; }
+  tabsEl.hidden = false;
+  renderTabs();
+  const view = { home: viewHome, quests: viewQuests, squad: viewSquad, wrapped: viewWrapped }[S.tab] || viewHome;
+  app.replaceChildren(topBar(), view());
+}
+function topBar() {
+  const p = S.profile;
+  return h('header', { class: 'top' },
+    h('div', { class: 'brand' }, 'Track your ', h('span', null, 'downfall')),
+    h('button', { class: 'me-chip', onclick: openSettings, 'aria-label': 'Profile and settings' }, h('span', { class: 'ava' }, p.animal), h('b', null, p.nick)));
+}
+function renderTabs() {
+  const wall = myWall().length;
+  const t = [['home','🏠','Home'],['report','✅','Report'],['quests','🪦','Quests'],['squad','🏆','Squad'],['wrapped','📜','Wrapped']];
+  tabsEl.replaceChildren(h('div', { class: 'tabs-in' }, t.map(([id, ic, lb]) => h('button', {
+    class: 'tab' + (S.tab === id ? ' on' : ''), 'aria-current': S.tab === id ? 'page' : null,
+    onclick: () => { if (id === 'report') startReport(); else { S.tab = id; render(); scrollTo(0, 0); } }
+  }, h('span', { class: 'ti' }, ic), lb, (id === 'report' && !reported(today())) || (id === 'squad' && wall && S.profile.seenWall !== wall) ? h('span', { class: 'dot' }) : null))));
+}
+
+/* ----- Home ----- */
+function viewHome() {
+  const t = today(), d = S.logs.days[t], rep = reported(t);
+  const aura = auraOf(t), r = aura != null ? rankOf(aura) : null;
+  const yA = auraOf(addDays(t, -1));
+  const hr = new Date().getHours();
+  const kids = [];
+  if (hr >= 2 && hr < 5) kids.push(h('div', { class: 'nudge' }, h('span', { class: 'ic' }, '👻'), h('div', null, h('b', null, `It's ${new Date().toLocaleTimeString('en', { hour: 'numeric', minute: '2-digit' })}.`), h('p', { class: 'small muted' }, 'The people who love you are asleep. Put the phone down and go to bed.'))));
+  kids.push(h('section', { class: 'card hero pop' },
+    h('div', { class: 'eyebrow' }, 'Your aura today'),
+    h('div', { class: 'aura-num' + (aura != null && aura < 0 ? ' neg' : '') }, rep ? String(aura) : '???'),
+    h('div', { class: 'hero-row' },
+      r && rep ? h('span', { class: 'rank' }, r[2], ' ', r[1]) : h('span', { class: 'rank' }, '🫣 Unranked until you confess'),
+      rep && yA != null ? h('span', { class: 'delta ' + (aura - yA >= 0 ? 'up' : 'down') }, `${fmt(aura - yA)} vs yesterday`) : null),
+    h('p', { class: 'small muted', style: 'margin-top:10px' }, 'Everyone starts the day at +1000. Your choices do the rest.')));
+  if (!rep) kids.push(h('button', { class: 'cta', onclick: startReport }, '✅ Do today\'s Damage Report · 15 sec'));
+  if (rep) {
+    const ro = roastFor(t);
+    if (ro.soft) kids.push(h('section', { class: 'card soft-card' }, h('div', { class: 'eyebrow' }, 'Today'), h('p', { class: 'roast-text' }, '🫂 ', ro.text)));
+    else {
+      kids.push(h('section', { class: 'card roast-card' }, h('div', { class: 'eyebrow' }, 'Roast of the day'), h('p', { class: 'roast-text' }, ro.text)));
+      if (ro.v) { const f = FIXES[ro.v]; kids.push(h('section', { class: 'card fix' }, h('span', { class: 'ic' }, f[0]), h('div', null, h('div', { class: 'eyebrow' }, 'Tiny fix for tomorrow'), h('p', { style: 'margin-top:4px;font-weight:600' }, f[1])))); }
+    }
+  }
+  // quests mini
+  const qs = questsFor(t), done = (d && d.quests) || [];
+  kids.push(h('section', { class: 'card' },
+    h('div', { class: 'hero-row', style: 'justify-content:space-between' }, h('h3', null, 'Side quests'), h('span', { class: 'small muted' }, `${done.length}/3 done`)),
+    h('div', { class: 'stack', style: 'margin-top:12px;gap:8px' }, qs.map((q, i) => questRow(q, i, done.includes(i))))));
+  // 7-day bars
+  const days = Array.from({ length: 7 }, (_, i) => addDays(t, i - 6));
+  const vals = days.map(dt => reported(dt) ? auraOf(dt) : null);
+  const max = Math.max(1600, ...vals.filter(v => v != null));
+  kids.push(h('section', { class: 'card' }, h('h3', null, 'Last 7 days'), h('p', { class: 'small muted' }, 'Red bars mean you finished below 800 (NPC territory).'),
+    h('div', { class: 'bars' }, days.map((dt, i) => {
+      const v = vals[i];
+      const pct = v == null ? 4 : Math.max(4, Math.round(Math.max(v, 0) / max * 100));
+      return h('div', { class: 'bar', title: v == null ? 'No report' : `${prettyDate(dt)}: ${v}` }, h('em', null, v == null ? '' : String(v)), h('i', { class: v == null ? 'none' : v < 800 ? 'low' : '', style: `height:${pct}%` }), h('span', null, dayName(dt).slice(0, 2)));
+    }))));
+  const streak = reportStreak();
+  kids.push(h('p', { class: 'small muted', style: 'text-align:center' }, streak ? `🔥 ${streak}-day confession streak. Don't let it die.` : 'No streak yet. Your first confession starts one.'));
+  return h('main', { class: 'stack' }, kids);
+}
+function questRow(q, i, isDone) {
+  return h('button', { class: 'quest' + (isDone ? ' done' : ''), 'aria-pressed': String(isDone), onclick: () => toggleQuest(i) },
+    h('span', { class: 'box' }, isDone ? '✓' : ''), h('span', { class: 'qt' }, q[0]), h('span', { class: 'xp' }, `+${q[1]}`));
+}
+function toggleQuest(i) {
+  const t = today();
+  const d = S.logs.days[t] = S.logs.days[t] || { a: {}, quests: [] };
+  d.quests = d.quests || [];
+  const on = d.quests.includes(i);
+  d.quests = on ? d.quests.filter(x => x !== i) : d.quests.concat(i);
+  if (!on) toast(`+${questsFor(t)[i][1]} aura. Character development.`);
+  saveLogs(); savePlayer(); render();
+}
+
+/* ----- Damage report ----- */
+function startReport() {
+  const t = today(), prev = (S.logs.days[t] && S.logs.days[t].a) || {};
+  S.rep = { i: 0, a: { ...prev } };
+  render(); scrollTo(0, 0);
+}
+function renderReport() {
+  const qs = activeQs(S.profile), R = S.rep, q = qs[R.i];
+  const opts = q.opts.map((o, idx) => h('button', { class: 'opt' + (R.a[q.id] === idx ? ' on' : ''), onclick: () => answer(q, idx) },
+    h('span', { class: 'em' }, o[0]), h('span', { class: 'lbl' }, o[1]),
+    q.id !== 'mood' ? h('span', { class: 'pts ' + (o[2] > 0 ? 'p' : o[2] < 0 ? 'n' : '') }, o[2] === 0 ? '±0' : fmt(o[2])) : null));
+  app.replaceChildren(h('main', { class: 'ob' },
+    h('div', { class: 'hero-row', style: 'justify-content:space-between' }, h('div', { class: 'ob-step' }, `Damage report · ${R.i + 1}/${qs.length}`), h('button', { class: 'link small', onclick: () => { S.rep = null; render(); } }, 'Cancel')),
+    h('div', { class: 'progress' }, h('i', { style: `width:${(R.i) / qs.length * 100}%` })),
+    h('h1', { class: 'q-title' }, q.title),
+    q.sub ? h('p', { class: 'muted' }, q.sub) : null,
+    h('div', { class: 'opts' + (q.grid ? ' opt-grid' : '') }, opts),
+    R.i > 0 ? h('div', { class: 'back-row' }, h('button', { class: 'link small', onclick: () => { R.i--; render(); } }, '← Back')) : null));
+}
+function answer(q, idx) {
+  const qs = activeQs(S.profile), R = S.rep;
+  R.a[q.id] = idx;
+  if (R.i < qs.length - 1) { R.i++; render(); return; }
+  const t = today();
+  const d = S.logs.days[t] = S.logs.days[t] || { quests: [] };
+  d.a = R.a;
+  S.rep = null; S.tab = 'home';
+  saveLogs(); savePlayer();
+  render(); scrollTo(0, 0);
+  toast(`Confession received. Aura: ${auraOf(t)}`);
+}
+
+/* ----- Quests + graveyard ----- */
+function viewQuests() {
+  const t = today(), d = S.logs.days[t], done = (d && d.quests) || [];
+  const { graves, alive } = habitHistory();
+  return h('main', { class: 'stack' },
+    h('section', { class: 'card' }, h('h2', null, 'Side quests'), h('p', { class: 'small muted', style: 'margin-top:4px' }, 'New ones every day, picked from your goals. Tick when done to earn aura back.'),
+      h('div', { class: 'stack', style: 'margin-top:14px;gap:8px' }, questsFor(t).map((q, i) => questRow(q, i, done.includes(i))))),
+    h('section', { class: 'card' }, h('h2', null, 'Still alive'), h('p', { class: 'small muted', style: 'margin-top:4px' }, 'Good-habit streaks that have survived so far.'),
+      alive.length ? h('div', { class: 'alive', style: 'margin-top:12px' }, alive.map(a => h('span', { class: 'pill' }, '🌱 ', a.name, ' · ', `${a.days}d`))) : h('p', { class: 'muted', style: 'margin-top:12px' }, 'Nothing alive yet. A clean answer in your Damage Report starts a streak.')),
+    h('section', { class: 'stack' }, h('div', null, h('h2', null, 'The Downfall Graveyard 🪦'), h('p', { class: 'small muted', style: 'margin-top:4px' }, 'Every good streak of 2+ days that you killed gets a grave here.')),
+      graves.length ? h('div', { class: 'graves' }, graves.map(g => h('div', { class: 'grave' }, h('div', { class: 'rip' }, 'RIP'), h('div', { class: 'gn' }, g.name), h('div', { class: 'gd' }, `${prettyDate(g.born)} – ${prettyDate(g.died)}`), h('div', { class: 'gd' }, `Lived ${g.lived} days. Killed by "${g.killer}".`))))
+        : h('div', { class: 'card empty' }, h('div', { class: 'ic' }, '🌾'), h('p', { class: 'muted' }, 'The graveyard is empty. Suspicious. Give it a week.'))));
+}
+
+/* ----- Squad ----- */
+function myWall() { const hid = (S.profile && S.profile.hidden) || []; return S.roasts.filter(r => r.to === S.uid && !r.flagged && !hid.includes(r.id)); }
+function viewSquad() {
+  if (!S.online) return h('main', { class: 'stack' }, h('section', { class: 'card empty' }, h('div', { class: 'ic' }, '🔌'), h('h3', null, 'Squad is offline'),
+    FIREBASE_CONFIG ? h('p', { class: 'muted', style: 'margin-top:6px' }, 'You are in solo mode. Sign in with Google to join the leaderboard and roast your friends.') : h('p', { class: 'muted', style: 'margin-top:6px' }, 'The leaderboard and roast wall are switching on soon. Your own tracking works now and is saved on this phone.'),
+    FIREBASE_CONFIG ? h('button', { class: 'cta', style: 'margin-top:16px', onclick: googleSignIn }, 'Sign in with Google') : null));
+  const t = today();
+  const todayP = S.players.filter(p => p.date === t && p.aura != null).sort((a, b) => b.aura - a.aura);
+  const ghosts = S.players.filter(p => !(p.date === t && p.aura != null));
+  const wall = myWall();
+  if (S.profile.seenWall !== wall.length) { S.profile.seenWall = wall.length; saveProfile(); }
+  const kids = [];
+  kids.push(h('button', { class: 'card', style: 'text-align:left;display:flex;gap:12px;align-items:center;width:100%', onclick: () => openWall(S.uid) },
+    h('span', { style: 'font-size:28px' }, '🔥'), h('div', { style: 'flex:1' }, h('h3', null, 'Your roast wall'), h('p', { class: 'small muted' }, wall.length ? `${wall.length} roast${wall.length > 1 ? 's' : ''} about you. Brace yourself.` : 'Nobody has roasted you yet. Enjoy the peace.')), h('span', { class: 'muted' }, '›')));
+  if (todayP.length >= 2) {
+    const most = todayP[todayP.length - 1], best = todayP[0];
+    const comeback = todayP.filter(p => p.prev != null).sort((a, b) => (b.aura - b.prev) - (a.aura - a.prev))[0];
+    kids.push(h('div', { class: 'badges' },
+      h('div', { class: 'badge' }, h('div', { class: 'bt' }, '👑 Main character'), h('div', { class: 'bn' }, `${best.animal} ${best.nick}`)),
+      h('div', { class: 'badge' }, h('div', { class: 'bt' }, '💀 Most cooked'), h('div', { class: 'bn' }, `${most.animal} ${most.nick}`)),
+      comeback && comeback.aura - comeback.prev > 0 ? h('div', { class: 'badge' }, h('div', { class: 'bt' }, '📈 Comeback'), h('div', { class: 'bn' }, `${comeback.animal} ${comeback.nick}`)) : null));
+  }
+  kids.push(h('div', null, h('h2', null, 'Today\'s leaderboard'), h('p', { class: 'small muted', style: 'margin-top:4px' }, 'Tap anyone to roast them.')));
+  if (!S.players.length) kids.push(h('section', { class: 'card empty' }, h('div', { class: 'ic' }, '🧑‍🤝‍🧑'), h('h3', null, 'Your squad is empty'), h('p', { class: 'muted', style: 'margin-top:6px' }, 'Send this app\'s link to your friends. Once they finish the quiz, they show up here.')));
+  kids.push(h('div', { class: 'lb' }, todayP.map((p, i) => lbRow(p, String(i + 1), `${rankOf(p.aura)[2]} ${rankOf(p.aura)[1]}${p.streak ? ` · 🔥${p.streak}` : ''}`, String(p.aura)))));
+  if (ghosts.length) kids.push(h('div', null, h('h3', null, 'Ghosted today 👻'), h('p', { class: 'small muted' }, 'No Damage Report yet. Suspicious.')), h('div', { class: 'lb' }, ghosts.map(p => lbRow(p, '–', p.date ? `Last seen ${prettyDate(p.date)}` : 'Just joined', '???'))));
+  return h('main', { class: 'stack' }, kids);
+}
+function lbRow(p, pos, sub, aura) {
+  const me = p.id === S.uid;
+  return h('button', { class: 'lb-row' + (me ? ' me' : ''), onclick: () => openWall(p.id) },
+    h('span', { class: 'lb-pos' }, pos), h('span', { class: 'ava' }, p.animal || '🙂'),
+    h('span', { class: 'lb-main' }, h('div', { class: 'lb-name' }, (p.nick || 'Mystery goblin') + (me ? ' (you)' : '')), h('div', { class: 'lb-sub' }, sub)),
+    h('span', { class: 'lb-aura' }, aura));
+}
+function playerById(id) { return S.players.find(p => p.id === id) || (id === S.uid ? { id, nick: S.profile.nick, animal: S.profile.animal } : { id, nick: 'Mystery goblin', animal: '🙂' }); }
+
+/* ----- Sheets ----- */
+function closeSheet() { S.sheet = null; document.querySelectorAll('.scrim').forEach(s => s.remove()); }
+function sheet(content) {
+  closeSheet();
+  const scrim = h('div', { class: 'scrim', onclick: e => { if (e.target === scrim) closeSheet(); } }, h('div', { class: 'sheet', role: 'dialog', 'aria-modal': 'true' }, content));
+  document.body.append(scrim);
+  return scrim;
+}
+function openWall(pid) {
+  const target = playerById(pid), mine = pid === S.uid;
+  S.sheet = { type: 'wall', pid };
+  const list = h('div', { class: 'stack', style: 'gap:8px', id: 'wall-list' });
+  const parts = [h('div', { class: 'sheet-head' }, h('span', { class: 'ava', style: 'width:40px;height:40px;font-size:22px' }, target.animal), h('div', { style: 'min-width:0' }, h('h3', null, mine ? 'Your roast wall' : `Roast ${target.nick}`), h('p', { class: 'small muted' }, mine ? 'Hide anything you do not like. Report anything that crosses a line.' : 'Keep it funny. Roast the habits, not the person.')), h('button', { class: 'x', onclick: closeSheet, 'aria-label': 'Close' }, '✕'))];
+  if (!mine) {
+    const ta = h('textarea', { id: 'roast-input', rows: '3', maxlength: '200', placeholder: 'Type a roast (140 characters max)…' });
+    const cnt = h('div', { class: 'count' }, '0/140');
+    const err = h('p', { class: 'err', hidden: true });
+    const send = h('button', { class: 'cta', disabled: true }, '🔥 Send roast');
+    const upd = () => { const n = ta.value.trim().length; cnt.textContent = `${ta.value.length}/140`; cnt.classList.toggle('over', ta.value.length > 140); send.disabled = !n || ta.value.length > 140; err.hidden = true; };
+    ta.addEventListener('input', upd);
+    send.addEventListener('click', async () => {
+      const txt = ta.value.trim();
+      if (BLOCK.some(rx => rx.test(txt))) { err.textContent = 'That one crosses a line, so it was not posted. Roast the habits, not the person.'; err.hidden = false; return; }
+      send.disabled = true;
+      const ok = await postRoast(pid, txt);
+      if (ok) { ta.value = ''; upd(); toast('Roast delivered 🔥'); }
+      else send.disabled = false;
+    });
+    parts.push(h('div', null, h('div', { class: 'eyebrow', style: 'margin-bottom:8px' }, 'One-tap roasts'), h('div', { class: 'chips' }, PRESETS.map(p => h('button', { class: 'chip', onclick: () => { ta.value = p; upd(); ta.focus(); } }, p)))));
+    parts.push(h('div', { class: 'stack', style: 'gap:6px' }, ta, cnt, err, send));
+    parts.push(h('div', { class: 'eyebrow' }, `Roasts on ${target.nick}'s wall`));
+  }
+  parts.push(list);
+  sheet(parts);
+  renderWallList();
+}
+function renderWallList() {
+  const el = document.getElementById('wall-list');
+  if (!el || !S.sheet) return;
+  const pid = S.sheet.pid, mine = pid === S.uid, hid = (S.profile.hidden) || [];
+  const items = S.roasts.filter(r => r.to === pid && !r.flagged && !(mine && hid.includes(r.id))).sort((a, b) => b.at - a.at);
+  if (!items.length) { el.replaceChildren(h('p', { class: 'muted small' }, mine ? 'No roasts yet. Peace is temporary.' : 'No roasts yet. Be the first.')); return; }
+  el.replaceChildren(...items.map(r => {
+    const from = playerById(r.from);
+    const meta = [h('span', null, `${from.animal} ${from.nick} · ${prettyDate(localDate(new Date(r.at)))}`)];
+    if (mine) {
+      meta.push(h('button', { onclick: () => hideRoast(r.id) }, '🙅 Hide'));
+      meta.push(h('button', { onclick: () => reportRoast(r.id) }, '🚩 Report'));
+    } else if (r.from === S.uid) meta.push(h('button', { onclick: () => deleteRoast(r.id) }, '🗑️ Delete mine'));
+    return h('div', { class: 'roast-item' }, h('p', { class: 'rt' }, r.text), h('div', { class: 'rm' }, meta));
+  }));
+}
+async function postRoast(to, text) {
+  try { await S.db.collection('roasts').add({ to, from: S.uid, text: text.slice(0, 140), at: Date.now(), flagged: false }); return true; }
+  catch (e) { toast(e && e.code === 'quota_exceeded' ? 'The roast wall is full. Delete some old roasts.' : e && (e.code === 'invalid_argument' || e.code === 'permission-denied') ? 'That roast was refused. Keep it under 140 characters.' : 'Could not send. Try again.'); return false; }
+}
+function hideRoast(id) { S.profile.hidden = (S.profile.hidden || []).concat(id).slice(-500); saveProfile(); renderWallList(); toast('Hidden. Gone for good.'); }
+async function reportRoast(id) {
+  try { await S.db.doc('roasts/' + id).update({ flagged: true, flaggedBy: S.uid }); toast('Reported. It is hidden for everyone now.'); }
+  catch { hideRoast(id); }
+}
+async function deleteRoast(id) { try { await S.db.doc('roasts/' + id).delete(); toast('Deleted.'); } catch { toast('Could not delete.'); } }
+
+function openSettings() {
+  const p = S.profile;
+  const lv = h('div', { class: 'chips' }, OB[6].opts.map(o => h('button', { class: 'chip' + (p.level === o[2] ? ' on' : ''), onclick: () => { p.level = o[2]; saveProfile(); openSettings(); render(); } }, `${o[0]} ${o[1]}`)));
+  sheet([
+    h('div', { class: 'sheet-head' }, h('span', { class: 'ava', style: 'width:44px;height:44px;font-size:24px' }, p.animal), h('div', { style: 'min-width:0' }, h('h3', null, p.nick), h('p', { class: 'small muted' }, [p.status, (p.goals || []).length ? `Goals: ${p.goals.join(', ')}` : null].filter(Boolean).join(' · '))), h('button', { class: 'x', onclick: closeSheet, 'aria-label': 'Close' }, '✕')),
+    p.origin ? h('div', { class: 'card' }, h('div', { class: 'eyebrow' }, 'Villain origin story'), h('p', { style: 'margin-top:6px;font-weight:600' }, p.origin)) : null,
+    h('div', null, h('div', { class: 'eyebrow', style: 'margin-bottom:8px' }, 'Roast level'), lv),
+    h('button', { class: 'cta ghost', onclick: () => { closeSheet(); S.ob = { i: 0, a: { ...p } }; render(); } }, '🔁 Retake the quiz'),
+    h('p', { class: 'small muted' }, S.online ? 'Friends see only your nickname, aura animal, aura and rank. Your answers and logs stay private.' : 'Solo mode: your data is saved on this phone only.'),
+    S.online && S.fb ? h('button', { class: 'cta ghost', onclick: () => S.fb.auth().signOut().then(() => location.reload()) }, 'Sign out') : null
+  ]);
+}
+
+/* ----- Wrapped ----- */
+function weekStats() {
+  const t = today();
+  const dates = Array.from({ length: 7 }, (_, i) => addDays(t, i - 6)).filter(reported);
+  if (!dates.length) return null;
+  const auras = dates.map(auraOf);
+  const avg = Math.round(auras.reduce((a, b) => a + b, 0) / auras.length);
+  let best = dates[0], worst = dates[0];
+  dates.forEach(d => { if (auraOf(d) > auraOf(best)) best = d; if (auraOf(d) < auraOf(worst)) worst = d; });
+  let screen = 0, panda = 0, late = 0, sNights = 0;
+  const vt = {};
+  dates.forEach(d => {
+    const a = S.logs.days[d].a;
+    if (a.screen != null) screen += SCREEN_HRS[a.screen];
+    if (a.food != null) panda += PANDA_N[a.food];
+    if (a.bed != null) { sNights++; if (a.bed >= 2) late++; }
+    for (const [k, v] of Object.entries(deltas(S.logs.days[d]))) if (v < 0) vt[k] = (vt[k] || 0) + v;
+  });
+  const vk = Object.keys(vt).sort((a, b) => vt[a] - vt[b])[0];
+  return { n: dates.length, avg, best, worst, screen, panda, late, sNights, villain: vk ? (QS.find(q => q.id === vk).habit || 'Your villain app') : null, vk };
+}
+function storyCards(w) {
+  const r = rankOf(w.avg);
+  const vName = w.vk ? { bed: 'Your bedtime', snooze: 'The snooze button', screen: 'Your screen time', app: 'Your villain app', gym: 'Skipping gym', food: 'Foodpanda', study: 'Deadline night', cha: 'Cha', game: '"One more game"', grass: 'Cave mode' }[w.vk] : 'Nobody';
+  return [
+    { k: 'Your week in aura', big: String(w.avg), line: `Average rank: ${r[2]} ${r[1]}`, foot: `Best day ${dayName(w.best)} (${auraOf(w.best)}). Worst day ${dayName(w.worst)} (${auraOf(w.worst)}). Based on ${w.n} report${w.n > 1 ? 's' : ''}.` },
+    { k: 'Screen time, roughly', big: `~${w.screen}h`, line: `That's about ${Math.round(w.screen)} K-drama episodes, or Interstellar ${Math.max(0, Math.round(w.screen / 2.8))} times.`, foot: 'Estimated from the ranges you tapped.' },
+    { k: 'Foodpanda damage', big: w.panda ? `~৳${(w.panda * 350).toLocaleString('en')}` : '৳0', line: w.panda ? `${w.panda} orders. That's ${Math.max(1, Math.round(w.panda * 350 / 400))} plates of kacchi you could have had with friends.` : 'Zero orders tracked. Your wallet is breathing.', foot: 'Estimated at ৳350 per order.' },
+    { k: 'Nights after 2 AM', big: `${w.late}/${w.sNights || 0}`, line: w.late ? 'The moon knows your name now.' : 'Normal human sleep. Who taught you that?', foot: 'From your bedtime answers.' },
+    { k: 'Villain of the week', big: vName, line: w.vk ? 'Next week, it is personal.' : 'No villain found. Suspicious.', foot: `Prophecy: ${pick(PROPHECIES, hash(today()))}` }
+  ];
+}
+function viewWrapped() {
+  const w = weekStats();
+  if (!w) return h('main', { class: 'stack' }, h('section', { class: 'card empty' }, h('div', { class: 'ic' }, '📜'), h('h3', null, 'Your Wrapped is empty'), h('p', { class: 'muted', style: 'margin-top:6px' }, 'Do a few Damage Reports and your weekly Wrapped builds itself here.'), h('button', { class: 'cta', style: 'margin-top:16px', onclick: startReport }, 'Start today\'s report')));
+  const cards = storyCards(w), i = Math.min(S.story, cards.length - 1), c = cards[i];
+  return h('main', { class: 'stack' },
+    h('div', null, h('h2', null, 'Weekly Wrapped'), h('p', { class: 'small muted', style: 'margin-top:4px' }, 'Your last 7 days. Tap the card for the next one.')),
+    h('button', { class: `story s${i} pop`, style: 'text-align:left;color:#fff', onclick: () => { S.story = (i + 1) % cards.length; render(); }, 'aria-label': 'Next card' },
+      h('div', { class: 'sk' }, c.k), h('div', { class: 'big' }, c.big), h('div', { class: 'line' }, c.line), h('div', { class: 'foot' }, c.foot)),
+    h('div', { class: 'dots' }, cards.map((_, j) => h('i', { class: j === i ? 'on' : '' }))),
+    h('div', { class: 'story-nav' }, h('button', { class: 'cta ghost', disabled: i === 0, onclick: () => { S.story = i - 1; render(); } }, '← Prev'), h('button', { class: 'cta ghost', onclick: () => { S.story = (i + 1) % cards.length; render(); } }, 'Next →')),
+    h('button', { class: 'cta alt', onclick: () => saveCard(c, i) }, '⬇️ Save this card for your story'));
+}
+async function saveCard(c, i) {
+  try { await document.fonts.ready; } catch {}
+  const W = 1080, H = 1920, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+  const x = cv.getContext('2d');
+  const grads = [['#ff4f9a','#7b2ff7'],['#1f8f86','#1b2a6b'],['#ff8a3d','#c3245b'],['#3b2f6e','#0f0a1c'],['#e6c23a','#c2410c']][i];
+  const g = x.createLinearGradient(0, 0, W * .6, H); g.addColorStop(0, grads[0]); g.addColorStop(1, grads[1]); x.fillStyle = g; x.fillRect(0, 0, W, H);
+  x.fillStyle = '#fff';
+  const wrap = (text, font, y, lh, max) => { x.font = font; const words = text.split(' '); let line = ''; for (const wd of words) { const tst = line ? line + ' ' + wd : wd; if (x.measureText(tst).width > max && line) { x.fillText(line, 90, y); y += lh; line = wd; } else line = tst; } if (line) { x.fillText(line, 90, y); y += lh; } return y; };
+  x.globalAlpha = .85; wrap('TRACK YOUR DOWNFALL · ' + c.k.toUpperCase(), '800 34px Figtree, sans-serif', 200, 46, 900); x.globalAlpha = 1;
+  let y = wrap(c.big, '900 150px Unbounded, Arial Black, sans-serif', 720, 160, 900);
+  y = wrap(c.line, '700 60px Unbounded, Arial Black, sans-serif', y + 60, 78, 900);
+  x.globalAlpha = .85; wrap(c.foot, '500 38px Figtree, sans-serif', y + 40, 52, 900);
+  wrap(`${S.profile.animal} ${S.profile.nick}`, '700 44px Figtree, sans-serif', H - 160, 56, 900); x.globalAlpha = 1;
+  const blob = await new Promise(r => cv.toBlob(r, 'image/png'));
+  if (!blob) { toast('Could not make the image. Screenshot it instead.'); return; }
+  const file = new File([blob], `downfall-wrapped-${i + 1}.png`, { type: 'image/png' });
+  try { if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], title: 'My Downfall Wrapped' }); return; } } catch (e) { if (e && e.name === 'AbortError') return; }
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = file.name; document.body.append(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  toast('Saved. Post it. Embrace it.');
+}
+
+/* ----- Onboarding ----- */
+function renderOnboarding() {
+  if (!S.ob) S.ob = { i: -1, a: { goals: [], weak: [] } };
+  const O = S.ob;
+  if (O.i === -1) {
+    app.replaceChildren(h('main', { class: 'ob splash' },
+      h('div', { class: 'logo' }, 'Track your', h('span', null, 'downfall.')),
+      h('p', { style: 'font-size:18px;font-weight:600' }, 'The habit tracker that roasts you until you get your life back.'),
+      h('div', { class: 'stack', style: 'gap:10px' }, ['✅ 15-second tap-only check-ins', '💀 Personalised roasts (you pick the heat)', '🪦 A graveyard for every habit you kill', '🏆 Leaderboard and roast wall with friends'].map(t => h('div', { class: 'card', style: 'padding:12px 14px;font-weight:600' }, t))),
+      h('button', { class: 'cta', onclick: () => { O.i = 0; render(); } }, 'Start my villain origin story →'),
+      h('p', { class: 'small muted' }, 'Takes 60 seconds. No real name, age or phone number needed.')));
+    return;
+  }
+  if (O.i >= OB.length) { renderReveal(); return; }
+  const step = OB[O.i], a = O.a;
+  const next = () => { O.i++; render(); scrollTo(0, 0); };
+  const body = [h('div', { class: 'ob-step' }, `Villain origin story · ${O.i + 1}/${OB.length}`), h('div', { class: 'progress' }, h('i', { style: `width:${O.i / OB.length * 100}%` })), h('h1', null, step.title), step.sub ? h('p', { class: 'muted' }, step.sub) : null];
+  if (step.id === 'nick') {
+    const inp = h('input', { type: 'text', id: 'nick-input', maxlength: '24', placeholder: 'e.g. Sleepless Samosa', value: a.nick || '' });
+    const go = h('button', { class: 'cta', disabled: !(a.nick || '').trim() }, 'Next →');
+    inp.addEventListener('input', () => { a.nick = inp.value; go.disabled = !inp.value.trim(); });
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter' && inp.value.trim()) { a.nick = inp.value.trim(); next(); } });
+    go.addEventListener('click', () => { a.nick = inp.value.trim(); next(); });
+    body.push(inp, h('button', { class: 'cta ghost', onclick: () => { inp.value = a.nick = pick(NICKS, Math.floor(Math.random() * 1e6)); go.disabled = false; } }, '🎲 Random nickname'), go);
+  } else if (step.multi) {
+    const sel = a[step.id] = a[step.id] || [];
+    const go = h('button', { class: 'cta', disabled: step.id === 'goals' && !sel.length }, step.id === 'weak' && !sel.length ? 'I have no weaknesses (lie) →' : 'Next →');
+    body.push(h('div', { class: 'opts opt-grid' }, step.opts.map(o => h('button', { class: 'opt' + (sel.includes(o[2]) ? ' on' : ''), 'aria-pressed': String(sel.includes(o[2])), onclick: () => {
+      const k = sel.indexOf(o[2]);
+      if (k >= 0) sel.splice(k, 1); else if (sel.length < step.multi) sel.push(o[2]); else { toast(`Max ${step.multi}. Prioritise, bhai.`); return; }
+      render();
+    } }, h('span', { class: 'em' }, o[0]), h('span', { class: 'lbl' }, o[1])))), go);
+    go.addEventListener('click', next);
+  } else {
+    body.push(h('div', { class: 'opts' + (step.opts.length > 4 ? ' opt-grid' : '') }, step.opts.map(o => h('button', { class: 'opt' + (a[step.id] === (o[2] || o[1]) ? ' on' : ''), onclick: () => { a[step.id] = o[2] || o[1]; next(); } }, h('span', { class: 'em' }, o[0]), h('span', { class: 'lbl' }, o[1])))));
+  }
+  body.push(h('div', { class: 'back-row' }, h('button', { class: 'link small', onclick: () => { O.i--; render(); } }, '← Back'), S.profile ? h('button', { class: 'link small', onclick: () => { S.ob = null; render(); } }, 'Cancel') : h('span')));
+  app.replaceChildren(h('main', { class: 'ob' }, body));
+}
+function originStory(a) {
+  const bed = { 'Before 12': 'suspiciously well-rested', 'Around 1 AM': '1 AM', '3 AM': '💀 3 AM', 'What is sleep': 'sleepless' }[a.bedtime] || 'mysterious';
+  const animal = (ANIMALS.find(x => x[0] === a.animal) || ['', 'creature'])[1].toLowerCase();
+  const gl = { gym: 'gains', cgpa: 'CGPA', sleep: 'sleep', money: 'money', phone: 'less phone', grass: 'grass' };
+  const goals = (a.goals || []).map(g => gl[g]);
+  const gtxt = goals.length > 1 ? goals.slice(0, -1).join(', ') + ' and ' + goals.slice(-1) : goals[0] || 'nothing in particular';
+  const ruler = a.app === 'All of them, bhai' ? 'every app on the phone' : a.app || 'the algorithm';
+  return `A ${bed} ${animal}, ruled by ${ruler}, fighting for ${gtxt}.`;
+}
+function renderReveal() {
+  const a = S.ob.a;
+  const story = originStory(a), prophecy = pick(PROPHECIES, hash(a.nick + (a.app || '')));
+  app.replaceChildren(h('main', { class: 'ob' },
+    h('div', { class: 'ob-step' }, 'Your villain origin story'),
+    h('div', { class: 'reveal pop' }, h('div', { class: 'em' }, a.animal), h('h1', null, a.nick), h('p', { class: 'story-text' }, story), h('p', { class: 'prophecy' }, `Prophecy: ${prophecy}`)),
+    h('p', { class: 'muted small' }, 'Screenshot this for your story. Your friends will only see your nickname, animal, aura and rank.'),
+    h('button', { class: 'cta', onclick: () => finishOnboarding(story) }, 'Enter the downfall 💀'),
+    h('button', { class: 'link small', onclick: () => { S.ob.i = OB.length - 1; render(); } }, '← Change something')));
+}
+function finishOnboarding(story) {
+  const a = S.ob.a, prev = S.profile || {};
+  S.profile = { ...prev, nick: a.nick.trim().slice(0, 24), status: a.status, app: a.app, bedtime: a.bedtime, goals: a.goals || [], weak: a.weak || [], level: a.level || 'spicy', animal: a.animal || '🦉', origin: story, hidden: prev.hidden || [], createdAt: prev.createdAt || Date.now() };
+  S.ob = null; S.tab = 'home';
+  saveProfile(); savePlayer();
+  render();
+  if (!reported(today())) setTimeout(() => toast('First mission: your Damage Report.'), 400);
+}
+
+/* ---------------- boot ---------------- */
+// Firebase: paste the web app config object here to switch on Google sign-in and the squad.
+// Leave it null and the app runs in solo mode, saving to this phone only.
+const FIREBASE_CONFIG = null;
+
+function loadScript(src) { return new Promise((res, rej) => { const el = document.createElement('script'); el.src = src; el.onload = res; el.onerror = rej; document.head.append(el); }); }
+async function loadFirebase() {
+  const v = '10.12.2', base = `https://www.gstatic.com/firebasejs/${v}/`;
+  await loadScript(base + 'firebase-app-compat.js');
+  await Promise.all([loadScript(base + 'firebase-auth-compat.js'), loadScript(base + 'firebase-firestore-compat.js')]);
+  if (!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
+  return firebase;
+}
+async function googleSignIn() {
+  try {
+    const fb = S.fb || await loadFirebase();
+    const provider = new fb.auth.GoogleAuthProvider();
+    try { await fb.auth().signInWithPopup(provider); }
+    catch (e) { if (e && (e.code === 'auth/popup-blocked' || e.code === 'auth/operation-not-supported-in-this-environment')) await fb.auth().signInWithRedirect(provider); else throw e; }
+    location.reload();
+  } catch (e) { if (!e || e.code !== 'auth/popup-closed-by-user') toast('Sign-in did not work. Try again.'); }
+}
+function startLocal() {
+  const l = lsRead();
+  S.profile = l && l.profile ? l.profile : null;
+  S.logs = l && l.logs ? l.logs : { days: {} };
+  S.uid = 'local'; S.online = false;
+  render();
+}
+function renderSignIn() {
+  tabsEl.hidden = true;
+  app.replaceChildren(h('main', { class: 'ob splash' },
+    h('div', { class: 'logo' }, 'Track your', h('span', null, 'downfall.')),
+    h('p', { style: 'font-size:18px;font-weight:600' }, 'The habit tracker that roasts you until you get your life back.'),
+    h('div', { class: 'stack', style: 'gap:10px' }, ['✅ 15-second tap-only check-ins', '💀 Personalised roasts (you pick the heat)', '🪦 A graveyard for every habit you kill', '🏆 Leaderboard and roast wall with friends'].map(t => h('div', { class: 'card', style: 'padding:12px 14px;font-weight:600' }, t))),
+    h('button', { class: 'cta', onclick: googleSignIn }, 'Sign in with Google'),
+    h('button', { class: 'cta ghost', onclick: () => { try { localStorage.setItem('tyd-solo', '1'); } catch {} startLocal(); } }, 'Use solo, no account'),
+    h('p', { class: 'small muted' }, 'Signing in saves your data across phones and puts you on the squad leaderboard. Friends only ever see your nickname, animal, aura and rank.')));
+}
+async function boot() {
+  let solo = false; try { solo = localStorage.getItem('tyd-solo') === '1'; } catch {}
+  if (!FIREBASE_CONFIG) { startLocal(); return; }
+  let fb;
+  try { fb = await loadFirebase(); } catch { startLocal(); toast('Offline. Running in solo mode.'); return; }
+  S.fb = fb;
+  try { await fb.auth().getRedirectResult(); } catch {}
+  fb.auth().onAuthStateChanged(u => {
+    if (!u) { if (solo) startLocal(); else renderSignIn(); return; }
+    if (S.uid === u.uid) return;
+    try { localStorage.removeItem('tyd-solo'); } catch {}
+    const db = fb.firestore();
+    S.db = db; S.uid = u.uid; S.online = true;
+    let gotP = false, gotL = false;
+    const done = () => { if (gotP && gotL) render(); };
+    db.doc(`data/users/${u.uid}/profile`).onSnapshot(s => { if (s.metadata.hasPendingWrites && gotP) return; S.profile = s.exists ? { ...s.data() } : (gotP ? S.profile : null); gotP = true; done(); }, () => { gotP = true; if (S.profile === undefined) S.profile = null; done(); });
+    db.doc(`data/users/${u.uid}/logs`).onSnapshot(s => { if (s.metadata.hasPendingWrites && gotL) return; const d = s.exists ? s.data() : null; S.logs = d && d.days ? JSON.parse(JSON.stringify(d)) : S.logs; gotL = true; done(); }, () => { gotL = true; done(); });
+    db.collection('players').onSnapshot(s => { S.players = s.docs.map(d => ({ id: d.id, ...d.data() })); if (!S.rep && !S.ob && S.profile && (S.tab === 'squad' || S.tab === 'home')) render(); renderWallList(); }, () => {});
+    db.collection('roasts').orderBy('at', 'desc').limit(500).onSnapshot(s => { S.roasts = s.docs.map(d => ({ id: d.id, ...d.data() })); if (!S.rep && !S.ob && S.profile && !S.sheet) render(); else if (S.profile && !S.rep && !S.ob) renderTabs(); renderWallList(); }, () => {});
+  });
+}
+// Refresh the day when the date rolls over while the app is open
+let lastDay = today();
+setInterval(() => { if (today() !== lastDay) { lastDay = today(); if (!S.rep && !S.ob) render(); } }, 60000);
+boot();
+if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
+})();
+</script>
+</body>
+</html>

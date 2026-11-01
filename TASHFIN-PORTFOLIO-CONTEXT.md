@@ -102,6 +102,7 @@ reading all of them every session is what this split exists to avoid.
 | [notes/how-the-site-works.md](notes/how-the-site-works.md) | Changing the site's code: the render pipeline, the pages, the map, the CV. |
 | [notes/traps.md](notes/traps.md) | Touching the browser pane, LinkedIn, GitHub, animation, screenshots, PDFs or the shell. Every entry there cost time to learn. |
 | [notes/seo.md](notes/seo.md) | Working on search, answer engines, schema, the sitemap or Search Console. |
+| [notes/track-your-downfall.md](notes/track-your-downfall.md) | Touching the Track Your Downfall app at `/track-your-downfall/`, or finishing its Firebase setup. |
 | [notes/publishing-a-post.md](notes/publishing-a-post.md) | Adding or changing a blog post. Six places have to move together and three of them fail silently. |
 
 Beside them: `TODO.md` for what is outstanding, `DEPLOY.md` for the commands,
@@ -300,6 +301,13 @@ co-owns the firm. His call, raised in `LINKEDIN.md`.
 10. Writing became the Blog: posts moved to `/blog/`, redirect stubs left
     behind, an index page at `/blog/`, an Atom feed, and the interactive
     fit-out tool at `/tools/fit-out-quote/`.
+
+11. 2026-11-01: **Track Your Downfall** went live at `/track-your-downfall/`,
+    a roast-style habit tracker he designed with Claude. Solo mode only for
+    now; Firebase (Google sign-in, leaderboard, roast wall) waits on him
+    signing in to his personal Gmail in the pane. Everything about it is in
+    `notes/track-your-downfall.md`. It is not linked from the portfolio and
+    not in the sitemap. Ask before adding it to either.
 
 Everything else outstanding is in `TODO.md`.
 

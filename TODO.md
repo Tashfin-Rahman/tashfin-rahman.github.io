@@ -173,3 +173,10 @@ both need the browser pane signed in.
   primary and this is a maybe.
 - `tashfinrahman.com`, about twelve dollars a year, unregistered when checked.
 - Analytics. There is currently no way to know whether anyone visits.
+
+
+## Track Your Downfall (added 2026-11-01)
+
+- [ ] **Finish Firebase.** Needs him to sign in to his personal Gmail in Claude's built-in browser first (not Opera, and not the NSU account). Then follow "Finishing Firebase" in `notes/track-your-downfall.md`, step by step.
+- [ ] Phase 2: Android app (Flutter) that reads screen time automatically. Not started.
+- [ ] Ask whether to link the app from the portfolio or the sitemap. Currently neither.
