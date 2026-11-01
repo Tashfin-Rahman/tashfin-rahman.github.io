@@ -25,6 +25,14 @@ app with that storage swapped for Firebase.
 - Phase 2 (not started): a real Android app (Flutter) that reads screen time
   automatically. He uses Android for this.
 
+## Credit
+
+He asked on 2026-11-01 for his name on the app. `credit()` in `index.html`
+draws "Made with 💀 by Tashfin Rahman", "BBA student, North South University ·
+Dhaka" and a link to the portfolio. It sits at the bottom of the start screen,
+the sign-in screen and the Home tab. The page also carries
+`<meta name="author">`. Keep it on any rebuild, including the Android app.
+
 ## Files
 
 | File | What |

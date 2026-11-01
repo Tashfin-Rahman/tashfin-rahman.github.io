@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Track Your Downfall</title>
-<meta name="description" content="A habit tracker that roasts you. Tap-only daily check-ins, an aura score, a graveyard for broken streaks and a leaderboard with friends.">
+<meta name="description" content="Made by Tashfin Rahman. A habit tracker that roasts you. Tap-only daily check-ins, an aura score, a graveyard for broken streaks and a leaderboard with friends.">
+<meta name="author" content="Tashfin Rahman">
 <meta name="theme-color" content="#100b1a">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png" type="image/png">
@@ -194,6 +195,10 @@ textarea, input[type=text] { width: 100%; background: var(--card); color: var(--
 .tab .dot { position: absolute; top: 4px; right: calc(50% - 18px); width: 9px; height: 9px; border-radius: 50%; background: var(--pink); border: 2px solid var(--bg); }
 
 .toast { position: fixed; left: 50%; bottom: calc(92px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--fg); color: var(--bg); padding: 10px 16px; border-radius: 999px; font-weight: 700; font-size: 14px; z-index: 30; max-width: calc(100% - 32px); text-align: center; }
+.credit { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 18px 0 4px; text-align: center; font-size: 13px; color: var(--muted); text-decoration: none; }
+.credit b { color: var(--fg); font-weight: 700; }
+.credit .cl { color: var(--cyan); font-size: 12px; font-weight: 600; }
+.credit:hover .cl { text-decoration: underline; }
 .empty { text-align: center; padding: 26px 16px; }
 .empty .ic { font-size: 42px; }
 @media (prefers-reduced-motion: no-preference) {
@@ -206,6 +211,7 @@ textarea, input[type=text] { width: 100%; background: var(--card); color: var(--
   <div class="ob splash">
     <div class="logo">Track your<span>downfall.</span></div>
     <p class="muted">Loading your crimes…</p>
+    <p class="muted small">Made by Tashfin Rahman</p>
   </div>
 </div>
 <nav class="tabs" id="tabs" hidden></nav>
@@ -309,6 +315,13 @@ const hash = s => { let x = 0; for (const c of s) x = (x * 31 + c.charCodeAt(0))
 const fmt = n => (n > 0 ? '+' : '') + n;
 let toastT;
 function toast(msg) { document.querySelectorAll('.toast').forEach(t => t.remove()); const t = h('div', { class: 'toast', role: 'status' }, msg); document.body.append(t); clearTimeout(toastT); toastT = setTimeout(() => t.remove(), 2400); }
+
+function credit() {
+  return h('a', { class: 'credit', href: 'https://tashfin-rahman.github.io/', target: '_blank', rel: 'noopener' },
+    h('span', null, 'Made with 💀 by ', h('b', null, 'Tashfin Rahman')),
+    h('span', null, 'BBA student, North South University · Dhaka'),
+    h('span', { class: 'cl' }, 'tashfin-rahman.github.io'));
+}
 
 /* ---------------- state + storage ---------------- */
 const S = { db: null, user: null, uid: null, online: false, profile: undefined, logs: { days: {} }, players: [], roasts: [], tab: 'home', ob: null, rep: null, story: 0, sheet: null };
@@ -457,6 +470,7 @@ function viewHome() {
     }))));
   const streak = reportStreak();
   kids.push(h('p', { class: 'small muted', style: 'text-align:center' }, streak ? `🔥 ${streak}-day confession streak. Don't let it die.` : 'No streak yet. Your first confession starts one.'));
+  kids.push(credit());
   return h('main', { class: 'stack' }, kids);
 }
 function questRow(q, i, isDone) {
@@ -708,7 +722,8 @@ function renderOnboarding() {
       h('p', { style: 'font-size:18px;font-weight:600' }, 'The habit tracker that roasts you until you get your life back.'),
       h('div', { class: 'stack', style: 'gap:10px' }, ['✅ 15-second tap-only check-ins', '💀 Personalised roasts (you pick the heat)', '🪦 A graveyard for every habit you kill', '🏆 Leaderboard and roast wall with friends'].map(t => h('div', { class: 'card', style: 'padding:12px 14px;font-weight:600' }, t))),
       h('button', { class: 'cta', onclick: () => { O.i = 0; render(); } }, 'Start my villain origin story →'),
-      h('p', { class: 'small muted' }, 'Takes 60 seconds. No real name, age or phone number needed.')));
+      h('p', { class: 'small muted' }, 'Takes 60 seconds. No real name, age or phone number needed.'),
+      credit()));
     return;
   }
   if (O.i >= OB.length) { renderReveal(); return; }
@@ -802,7 +817,8 @@ function renderSignIn() {
     h('div', { class: 'stack', style: 'gap:10px' }, ['✅ 15-second tap-only check-ins', '💀 Personalised roasts (you pick the heat)', '🪦 A graveyard for every habit you kill', '🏆 Leaderboard and roast wall with friends'].map(t => h('div', { class: 'card', style: 'padding:12px 14px;font-weight:600' }, t))),
     h('button', { class: 'cta', onclick: googleSignIn }, 'Sign in with Google'),
     h('button', { class: 'cta ghost', onclick: () => { try { localStorage.setItem('tyd-solo', '1'); } catch {} startLocal(); } }, 'Use solo, no account'),
-    h('p', { class: 'small muted' }, 'Signing in saves your data across phones and puts you on the squad leaderboard. Friends only ever see your nickname, animal, aura and rank.')));
+    h('p', { class: 'small muted' }, 'Signing in saves your data across phones and puts you on the squad leaderboard. Friends only ever see your nickname, animal, aura and rank.'),
+    credit()));
 }
 async function boot() {
   let solo = false; try { solo = localStorage.getItem('tyd-solo') === '1'; } catch {}
