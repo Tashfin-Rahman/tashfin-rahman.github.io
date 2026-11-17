@@ -5,10 +5,17 @@
    he did himself. The brand identity piece was the only one clearly his, and
    it has been rewritten in work-brand-identity.js beside this file.
 
-   THE IMAGES THESE POINT AT HAVE MOVED. On 2026-10-27 everything in
-   assets/work/ that nothing published referenced was moved to drafts/images/,
-   so it is no longer served from the live site. See drafts/images/README.md.
-   Restoring an entry means copying its image back into assets/work/ first. */
+   THE IMAGES THESE POINT AT ARE NO LONGER IN THE REPOSITORY. On 2026-10-27
+   everything in assets/work/ that nothing published referenced was moved to
+   drafts/images/, which stopped the live site serving it. On 2026-11-17 that
+   folder was taken out of version control altogether, because the repository
+   is public and the files were still downloadable from GitHub directly. They
+   now sit in _private/images/, which .gitignore keeps out of every commit,
+   and the masters are in N:\Business\HomeInn.
+
+   Restoring an entry means copying its image from _private/images/ back into
+   assets/work/ first. Do not copy home-inn-brand-visiting-card-back.jpg;
+   see the note in _private/images/WHERE-THESE-CAME-FROM.md. */
 
   work: [
     {

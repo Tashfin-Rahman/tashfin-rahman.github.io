@@ -1,6 +1,6 @@
 # Working on this project
 
-**Read [TASHFIN-PORTFOLIO-CONTEXT.md](TASHFIN-PORTFOLIO-CONTEXT.md) before
+**Read [notes/CONTEXT.md](notes/CONTEXT.md) before
 doing anything else.** Do not start work, answer a question about the site, or
 open any other file first. It holds who the work is for, how the site is
 built, what has already been decided, the traps already hit, and the current
@@ -19,8 +19,8 @@ all of them every time is what the split exists to avoid:
 - `notes/seo.md` — search, answer engines, schema, the sitemap, Search
   Console.
 
-`TODO.md` holds what is still to do. `DEPLOY.md` holds the commands.
-`LINKEDIN.md` holds the LinkedIn text, ready to paste.
+`notes/TODO.md` holds what is still to do. `notes/deploying.md` holds the commands.
+`notes/linkedin.md` holds the LinkedIn text, ready to paste.
 
 None of these are published: `_config.yml` keeps them out of the built site.
 Anything new of the same kind goes in `notes/` or into that exclude list.
@@ -33,10 +33,10 @@ memory. These files are.**
 
 So, after each piece of work, before moving on:
 
-1. Put what changed into `TASHFIN-PORTFOLIO-CONTEXT.md`. Something learned the
+1. Put what changed into `notes/CONTEXT.md`. Something learned the
    hard way goes under **Traps already hit**; something settled goes under
    **Decisions already made**; what is now live goes under **Current state**.
-2. Move anything outstanding into `TODO.md`, with enough detail to act on
+2. Move anything outstanding into `notes/TODO.md`, with enough detail to act on
    without asking him again. If you drafted a piece of text for him, the text
    itself goes in, not a description of it.
 3. Commit the files with the work, in the same commit.

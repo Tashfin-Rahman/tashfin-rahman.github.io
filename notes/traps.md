@@ -1,6 +1,6 @@
 # Traps already hit
 
-*Open this before working with the browser pane, LinkedIn, GitHub, animation, screenshots, PDFs or the shell. Every entry cost time to learn. Part of [TASHFIN-PORTFOLIO-CONTEXT.md](../TASHFIN-PORTFOLIO-CONTEXT.md).*
+*Open this before working with the browser pane, LinkedIn, GitHub, animation, screenshots, PDFs or the shell. Every entry cost time to learn. Part of [CONTEXT.md](CONTEXT.md).*
 
 Hard-won. Re-reading this will save hours.
 
@@ -207,3 +207,34 @@ issued, so his approval landed on a code nothing was listening for.
 left alone.
 
 ---
+
+## A Jekyll exclude is not a privacy control
+
+Found on 2026-11-17, three weeks after the mistake was made.
+
+`_config.yml` has an `exclude:` list, and it works: a file on it is not built
+into the site and returns 404. That is the whole of what it does. It has no
+effect on the repository, and `tashfin-rahman.github.io` is **public and has
+to stay public**, because a user Pages site on a free account is unpublished
+the moment the repository goes private.
+
+So a file excluded from the build is still committed, still browsable on
+github.com, and still downloadable:
+
+    https://raw.githubusercontent.com/<owner>/<repo>/main/<path>
+
+Both of these were true at the same minute for the back of the Home Inn
+visiting card, which carries the factory address, the hotline and a work email
+that is nowhere else public:
+
+    raw.githubusercontent.com/.../drafts/images/...-card-back.jpg   200
+    tashfin-rahman.github.io/drafts/images/...-card-back.jpg        404
+
+**Before concluding that anything is unpublished, request both URLs.** The
+site 404 on its own proves nothing.
+
+Anything that must not leave this machine goes in `_private/`, which
+`.gitignore` excludes. `_config.yml` decides what the site serves.
+`.gitignore` decides what the world can download. Do not reach for one when
+the job needs the other.
+

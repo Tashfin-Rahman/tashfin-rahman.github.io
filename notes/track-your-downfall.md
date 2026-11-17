@@ -1,6 +1,6 @@
 # Track Your Downfall
 
-*Part of [TASHFIN-PORTFOLIO-CONTEXT.md](../TASHFIN-PORTFOLIO-CONTEXT.md). Open this before touching `/track-your-downfall/`.*
+*Part of [CONTEXT.md](CONTEXT.md). Open this before touching `/track-your-downfall/`.*
 
 A Gen Z habit tracker Tashfin designed with Claude on 2026-11-01. It roasts
 you in English and Banglish. Live at

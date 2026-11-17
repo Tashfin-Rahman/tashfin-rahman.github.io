@@ -9,7 +9,10 @@
      home-inn-visiting-card.jpg   front of the card
 
    The back of the card was deliberately never published: it carries the
-   factory address, a hotline and an email that are not otherwise public.
+   factory address, a hotline and an email that are not otherwise public. It
+   is not in this repository either, as of 2026-11-17 — a public repository
+   publishes every file in it whether or not the site serves it. It is in
+   _private/images/, which .gitignore excludes. Leave it there.
 
    PUTTING THE SECTION BACK TAKES TWO PASTES, not one. The markup was taken
    out of index.html on 2026-10-27 so that the page source carried no empty

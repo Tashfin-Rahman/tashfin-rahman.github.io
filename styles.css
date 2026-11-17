@@ -939,6 +939,18 @@ a.org:hover { color: var(--accent); border-bottom-color: var(--accent); }
   .entry { padding-left: 28px; }
 
   .projects { grid-template-columns: 1fr 1fr; }
+
+  /* A single project used to sit in the left-hand column with the right-hand
+     column empty, which reads as a card that failed to load rather than as a
+     deliberate layout. On its own it takes the full width, and its
+     question/method/finding rows become columns so the lines stay short
+     instead of running to a hundred-odd characters. auto-fit rather than a
+     fixed three, so an entry with only two rows still fills the card. */
+  .projects > .project:only-child { grid-column: 1 / -1; }
+  .projects > .project:only-child .project-rows {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 26px;
+  }
   .work-item { grid-template-columns: 4fr 6fr; gap: 22px; align-items: start; }
   .work-item-textonly { grid-template-columns: 1fr; }
   .skills { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 28px; }
@@ -992,10 +1004,15 @@ a.org:hover { color: var(--accent); border-bottom-color: var(--accent); }
   margin-inline: auto;
   overflow: visible;
 }
+/* The coastline is drawn in a 1000-unit viewBox that renders about 320px
+   wide, so a stroke-width of 4 came out at 1.3 real pixels: a hairline in
+   --border-strong on a near-black background, which is as close to invisible
+   as a line gets. 7 gives a little over 2px, and mixing a third of the accent
+   into the stroke ties the coast to the gold pins sitting on it. */
 .reach-outline {
-  fill: color-mix(in srgb, var(--accent) 8%, transparent);
-  stroke: var(--border-strong);
-  stroke-width: 4;
+  fill: color-mix(in srgb, var(--accent) 10%, transparent);
+  stroke: color-mix(in srgb, var(--accent) 32%, var(--border-strong));
+  stroke-width: 7;
   stroke-linejoin: round;
 }
 .reach-halo { fill: var(--accent); opacity: 0.13; }

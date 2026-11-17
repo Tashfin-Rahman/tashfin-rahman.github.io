@@ -4,3 +4,18 @@ desktop.ini
 
 # Local preview-server config, not part of the site.
 .claude/
+
+# Material that must never reach the public repository.
+#
+# `_private/` holds the Home Inn images that were once committed here: project
+# photographs, superseded brand shots, and both sides of the visiting card. The
+# back of that card carries the factory address, the hotline and a work email
+# that is not public anywhere else, and the decision had already been taken not
+# to publish it.
+#
+# `_config.yml` kept them out of the *built site*, but the repository itself is
+# public, so every one of them was still downloadable from GitHub directly. A
+# Jekyll exclude is not a privacy control. This is.
+#
+# The masters live in N:\Business\HomeInn. Put anything of the same kind here.
+_private/

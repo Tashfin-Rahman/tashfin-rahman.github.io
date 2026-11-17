@@ -11,9 +11,14 @@ Drop files here and point `content.js` at them.
 
 **Only put something in `work/` that a published page points at.** This folder
 is served to anyone, and `robots.txt` welcomes image crawlers. Eleven images
-that nothing referenced were moved to `drafts/images/` on 2026-10-27, one of
-which should never have been publishable at all. The reasoning is in
-`drafts/images/README.md`.
+that nothing referenced were moved out on 2026-10-27, one of which should
+never have been publishable at all.
+
+They are not in the repository any more either. Moving them only stopped the
+*site* serving them; the repository is public, so they were still downloadable
+from GitHub directly until 2026-11-17, when they were taken out of version
+control and put in `_private/images/`, which `.gitignore` excludes. The
+reasoning is in `_private/images/WHERE-THESE-CAME-FROM.md`.
 
 ## How the hero photo is used
 

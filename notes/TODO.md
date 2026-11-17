@@ -61,6 +61,44 @@ down once already.
 The rest of the profile is correct: website field, company, location, and all
 four social links showing their proper brand icons.
 
+## From the repository audit, 2026-11-17
+
+### His to decide: repository settings
+
+Wikis, Issues and Projects are switched on for all four public repositories
+and nothing uses any of them. An empty wiki tab and an open issue tracker on a
+personal portfolio are clutter and a small spam surface. These are account
+settings, so they were not changed on his behalf. If he wants them off:
+
+- `tashfin-rahman.github.io` — turn off Wikis, Issues, Projects.
+- `Tashfin-Rahman/Tashfin-Rahman` — the same.
+- `homeinn-preview` — the same.
+- `phonebox-desk-setup` — leave **Issues on**. It is a how-to other people may
+  actually use, and a question from a stranger is the point. Wikis and Projects
+  off.
+
+Each is at `github.com/Tashfin-Rahman/<repo>/settings`, under Features. Say the
+word and it can be done through the API instead; the stored token has the
+scope for it.
+
+### His to decide: the old commits
+
+The eleven Home Inn images are out of the repository as of today, but they are
+still in past commits, so anyone who knows a commit SHA can still pull the
+visiting card back out of history. Clearing that means rewriting history,
+which changes every commit SHA in the repository — and `CONTEXT.md` and this
+file quote about fifteen of them. The recommendation is to leave it: nobody
+trawls a stranger's commit history for a hash, and the cost is that the
+project's own record stops matching the repository. His call.
+
+### Small and open
+
+- `homeinn-preview` has no topics and `phonebox-desk-setup` has none either.
+  Two or three each would help them surface. Not urgent.
+- `For-Claude` (private) has a default branch called
+  `claude/frontend-slides-skill-ojyw1c`. Harmless, but it is the branch name
+  shown on the repository page. Rename to `main` whenever it is next touched.
+
 ## The blog
 
 Built on 2026-10-27. Nothing outstanding in the code. What it needs is posts.

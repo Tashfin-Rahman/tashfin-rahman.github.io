@@ -6,7 +6,7 @@ after every piece of work, not at the end of a session.**
 This file is the memory for this project. It holds who the work is for, what
 has been decided, how the pieces fit together, and the traps that have already
 been hit. `CLAUDE.md` beside it points here and loads automatically. `TODO.md` holds
-what is still to do. `DEPLOY.md` holds the commands. `LINKEDIN.md` holds the
+what is still to do. `deploying.md` holds the commands. `linkedin.md` holds the
 LinkedIn text.
 
 Tashfin asked on 2026-10-26 that context live here rather than being carried in
@@ -26,8 +26,12 @@ Anything learned the hard way belongs in **Traps already hit**. Anything
 settled belongs in **Decisions already made**. Neither section should have to
 be rediscovered.
 
-It was called `CONTEXT.md` until 2026-10-27. Anything still pointing at that
-name is out of date.
+**On its name and where it lives.** This file was `CONTEXT.md` at the
+repository root until 2026-10-27, then `TASHFIN-PORTFOLIO-CONTEXT.md` at the
+root, and since 2026-11-17 it is `notes/CONTEXT.md`. Anything pointing at
+either of the older names is out of date. The move was so that the repository
+root holds only the site, `README.md` and `CLAUDE.md`, which is what anyone
+opening it on GitHub sees first.
 
 ---
 
@@ -85,7 +89,8 @@ invented data.
 | GitHub profile | https://github.com/Tashfin-Rahman |
 | Home Inn | https://homeinn.xyz |
 | Haifa Intelligence | https://haifa-ai.com |
-| Brand assets | `C:\Users\User\OneDrive\Desktop\Business\HomeInn` |
+| Brand assets | `N:\Business\HomeInn` |
+| Images kept out of the repo | `E:\Claude code\portfolio\_private\images` |
 
 Contact on the site: `tashfinrahman010@gmail.com`, +880 1568 116144, Dhaka.
 
@@ -105,8 +110,8 @@ reading all of them every session is what this split exists to avoid.
 | [notes/track-your-downfall.md](notes/track-your-downfall.md) | Touching the Track Your Downfall app at `/track-your-downfall/`, or finishing its Firebase setup. |
 | [notes/publishing-a-post.md](notes/publishing-a-post.md) | Adding or changing a blog post. Six places have to move together and three of them fail silently. |
 
-Beside them: `TODO.md` for what is outstanding, `DEPLOY.md` for the commands,
-`LINKEDIN.md` for the LinkedIn text.
+Beside them: `TODO.md` for what is outstanding, `deploying.md` for the commands,
+`linkedin.md` for the LinkedIn text.
 
 **None of these are published.** `_config.yml` excludes them, so they 404 on
 the live site. Anything new of this kind goes in `notes/` or gets added to
@@ -261,18 +266,18 @@ has not made the account yet.
 **Outstanding, blocked on him**
 
 The shorter LinkedIn About, which he approved. The text itself is in
-`LINKEDIN.md`; it is not repeated here, because two copies drift.
+`linkedin.md`; it is not repeated here, because two copies drift.
 
 It is **not saved**. His profile still shows the five-paragraph version.
 Three attempts have now failed. The first two hit LinkedIn's sign-in wall,
 because he was signed in to his own Opera rather than to the pane. On
 2026-10-27 the pane was genuinely signed in and it failed anyway: the profile
 page does not render its About card there (see Traps). The text is in
-`LINKEDIN.md` so he can paste it himself, which is now the only way.
+`linkedin.md` so he can paste it himself, which is now the only way.
 
 Also found on 2026-10-27: the **Open to Work** banner is on, set to
 "Recruiters only", location Mirpur. It contradicts a profile that says he
-co-owns the firm. His call, raised in `LINKEDIN.md`.
+co-owns the firm. His call, raised in `linkedin.md`.
 
 **Done on 2026-10-27**, in order, so a cold session knows what moved:
 
@@ -359,7 +364,7 @@ sentence was gesturing at. The two blog pieces are linked from it now too.
 is in `TODO.md`.
 
 **LinkedIn: all of it is his to do**, since it needs a signed-in session.
-`LINKEDIN.md` now holds the About text with the 130-projects figure put back
+`linkedin.md` now holds the About text with the 130-projects figure put back
 and the four-item list broken up, plus the two schools as fields for the
 Education section rather than prose in the About.
 
@@ -461,6 +466,175 @@ before chasing it.
 The other half of the same trap: `.entry` carries `transform: translateX(-26px)`
 until it reveals, and `getBoundingClientRect()` includes transforms. Every
 measurement of an unrevealed entry is 26px to the left of where it will sit.
+
+## The repository audit, 2026-11-17
+
+He asked for the GitHub account to be checked end to end: which repositories
+should be private, whether the security is good enough, the files arranged
+properly, and the site made to look professional.
+
+### What the account actually holds
+
+Nine repositories. Four public, five private.
+
+| Repository | | Verdict |
+|---|---|---|
+| `tashfin-rahman.github.io` | public, Pages | Correct, and **must stay public**. |
+| `Tashfin-Rahman/Tashfin-Rahman` | public | Correct. Profile README. |
+| `phonebox-desk-setup` | public, MIT | Correct. Read in full: no secrets. |
+| `homeinn-preview` | public, Pages | Correct. Reasoned below. |
+| `HomeInn`, `Anti-Gravity`, `For-Claude` | private | Correct. |
+| `Danial-Dirar/homeinn-interior` | private | Not his. He has write, Danial is admin. |
+| `Danial-Dirar/CreditSense-AI` | public | Not his. He has write. Linked from the site. |
+
+Checked on every one: collaborators, deploy keys, Actions secrets, webhooks,
+secret scanning, push protection, Pages configuration. **Zero deploy keys,
+zero Actions secrets, zero webhooks, no collaborator he did not add.** Secret
+scanning and push protection are on for all four public repositories. The
+token in Git Credential Manager carries `gist, repo, workflow`.
+
+Dependabot security updates are off everywhere. Left off: nothing public has a
+dependency manifest, so it would have nothing to scan.
+
+### The one real exposure
+
+**`drafts/images/home-inn-brand-visiting-card-back.jpg` was downloadable from
+GitHub.** The back of the card carries the factory address, the hotline and a
+work email, none of it public elsewhere, and the decision not to publish it
+had already been taken on 2026-10-27.
+
+What happened on 2026-10-27 was that it moved from `assets/work/` to
+`drafts/`, and `_config.yml` was told to exclude `drafts`. That stopped the
+**site** serving it, and the job looked finished. It was half of it. The
+**repository** is public, so the file was still a plain request away. Both
+checked within the same minute on 2026-11-17:
+
+    raw.githubusercontent.com/.../main/drafts/images/...-card-back.jpg   200, 54,081 bytes
+    tashfin-rahman.github.io/drafts/images/...-card-back.jpg             404
+
+Fixed: all eleven images taken out of version control and moved to
+`_private/images/`, which `.gitignore` excludes. Masters are in
+`N:\Business\HomeInn`; a copy of each is in `_private/images/` with a note
+beside it explaining which one matters and why.
+
+**The rule, now written into `.gitignore`, `_config.yml`, `README.md` and
+`assets/README.md`, because it was missed once already:** `_config.yml`
+decides what the *site* serves. `.gitignore` decides what the *world* can
+download. The repository is public, so every file committed to it is published
+whether the site links to it or not. They are not substitutes for one another.
+
+### What history still holds
+
+The images are out of the current tree but still in past commits, so they stay
+reachable to anyone who knows a commit SHA. Rewriting history would clear
+that, and it was **deliberately not done**: it changes every commit SHA, and
+this file and `TODO.md` reference about fifteen of them by SHA. The gain is
+small, since nobody trawls a stranger's commit history for a hash, and the
+cost is that the project's own written record stops matching the repository.
+If he ever wants it done anyway, that is the trade-off to put to him first.
+
+### Also checked and clean
+
+- **No e-TIN, VAT, BIN, trade licence or national ID numbers anywhere in any
+  repository.** The company profile deck holding those scans has never been
+  committed. The only hit for "trade licence" is `content.js` naming M/S Ahasan
+  Enterprise as the licence holder, which is on the site on purpose.
+- `phonebox-desk-setup` read file by file. No tokens, no keys, no credentials.
+  Its `.gitignore` excludes `*.csv`, which keeps the activity logs out. The
+  only personal detail published is the LAN subnet `192.168.100.x`, a private
+  range that means nothing outside his house.
+- `assets/work/home-inn-visiting-card.jpg` is live and unreferenced, so it was
+  opened and looked at: it is the **front** of the card. Logo, strapline, five
+  lines of work. No address, no contact details. It stays.
+- `.indexnow-key` at the root is a copy for reference. The key Bing actually
+  reads is `43a9f4accff32a5ec66aede0b1bec2e4.txt`, which is served, 200. The
+  dotfile 404s because Jekyll skips dotfiles. Correct, not a fault.
+- `homeinn-preview` already carries `<meta name="robots" content="noindex">`.
+- Every published URL requested and confirmed: the site root, `/blog/`, `/cv/`,
+  `/tools/fit-out-quote/`, `/track-your-downfall/`, the redirect stubs, the
+  feed, the sitemap, `llms.txt`, `robots.txt`, `404.html`, the CV PDF and both
+  verification files. All 200.
+
+### Why `homeinn-preview` stays public
+
+It is a static preview of the Home Inn site, published so people can be sent a
+link. Making it private would unpublish its Pages site, which is the only
+thing it is for. It duplicates homeinn.xyz, but it is `noindex`, so it does
+not compete with the real site in search, and nothing in it is confidential.
+
+### Settings deliberately left alone
+
+Wikis, Issues and Projects are on for all four public repositories and nothing
+uses them. Turning them off is tidier and removes a small spam surface, but
+these are account settings, so they are his call rather than something to
+change on his behalf. Listed in `TODO.md`.
+
+---
+
+## Arranging the repository, 2026-11-17
+
+The root used to hold six markdown files. It now holds two.
+
+| Was | Is |
+|---|---|
+| `TASHFIN-PORTFOLIO-CONTEXT.md` | `notes/CONTEXT.md` |
+| `TODO.md` | `notes/TODO.md` |
+| `DEPLOY.md` | `notes/deploying.md` |
+| `LINKEDIN.md` | `notes/linkedin.md` |
+
+`README.md` and `CLAUDE.md` stay at the root: the first is what GitHub shows
+anyone who opens the repository, the second is where Claude Code looks. Every
+cross-reference in every file was rewritten, and `_config.yml` simplified,
+since `notes` was already excluded as a whole.
+
+**`README.md` was rewritten.** It was the first thing a visitor to the
+repository read, and it was wrong in six places: it still promised a hero
+banner and a LinkedIn URL as outstanding, still described deploying as a step
+not yet taken, still listed a Call button removed earlier the same day, and
+still described two animations, the drifting hero glow and the button sweep,
+that the slop pass had deleted. It now describes what is actually there,
+including the directory layout and the two files at the site root that must
+never be deleted.
+
+---
+
+## Two site fixes, 2026-11-17
+
+Both found by measuring the rendered page, not by reading the CSS.
+
+**A lone project card left half the grid empty.** `.projects` is `1fr 1fr`
+above 700px and the projects list currently holds one entry, so the
+CreditSense card sat in a 399px left-hand column with a 399px void beside it,
+which reads as a card that failed to load. A single card now spans the full
+width, and its question/method/finding rows become columns: `auto-fit` with a
+200px minimum, so a two-row entry still fills it rather than leaving a hole.
+Measured after the change at 1280px: card 816px, grid 816px, three 239px
+columns, no horizontal overflow.
+
+**The reach map's coastline was a hairline.** The path is drawn in a
+1000-unit viewBox that renders about 320px wide, so `stroke-width: 4` came out
+at 1.3 real pixels, in `--border-strong` (`#3a3f4a`) on a near-black
+background. Raised to 7, a little over 2px, with a third of the accent mixed
+into the stroke so the coast belongs with the gold pins sitting on it. Fill
+lifted from 8% to 10%.
+
+### Looked at and found to be fine
+
+- **The counters reading 103 and 10.** A screenshot caught the count-up
+  mid-flight. `content.js` holds 130 and 13, and the DOM confirmed it. Not a
+  bug. Worth knowing before anyone else chases it.
+- **The district pins missing from the map.** Same cause. They land on a
+  stagger running to 1,710ms and the screenshot was earlier than that. All
+  twelve are in the DOM.
+- **Mobile text appearing cut off** in a headless screenshot at 390px.
+  Measured in a real browser at 375px: `scrollWidth` equals `clientWidth`, no
+  horizontal scroll. The headless capture was mis-sized. The only elements past
+  the right edge are the nav links, in a nav that scrolls on purpose.
+- **The content column sitting left of centre** at 1440px. `.wrap` is centred
+  at 880px; the text inside is capped at `--measure`, 62ch, for readability, so
+  the space is inside the wrap rather than beside it. Correct as designed.
+
+---
 
 ## Working agreement
 

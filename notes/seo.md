@@ -1,6 +1,6 @@
 # SEO and AEO
 
-*Open this when working on search, answer engines, schema, the sitemap or Search Console. Part of [TASHFIN-PORTFOLIO-CONTEXT.md](../TASHFIN-PORTFOLIO-CONTEXT.md).*
+*Open this when working on search, answer engines, schema, the sitemap or Search Console. Part of [CONTEXT.md](CONTEXT.md).*
 
 Done: sitemap, robots.txt, canonical, `ProfilePage` + `Person` JSON-LD,
 `BlogPosting` on the article, image SEO with real alt text, `llms.txt`,

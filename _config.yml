@@ -3,17 +3,24 @@
 # This matters. Until 2026-10-27 these files happened to 404 on their own, so
 # the exclude list looked unnecessary and was removed. When GitHub Pages was
 # recreated for the repository later the same day, the new build served every
-# one of them: TODO.md, LINKEDIN.md and the context file were all readable by
-# anyone who guessed the filename. They hold notes about Tashfin, not content
-# for visitors.
+# one of them: the to-do list, the LinkedIn text and the context file were all
+# readable by anyone who guessed the filename. They hold notes about Tashfin,
+# not content for visitors.
 #
-# Add anything of the same kind here, or put it in notes/.
+# On 2026-11-17 those four files moved into notes/, which is excluded as a
+# whole, so the list below is now short on purpose. Anything of the same kind
+# goes in notes/ and needs no entry here.
+#
+# READ THIS BEFORE TRUSTING IT. This list controls what the SITE serves. It
+# has no effect on what the REPOSITORY publishes, and the repository is
+# public, so every file in it is a plain download away whether it is excluded
+# here or not. Anything that must not leave this machine belongs in
+# `_private/`, which .gitignore keeps out of every commit. The two mechanisms
+# are not substitutes for one another; assuming they were is how the back of
+# the visiting card sat on GitHub for three weeks.
 exclude:
   - CLAUDE.md
-  - TASHFIN-PORTFOLIO-CONTEXT.md
-  - TODO.md
-  - DEPLOY.md
-  - LINKEDIN.md
   - README.md
   - notes
   - drafts
+  - _private

@@ -1,6 +1,6 @@
 # How the site is built
 
-*Open this when changing the site's code: the render pipeline, the pages, the map, the CV. Part of [TASHFIN-PORTFOLIO-CONTEXT.md](../TASHFIN-PORTFOLIO-CONTEXT.md).*
+*Open this when changing the site's code: the render pipeline, the pages, the map, the CV. Part of [CONTEXT.md](CONTEXT.md).*
 
 Plain HTML, CSS and JavaScript. No build step, no dependencies. He must be
 able to edit it in a year without fighting tooling.
