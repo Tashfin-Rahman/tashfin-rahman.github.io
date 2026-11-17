@@ -166,6 +166,26 @@ both need the browser pane signed in.
   of the fit-out article, which has been live for two days. Its four open
   questions are under Selected Work above so they are not lost with it.
 
+## From the slop pass, 2026-11-17
+
+Two questions and one decision, all his:
+
+1. **One real instance for the Steam Store bullet.** "Watched the daily
+   transactions for anything out of the ordinary and raised it early" is the
+   vaguest line on the site. What was the thing you actually caught, and what
+   happened? No client or employer has to be named.
+2. **A web font, or stay on the system stack?** On Android his body text
+   resolves to Roboto, which is one of the faces that reads as AI-default. A
+   real pairing would fix it; it costs a font request on slow connections.
+   The site has deliberately had no webfont since day one.
+3. **"Soft skills" was cut from Skills.** Nothing on the site evidences any
+   of it. Put it back only if he starts applying through employers'
+   CV-screening systems, which match on exactly those words.
+
+Also: **`assets/cv.pdf` is now out of date.** It is a static export and still
+lists the Soft skills group. `/cv/` builds live from `content.js` and is
+already correct, so the PDF needs re-printing from that page.
+
 ## Parked
 
 - The agency. Marketing and IT. No name yet, so it stays off everything.

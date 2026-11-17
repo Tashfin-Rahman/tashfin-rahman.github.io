@@ -98,7 +98,6 @@ window.CV = {
   about: [
     "I am Partner and Chief Business Officer at Home Inn, and a BBA student at North South University. Home Inn has designed and built architecture, interiors and custom furniture since 2015, 130 projects across 13 districts of Bangladesh. I look after the budgeting, cost tracking and bookkeeping, and I designed the firm's brand identity and its company profile. I also advise Haifa Intelligence, an AI studio, on marketing. Before this I spent two and a half years keeping the books for an online store.",
     "I am building an agency of my own. Most small businesses I meet here have either their numbers in order or their marketing in order, rarely both. That gap is where I want to work.",
-    "I am interested in how data helps with financial decisions, particularly in lending, budgeting and cost forecasting.",
   ],
 
   /* --------------------------------------------------------------------------
@@ -322,10 +321,6 @@ window.CV = {
     {
       group: "Tools",
       items: ["Microsoft Excel", "Word", "PowerPoint", "Google Sheets", "Generative AI tools"],
-    },
-    {
-      group: "Soft skills",
-      items: ["Team leadership", "Public speaking", "Event planning", "Working across teams"],
     },
     {
       group: "Languages",

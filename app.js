@@ -370,12 +370,10 @@
       links.appendChild(button("LinkedIn", meta.linkedin, true));
     }
 
+    // Two buttons only. Phone, LinkedIn and GitHub are all repeated in the
+    // Contact section at the foot of the page; five chips of equal weight up
+    // here gave the eye nothing to land on first.
     if (filled(meta.cvFile)) links.appendChild(button("Download CV", meta.cvFile));
-    if (filled(meta.phone)) links.appendChild(button("Call", telHref(meta.phone)));
-    if (filled(meta.linkedin) && !links.querySelector('[href="' + meta.linkedin + '"]')) {
-      links.appendChild(button("LinkedIn", meta.linkedin));
-    }
-    if (filled(meta.github)) links.appendChild(button("GitHub", meta.github));
 
     // Stagger the hero in on load.
     ["eyebrow", "h1", "tagline"].forEach(function (sel) {
@@ -804,8 +802,8 @@
           "contact-lead",
           mode === "email"
             ? filled(meta.phone)
-              ? "Email or call, whichever suits you. I read everything that comes in."
-              : "Email is the quickest way to reach me. I read everything that comes in."
+              ? "Email or call, whichever suits you."
+              : "Email is the quickest way to reach me."
             : "The best place to reach me is LinkedIn."
         )
       )
@@ -821,6 +819,7 @@
     if (filled(meta.linkedin)) {
       actions.appendChild(button("LinkedIn", meta.linkedin, mode !== "email"));
     }
+    if (filled(meta.github)) actions.appendChild(button("GitHub", meta.github));
     if (filled(meta.cvFile)) actions.appendChild(button("Download CV", meta.cvFile));
     body.appendChild(actions);
     return true;

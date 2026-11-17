@@ -23,7 +23,6 @@
   --accent-soft: #2b2316;
   --accent-ink: #0c0e13;   /* text drawn ON the accent — gold needs dark text */
   --glow-a: rgba(216, 168, 87, 0.16);
-  --glow-b: rgba(120, 90, 200, 0.10);
   --shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.9);
 
   --serif: Georgia, "Times New Roman", serif;
@@ -50,7 +49,6 @@
   --accent-soft: #f6ecd8;
   --accent-ink: #ffffff;
   --glow-a: rgba(138, 98, 18, 0.10);
-  --glow-b: rgba(180, 140, 60, 0.08);
   --shadow: 0 16px 36px -26px rgba(60, 45, 20, 0.45);
 }
 
@@ -183,7 +181,7 @@ a:hover { text-decoration-thickness: 2px; }
   z-index: 20;
   background: var(--bg);
   background: color-mix(in srgb, var(--bg) 82%, transparent);
-  backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid transparent;
   transition: border-color 0.3s ease, background 0.3s ease;
 }
@@ -348,22 +346,17 @@ a:hover { text-decoration-thickness: 2px; }
   overflow: hidden;
 }
 
-/* Two slow-drifting colour washes behind the hero. Cheap (one element,
-   transform-free) and it stops the dark background reading as flat. */
+/* One still, warm wash behind the hero, so the dark background does not read
+   as flat. This was two drifting washes and the second was violet, which is
+   the house look of every AI-built landing page and belonged to no part of
+   this palette. Single, gold, motionless. */
 .hero::before {
   content: "";
   position: absolute;
   inset: -20% -10% 0;
   z-index: -1;
-  background:
-    radial-gradient(42% 55% at 18% 8%, var(--glow-a), transparent 70%),
-    radial-gradient(38% 50% at 82% 28%, var(--glow-b), transparent 72%);
-  animation: drift 22s ease-in-out infinite alternate;
+  background: radial-gradient(46% 58% at 22% 6%, var(--glow-a), transparent 72%);
   pointer-events: none;
-}
-@keyframes drift {
-  from { transform: translate3d(-3%, -2%, 0) scale(1); }
-  to   { transform: translate3d(4%, 3%, 0) scale(1.12); }
 }
 
 .hero-inner {
@@ -500,21 +493,8 @@ a:hover { text-decoration-thickness: 2px; }
 }
 .btn-primary:hover { color: var(--accent-ink); }
 
-/* A light sweep crossing the primary button on hover. */
-.btn-primary::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -120%;
-  width: 45%;
-  height: 100%;
-  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.45), transparent);
-  transform: skewX(-18deg);
-}
-.btn-primary:hover::after { animation: sweep 0.75s ease; }
-@keyframes sweep {
-  to { left: 140%; }
-}
+/* No hover shimmer on the primary button. A light sweep crossing a call to
+   action is a landing-page tic; the colour change carries it on its own. */
 
 /* ============================================================================
    SECTIONS
@@ -962,6 +942,30 @@ a.org:hover { color: var(--accent); border-bottom-color: var(--accent); }
   .work-item { grid-template-columns: 4fr 6fr; gap: 22px; align-items: start; }
   .work-item-textonly { grid-template-columns: 1fr; }
   .skills { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 28px; }
+}
+
+/* On a wide screen the dates move out into a left-hand gutter, so the roles
+   sit indented from the section heading instead of every line starting on
+   one flush left edge. Screen only: print flattens the timeline and wants
+   the dates back inline. Scoped to .entry so the blog's .piece headings,
+   which share .entry-dates, keep theirs where they are. */
+@media screen and (min-width: 820px) {
+  .entry { padding-left: 116px; }
+  .entry::before { left: 92px; }
+  .entry::after { left: 88.5px; }
+  /* Doubled class only to outrank the base .timeline .rail rule, which is
+     declared further down the file and would otherwise win on source order. */
+  .timeline .rail.rail { left: 92px; }
+  .entry .entry-dates {
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 76px;
+    margin-left: 0;
+    text-align: right;
+    white-space: normal;
+    line-height: 1.35;
+  }
 }
 
 /* ============================================================================

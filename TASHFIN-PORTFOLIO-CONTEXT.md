@@ -300,8 +300,108 @@ co-owns the firm. His call, raised in `LINKEDIN.md`.
 10. Writing became the Blog: posts moved to `/blog/`, redirect stubs left
     behind, an index page at `/blog/`, an Atom feed, and the interactive
     fit-out tool at `/tools/fit-out-quote/`.
+11. An AI-slop pass over the whole site, 2026-11-17. Details below.
 
 Everything else outstanding is in `TODO.md`.
+
+## The AI-slop pass, 2026-11-17
+
+He pasted a brand-designer audit brief: find what reads or looks like generic
+AI output, replace it with something specific, and never invent a fact to fill
+a gap. Most of the site passed, because the copy has always argued from real
+detail. Six things did not, and all six are now changed.
+
+**Visual**
+
+- **The violet wash behind the hero is gone.** `--glow-b` was
+  `rgba(120, 90, 200, 0.10)` in dark mode: a purple glow drifting on a 22s
+  loop behind a palette called Midnight & Gold. Purple belonged to nothing on
+  this site. There is now one still gold wash. The `drift` keyframes and both
+  `--glow-b` tokens were removed with it.
+- **The hover shimmer on the primary button is gone**, with its `sweep`
+  keyframes. A light sweep crossing a call to action is a landing-page tic.
+- **The header's `saturate(140%)` is gone**; the blur stays at 10px, because
+  the header genuinely sits over a photograph.
+
+**Layout — the one structural change**
+
+On screens at 820px and up the timeline dates move out into a left-hand
+gutter. Geometry at rest, measured: section heading at x=175, date gutter
+175–251 right-aligned, rail at 267, role title at 291. The roles now sit
+indented from their own heading instead of everything starting on one flush
+left edge. Two traps, both hit and fixed:
+
+- The `@media (min-width: 700px)` block also sets `.entry { padding-left }`,
+  so the new block **must stay below it** in the file or source order wins.
+- `.timeline .rail` is declared further down than the new block, so the rail
+  rule needed `.rail.rail` to outrank it. Without that the rail stayed at
+  x=175 and the dates drew straight through it.
+
+It is `@media screen and`, deliberately: print flattens the timeline and wants
+the dates back inline.
+
+**Copy**
+
+- **Cut from About:** "I am interested in how data helps with financial
+  decisions, particularly in lending, budgeting and cost forecasting." It
+  stated a feeling rather than a fact, and Skills → Research interests and the
+  CreditSense entry already carry it.
+- **Cut from Skills: the whole "Soft skills" group** (team leadership, public
+  speaking, event planning, working across teams). This was the only section
+  that failed the test of "remove the name and could you still tell it is
+  him". Nothing on the site evidences any of it. **If he ever starts applying
+  through an employer's CV-screening system, put it back** — those systems
+  match on exactly those words. The group is in this file's history and in
+  git at 9651425.
+- **Cut from Contact:** "I read everything that comes in." A promise, not a
+  fact, and it is on every freelancer's contact section.
+
+**Hero buttons: five became two.** Email and Download CV only. Phone,
+LinkedIn and GitHub were five chips of equal weight with nothing for the eye
+to land on first, and all of them repeat in Contact at the foot of the page.
+GitHub had to be *added* to Contact, because the hero was the only place it
+appeared.
+
+### Flagged and deliberately not changed
+
+- **The fonts.** Georgia headings over a system sans. Not on his list of
+  tells, and Georgia has real personality, but on Android — most of his
+  Bangladeshi visitors — the system sans resolves to Roboto, which is. A web
+  font would fix it and cost a network request on connections that are often
+  slow; the no-webfont choice was made deliberately at the start. His call,
+  not one to make silently.
+- **"Watched the daily transactions for anything out of the ordinary and
+  raised it early"** (Steam Store). The vaguest bullet on the site. It needs
+  one real instance from him. The brief asked for a visible `[PLACEHOLDER]`
+  where a fact is missing; a placeholder on a live page is worse than a vague
+  sentence, so it is noted in `TODO.md` instead.
+- **The tagline**, "Business finance and AI-assisted marketing". Accurate.
+  The stronger line is the positioning already in his About — numbers *and*
+  marketing, which small firms rarely have both of — but he is not running
+  the agency yet and the tagline would be claiming it.
+
+### Checked and clean
+
+Every stock phrase on his list: none present. Testimonials, invented stats,
+logo strip, FAQ, icon-card row, centred hero: none present. Em dashes in
+public prose: none left; the fourteen in `content.js` are all in code comments
+except the CreditSense title, where it is a title separator. Stock and
+AI-generated images: none, the one photograph is his. `work: []` and
+`certifications: []` are empty and auto-hide, so there are no filler sections.
+
+### A trap worth remembering
+
+The hero rendered blank in the browser pane on three separate local loads —
+name, tagline and buttons all at `opacity: 0`. It is not a bug. **The pane was
+hidden, so the page ran as a background page and `IntersectionObserver` never
+fired**, which is what adds `is-in`. The live site was checked directly the
+same minute and every hero element was `opacity: 1`. Next time the reveals
+look dead, check `tabs_context` for "the Browser pane is currently hidden"
+before chasing it.
+
+The other half of the same trap: `.entry` carries `transform: translateX(-26px)`
+until it reveals, and `getBoundingClientRect()` includes transforms. Every
+measurement of an unrevealed entry is 26px to the left of where it will sit.
 
 ## Working agreement
 
