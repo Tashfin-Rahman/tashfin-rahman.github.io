@@ -337,10 +337,10 @@ thousands of people a year; a particular school and college in Dhaka,
 together, are close to unique, and telling him apart from his namesakes is
 what that block is for.
 
-One thing left alone deliberately: the Leadership entry reads **"Monipur
-School and College Science Club"**, while his school is "Monipur High School
-& College". That may be the club's own name or it may be a slip. Ask him
-before changing it rather than guessing.
+The Leadership entry reads **"Monipur School and College Science Club"**,
+which does not match "Monipur High School & College". He was asked on
+2026-11-17 and confirmed it is correct: the club's own name is not the
+school's full name. **Settled. Leave it alone and do not raise it again.**
 
 ## GitHub and LinkedIn, 2026-11-17
 
