@@ -301,14 +301,13 @@ co-owns the firm. His call, raised in `LINKEDIN.md`.
 10. Writing became the Blog: posts moved to `/blog/`, redirect stubs left
     behind, an index page at `/blog/`, an Atom feed, and the interactive
     fit-out tool at `/tools/fit-out-quote/`.
-11. An AI-slop pass over the whole site, 2026-11-17. Details below.
-
 11. 2026-11-01: **Track Your Downfall** went live at `/track-your-downfall/`,
     a roast-style habit tracker he designed with Claude. Solo mode only for
     now; Firebase (Google sign-in, leaderboard, roast wall) waits on him
     signing in to his personal Gmail in the pane. Everything about it is in
     `notes/track-your-downfall.md`. It is not linked from the portfolio and
     not in the sitemap. Ask before adding it to either.
+12. An AI-slop pass over the whole site, 2026-11-17. Details below.
 
 Everything else outstanding is in `TODO.md`.
 
