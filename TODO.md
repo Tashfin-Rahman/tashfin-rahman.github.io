@@ -24,15 +24,31 @@ on 2026-10-27 with the stored token.
 
 **The bio is still the old one.** It reads "Just an ordinary BBA guy trying to
 learn, grow, and hopefully make a meaningful change in the corporate world."
-It sits directly above a README that calls him Partner and Chief Business
-Officer, and it is the line GitHub shows beside his name in search. This
-cannot be done for him: changing a profile bio needs `user` scope and the
-stored token has `gist, repo, workflow`. Go to
-github.com/settings/profile and replace it with:
+Three vague verbs and a phrase that means nothing, sitting directly above a
+README that calls him Partner and Chief Business Officer, and it is the line
+GitHub shows beside his name in search.
+
+**This cannot be done for him.** Changing a profile bio needs `user` scope.
+The stored token was checked again on 2026-11-17 and still has exactly
+`gist, repo, workflow`. Go to github.com/settings/profile and paste:
 
 ```
-Partner & Chief Business Officer at Home Inn. Business finance, costing and marketing. Dhaka, Bangladesh.
+Partner & Chief Business Officer at Home Inn, Dhaka. I keep the budgets and set the advertising. BBA at North South University.
 ```
+
+127 characters, inside GitHub's 160. The replacement first drafted on
+2026-10-27 was `Partner & Chief Business Officer at Home Inn. Business
+finance, costing and marketing. Dhaka, Bangladesh.` — accurate, but three
+abstract nouns in a row and nothing a person would say out loud. The version
+above says what he actually does, in the same voice as the site.
+
+**Done, 2026-11-17: the profile README.** Commit `e1fae20` on
+`Tashfin-Rahman/Tashfin-Rahman`. It carried the same "I am interested in how
+data helps with financial decisions" line that came off the website, so the
+CreditSense project went in instead, with the argument he actually made on it.
+The two published pieces are linked from it now as well; they were nowhere on
+that page. **The README is editable with the stored token** (`repo` scope
+covers it) — only the bio is not.
 
 **Done, 2026-10-27.** `For-Claude` and `Anti-Gravity` are private, so the
 portfolio is now the first repo on his profile. The portfolio repo has seven

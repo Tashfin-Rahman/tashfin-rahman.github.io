@@ -308,8 +308,60 @@ co-owns the firm. His call, raised in `LINKEDIN.md`.
     `notes/track-your-downfall.md`. It is not linked from the portfolio and
     not in the sitemap. Ask before adding it to either.
 12. An AI-slop pass over the whole site, 2026-11-17. Details below.
+13. School and college added, 2026-11-17, and the anti-AI pass extended to
+    GitHub. Details below.
 
 Everything else outstanding is in `TODO.md`.
+
+## School and college, 2026-11-17
+
+He gave these himself, so they are his words, not a lookup:
+
+| | | |
+|---|---|---|
+| Monipur High School & College | 2012 – 2022 | SSC batch 2022 |
+| Mirpur Cantonment Public School & College | 2023 – 2024 | HSC batch 2024 |
+
+Both are in `content.js` under `education`, newest first, after North South
+University. **No grades**, because he gave none. The `result:` field on each
+is null with a comment saying so; fill it in only if he asks.
+
+The CV at `/cv/` picks them up automatically and **still prints to one A4
+page** — checked, one `/Type /Page` object. `assets/cv.pdf` was re-printed
+again in the same commit, because it is static and goes stale otherwise; see
+`notes/how-the-site-works.md` for the command.
+
+**`alumniOf` in the Person schema now lists all three schools, not just the
+first.** It used to take `education[0]` alone. A university is shared with
+thousands of people a year; a particular school and college in Dhaka,
+together, are close to unique, and telling him apart from his namesakes is
+what that block is for.
+
+One thing left alone deliberately: the Leadership entry reads **"Monipur
+School and College Science Club"**, while his school is "Monipur High School
+& College". That may be the club's own name or it may be a slip. Ask him
+before changing it rather than guessing.
+
+## GitHub and LinkedIn, 2026-11-17
+
+He asked for the anti-AI pass to cover both profiles.
+
+**GitHub profile README: done**, commit `e1fae20` on
+`Tashfin-Rahman/Tashfin-Rahman`. It still carried "I am interested in how data
+helps with financial decisions", the same claim that came off the website for
+being a stated interest with nothing behind it. Replaced with the CreditSense
+project and the argument he actually made on it, which is the evidence that
+sentence was gesturing at. The two blog pieces are linked from it now too.
+**The README is editable with the stored token**; `repo` scope reaches it.
+
+**GitHub bio: still his to do.** The token's scopes were re-checked on
+2026-11-17 and are exactly `gist, repo, workflow`. A bio needs `user`. Text
+is in `TODO.md`.
+
+**LinkedIn: all of it is his to do**, since it needs a signed-in session.
+`LINKEDIN.md` now holds the About text with the 130-projects figure put back
+and the four-item list broken up, plus the two schools as fields for the
+Education section rather than prose in the About.
 
 ## The AI-slop pass, 2026-11-17
 

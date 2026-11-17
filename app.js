@@ -196,12 +196,17 @@
       .filter(function (url, i, all) { return all.indexOf(url) === i; });
     if (profiles.length) person.sameAs = profiles;
 
-    var school = (CV.education || []).filter(function (e) {
+    // Every school, not just the most recent one. A university is shared with
+    // thousands of people a year; a particular school and college in Dhaka,
+    // together, are close to unique, and telling him apart from his namesakes
+    // is the whole point of this block.
+    var schools = (CV.education || []).filter(function (e) {
       return filled(e.institution) && !isPlaceholder(e.institution);
-    })[0];
-    if (school) {
-      person.alumniOf = { "@type": "EducationalOrganization", name: school.institution };
-    }
+    }).map(function (e) {
+      return { "@type": "EducationalOrganization", name: e.institution };
+    });
+    if (schools.length === 1) person.alumniOf = schools[0];
+    else if (schools.length) person.alumniOf = schools;
 
     var job = (CV.experience || []).filter(function (e) {
       return filled(e.org) && !isPlaceholder(e.org);

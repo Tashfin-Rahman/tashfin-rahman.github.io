@@ -288,6 +288,24 @@ window.CV = {
       result: null,          // add a CGPA here once it's worth showing
       details: [],           // TODO (optional): relevant coursework, any award
     },
+    {
+      degree: "Higher Secondary Certificate (HSC)",
+      institution: "Mirpur Cantonment Public School & College",
+      location: "Dhaka, Bangladesh",
+      start: "2023",
+      end: "2024",
+      result: null,          // HSC 2024. Add the GPA here if he wants it shown.
+      details: [],
+    },
+    {
+      degree: "Secondary School Certificate (SSC)",
+      institution: "Monipur High School & College",
+      location: "Dhaka, Bangladesh",
+      start: "2012",
+      end: "2022",
+      result: null,          // SSC 2022. Add the GPA here if he wants it shown.
+      details: [],
+    },
   ],
 
   /* --------------------------------------------------------------------------
