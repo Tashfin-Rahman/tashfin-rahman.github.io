@@ -182,10 +182,6 @@ Two questions and one decision, all his:
    of it. Put it back only if he starts applying through employers'
    CV-screening systems, which match on exactly those words.
 
-Also: **`assets/cv.pdf` is now out of date.** It is a static export and still
-lists the Soft skills group. `/cv/` builds live from `content.js` and is
-already correct, so the PDF needs re-printing from that page.
-
 ## Parked
 
 - The agency. Marketing and IT. No name yet, so it stays off everything.

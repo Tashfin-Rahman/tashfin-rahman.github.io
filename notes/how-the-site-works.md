@@ -26,6 +26,25 @@ render function, and one line in that array.
 
 - `index.html` — the single-page site.
 - `cv/index.html` — a one-page A4 CV, printed to `assets/cv.pdf`. `noindex`.
+
+  **`assets/cv.pdf` does not update itself.** It is a static file, so every
+  change to `content.js` that shows up on the CV leaves it stale until it is
+  printed again. Re-print it with Chrome, against the live page rather than a
+  local file, so what is captured is what a visitor downloads:
+
+  ```
+  chrome --headless=new --disable-gpu --no-pdf-header-footer     --user-data-dir=<a fresh empty directory> --virtual-time-budget=12000     --print-to-pdf=<output>.pdf     "https://tashfin-rahman.github.io/cv/"
+  ```
+
+  The fresh profile directory is not optional; reusing one makes Chrome fail
+  silently with no file written. `@page { size: A4; margin: 0 }` in the page
+  sets the margins, which is why no margin flags are passed.
+
+  **Check the page, not the PDF.** Headless Chrome will not rasterise a PDF,
+  so it cannot be screenshotted that way, and the text inside a Chrome PDF
+  uses subset font encodings, so searching it for a phrase proves nothing.
+  Screenshot `https://tashfin-rahman.github.io/cv/` instead and confirm the
+  output is one page of A4 (`/Type /Page` appears once, MediaBox 595x842).
 - `writing/<slug>/index.html` — one page per written piece.
 
 ### The map
